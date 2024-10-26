@@ -314,10 +314,10 @@ a {
 }
 
 .textBlue {
-  color: #0076fc;
+  color: #383cc1;
 }
 .textlightBlue {
-  color: #0090ff;
+  color: #120e43;
 }
 
 .darkGrey {
@@ -554,7 +554,7 @@ a {
 .login-page {
   min-height: 100vh;
   /* background: url("../images/background/leaf-bg.webp"); */
-  background-color: #232332;
+  background-color: #120e43;
   background-position: center center;
   background-size: cover;
   display: flex;
@@ -1016,7 +1016,7 @@ a {
   /* background: url("../images/login-banner.png"); */
   background-position: center center;
   background-size: cover;
-  background-color: #232332;
+  background-color: #120e43;
 }
 
 .btnBackArrow,
@@ -1054,7 +1054,6 @@ a {
 }
 
 .notificationBellIcon {
-  background: #232332;
   border-radius: 25px;
   height: 40px;
   width: 40px;
@@ -1066,7 +1065,6 @@ a {
 }
 
 .profileBg {
-  background: #232332;
   border-radius: 2px;
   padding: 5px 10px;
   color: #fff;
@@ -1663,7 +1661,7 @@ a {
 .bgDarkBlack:hover,
 .bgDarkBlack:active {
   /* background: #1e2838; */
-  background: #1e2838 !important;
+  background: #120e43 !important;
   border-radius: 5px;
   border-color: #1e2838;
 }
@@ -1856,7 +1854,7 @@ timeline start */
 /* Consumer */
 
 .orangeLeftB {
-  border-left: 8px solid #0090ff;
+  border-left: 8px solid #120e43;
 }
 
 .secondaryLeftB {

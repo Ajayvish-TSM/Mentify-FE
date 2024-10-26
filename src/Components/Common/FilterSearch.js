@@ -47,7 +47,7 @@ export default function FilterSearch({
                 data-name="Icon feather-filter"
                 d="M21.47,4.5H3l7.388,8.736v6.04l3.694,1.847V13.236Z"
                 transform="translate(-3 -4.5)"
-                fill="#252525"
+                fill="#120e43"
               />
             </svg>
           </Dropdown.Toggle>

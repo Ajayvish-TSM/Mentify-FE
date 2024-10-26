@@ -7,7 +7,7 @@ import profilePhoto from "../../assets/images/profile.png";
 import API from "../../Api/Api";
 import { useDispatch } from "react-redux";
 import { NavbarMenuData } from "../../Redux/slice";
-import Logo from "./../../assets/images/logo.png";
+import logo1 from "./../../assets/images/logo1.png";
 import profileImg from "./../../assets/images/profileu.png";
 import Dropdown from "react-bootstrap/Dropdown";
 import MenuNavbar from "./Navbar/MenuNavbar";
@@ -896,13 +896,11 @@ const AppLayout = (props) => {
                     >
                       <a href="index.html" className="logo logo-light">
                         <span className="log">
-                          <img src={Logo} className="logoWidth" />
+                          <img src={logo1} style={{ width: "40px" }} />
                         </span>
                       </a>
                     </div>
-                    <h4 className="text-white mb-0">
-                      Tajurba Business Network Private Limited
-                    </h4>
+                    <h4 className="text-white mb-0">Stackmentalist</h4>
                     <button
                       type="button"
                       className="btn btn-sm px-3 font-size-16 header-item toggle-btn waves-effect"

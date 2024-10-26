@@ -14,7 +14,7 @@ import TooltipCustom from "../../Common/TooltipCustom";
 const Submitted = () => {
   const { state } = useLocation();
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   // console.log("state", state);
 
@@ -67,6 +67,7 @@ const Submitted = () => {
       }
       API?.CommanApiCall(payload).then((response) => {
         //console.log(`${flagForList} list`, response?.data?.data?.data);
+        console.log(response);
         if (response?.data?.data?.status === 200) {
           setListingData(response?.data?.data?.data);
           setTotalPage(response?.data?.data?.total_pages);
