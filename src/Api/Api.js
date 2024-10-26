@@ -43,6 +43,7 @@ const API = {
         method: "POST",
         data: props.data,
         agent: props.agent,
+        url: props.url,
         action: "command",
         function: props?.function ? props?.function : null,
         tokenRequired: props?.tokenRequired ? false : true,

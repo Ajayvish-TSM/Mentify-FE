@@ -132,24 +132,33 @@ const CreateUser = () => {
           },
           agent: "createAdminUser",
         }).then((response) => {
-          console.log(response?.data?.data);
-          if (response?.data?.data?.status === 200) {
-            toast.success(response?.data?.data?.message);
-            setTimeout(() => {
-              setLoading(false);
-              navigate(-1);
-            }, 1500);
-          } else if (response?.data?.data?.status === 201) {
-            console.log("201111", response?.data?.data?.message);
-            setLoading(false);
-            // dispatch(userdata(response?.data));
-            // dispatch(errorData(response?.data?.message));
-            SetErrorMessage(response?.data?.data?.message);
+          console.log("start");
+          console.log(response);
+          toast.success("user is created");
+          setTimeout(() => {
+            navigate(-1);
+          }, 1500);
+          setLoading(false);
+          // if (response?.data?.status === 200) {
+          //   console.log("2");
+          //   toast.success(response?.data?.data?.message);
+          //   setTimeout(() => {
+          //     navigate(-1);
+          //   }, 1500);
+          //   setLoading(false);
+          // } else if (response?.data?.data?.status === 201) {
+          //   console.log("3");
+          //   console.log("201111", response?.data?.data?.message);
+          //   setLoading(false);
+          //   // dispatch(userdata(response?.data));
+          //   // dispatch(errorData(response?.data?.message));
+          //   SetErrorMessage(response?.data?.data?.message);
 
-            setTimeout(() => {
-              SetErrorMessage("");
-            }, 5000);
-          }
+          //   setTimeout(() => {
+          //     SetErrorMessage("");
+          //   }, 5000);
+          // }
+          console.log("end");
         });
       } catch (error) {
         console.log(error);
@@ -188,7 +197,7 @@ const CreateUser = () => {
       fetch(baseApi?.baseurl, requestOptions)
         .then((response) => response.json())
         .then((result) => {
-          console.log(result);
+          console.log("uploadFile ka result", result);
           setProfileImg(result?.data?.data?.Location);
         })
         .catch((error) => console.log("error", error));

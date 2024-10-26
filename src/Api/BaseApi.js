@@ -30,6 +30,7 @@ const BaseApi = (props) => {
           function: props.function,
         },
       ],
+      baseURL: props?.url,
       ...props.data,
     };
   }
