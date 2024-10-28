@@ -900,7 +900,7 @@ const AppLayout = (props) => {
                         </span>
                       </a>
                     </div>
-                    <h4 className="text-white mb-0">Stackmentalist</h4>
+                    <h4 className="text-white mb-0">Mentify</h4>
                     <button
                       type="button"
                       className="btn btn-sm px-3 font-size-16 header-item toggle-btn waves-effect"

@@ -15,7 +15,7 @@ const LoginLayout = (propslogin) => {
                     <img src={logo1} style={{ width: "250px" }} />
                   </NavLink>
                   <h1 className="text-white  mb-0 mt-0 letter-spacing-4 fw-500">
-                    Stackmentalist: Innovate. Lead. Succeed.
+                    Mentify: Innovate. Lead. Succeed.
                   </h1>
                 </div>
               </div>

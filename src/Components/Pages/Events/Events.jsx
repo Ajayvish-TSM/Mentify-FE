@@ -58,6 +58,7 @@ const Events = () => {
         };
       }
       API?.CommanApiCall(payload).then((response) => {
+        console.log(response);
         console.log(
           "Response from events listing api ",
           response?.data?.data?.data

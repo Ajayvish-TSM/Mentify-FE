@@ -223,6 +223,7 @@ const CreateContent = () => {
         },
         agent: "course",
       }).then((response) => {
+        console.log("course", response);
         console.log(response?.data?.data);
         if (response?.data?.data?.status === 200) {
           setLoading(false);
