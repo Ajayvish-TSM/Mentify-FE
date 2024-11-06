@@ -24,6 +24,7 @@ import "tippy.js/dist/tippy.css";
 const Dashboard = () => {
   const [duration, setDuration] = useState("monthly");
   const [dashboardDetails, setDashboardDetails] = useState("");
+  console.log("start", dashboardDetails);
 
   const calendarRef = useRef(null);
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
@@ -253,7 +254,7 @@ const Dashboard = () => {
         },
         agent: "dashboard",
       }).then(async (response) => {
-        // console.log("Dashboard Details ", response?.data?.data?.data);
+        console.log("Dashboard Details ", response?.data?.data?.data);
         setDashboardDetails(response?.data?.data?.data);
         await setEvents(response?.data?.data?.data?.eventCount);
       });
@@ -419,6 +420,7 @@ const Dashboard = () => {
       console.log(error);
     }
   };
+  console.log(dashboardDetails);
 
   return (
     <>

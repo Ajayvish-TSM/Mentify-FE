@@ -32,7 +32,9 @@ const SubscriptionPlans = () => {
   // Function to toggle view more/view less for a specific subscription
   const toggleDescription = (index) => {
     const newShowFullDescriptions = [...showFullDescriptions];
+    console.log("first ", newShowFullDescriptions);
     newShowFullDescriptions[index] = !newShowFullDescriptions[index];
+    console.log("second ", newShowFullDescriptions);
     setShowFullDescriptions(newShowFullDescriptions);
   };
   // Api call for get Subscription  details
