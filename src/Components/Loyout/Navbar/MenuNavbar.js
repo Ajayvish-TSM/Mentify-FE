@@ -18,14 +18,14 @@ const menuData = [
                   title: "Create New",
                   path: "/create-new-content-creation",
                },
-               {
-                  title: "Draft",
-                  path: "/draft",
-               },
-               {
-                  title: "Submitted",
-                  path: "/submitted",
-               },
+               // {
+               //    title: "Draft",
+               //    path: "/draft",
+               // },
+               // {
+               //    title: "Submitted",
+               //    path: "/submitted",
+               // },
             ],
          },
          {
@@ -75,6 +75,20 @@ const menuData = [
    {
       title: "All Transactions",
       path: "/all-transactions",
+   },
+   {
+      title: "Leave Management",
+      path: "/leave-management"
+      // childrens: [
+      //    {
+      //       title: "Create",
+      //       path: "/create",
+      //    },
+      //    {
+      //       title: "Credit",
+      //       path: "/credit",
+      //    },
+      // ],
    },
 ];
 

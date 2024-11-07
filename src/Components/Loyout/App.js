@@ -240,7 +240,7 @@ const AppLayout = (props) => {
           key: "2",
           className: "navLi",
           icon: <AppstoreOutlined />,
-          label: "Content Creation",
+          label: "Leave Management",
           style: { paddingLeft: "0px" },
           children: [
             ...(ele && ele?.submenu?.length
@@ -249,99 +249,111 @@ const AppLayout = (props) => {
                     (submenuItem) =>
                       submenuItem?.title === "Creator" && submenuItem?.is_active
                   )
-                  .map((submenuItem, submenuItemIndex) => ({
+                  // .map((submenuItem, submenuItemIndex) => ({
+                  //   key: "21",
+                  //   label: "Creator",
+                  //   className: "subUl",
+                  //   style: { paddingLeft: "0px" },
+                  //   // children: [
+                  //   //   ...(submenuItem &&
+                  //   //   submenuItem?.submenuChild &&
+                  //   //   submenuItem?.submenuChild?.length &&
+                  //   //   submenuItem?.submenuChild[0]?.is_active
+                  //   //     ? {
+                  //   //         key: "211",
+                  //   //         className: "subUlLi",
+                  //   //         path: "/create-new-content-creation",
+                  //   //         label: (
+                  //   //           <NavLink to="/create-new-content-creation">
+                  //   //             Create New
+                  //   //           </NavLink>
+                  //   //         ),
+                  //   //       }
+                  //   //     : []),
+                  //   //   ...(submenuItem &&
+                  //   //   submenuItem?.submenuChild &&
+                  //   //   submenuItem?.submenuChild?.length &&
+                  //   //   submenuItem?.submenuChild[1]?.is_active
+                  //   //     ? {
+                  //   //         key: "212",
+                  //   //         className: "subUlLi",
+                  //   //         path: "/draft",
+                  //   //         label: <NavLink to="/draft">Draft</NavLink>,
+                  //   //       }
+                  //   //     : []),
+                  //   //   ...(submenuItem &&
+                  //   //   submenuItem?.submenuChild &&
+                  //   //   submenuItem?.submenuChild?.length &&
+                  //   //   submenuItem?.submenuChild[2]?.is_active
+                  //   //     ? {
+                  //   //         key: "213",
+                  //   //         className: "subUlLi",
+                  //   //         path: "/submitted",
+                  //   //         label: (
+                  //   //           <NavLink to="/submitted">Submitted</NavLink>
+                  //   //         ),
+                  //   //       }
+                  //   //     : []),
+                  //   // ]
+                  //   children: [
+                  //     ...(submenuItem &&
+                  //     submenuItem?.submenuChild &&
+                  //     submenuItem?.submenuChild?.length &&
+                  //     submenuItem?.submenuChild[0]?.is_active
+                  //       ? [
+                  //           {
+                  //             key: "211",
+                  //             className: "subUlLi",
+                  //             path: "/create-new-content-creation",
+                  //             label: (
+                  //               <NavLink to="/create-new-content-creation">
+                  //                 Create New
+                  //               </NavLink>
+                  //             ),
+                  //           },
+                  //         ]
+                  //       : []),
+                  //     ...(submenuItem &&
+                  //     submenuItem?.submenuChild &&
+                  //     submenuItem?.submenuChild?.length &&
+                  //     submenuItem?.submenuChild[1]?.is_active
+                  //       ? [
+                  //           {
+                  //             key: "212",
+                  //             className: "subUlLi",
+                  //             path: "/draft",
+                  //             label: <NavLink to="/draft">Draft</NavLink>,
+                  //           },
+                  //         ]
+                  //       : []),
+                  //     ...(submenuItem &&
+                  //     submenuItem?.submenuChild &&
+                  //     submenuItem?.submenuChild?.length &&
+                  //     submenuItem?.submenuChild[2]?.is_active
+                  //       ? [
+                  //           {
+                  //             key: "213",
+                  //             className: "subUlLi",
+                  //             path: "/submitted",
+                  //             label: (
+                  //               <NavLink to="/submitted">Submitted</NavLink>
+                  //             ),
+                  //           },
+                  //         ]
+                  //       : []),
+                  //   ],
+                  // }))
+                  .map((submenuItem) => ({
                     key: "21",
-                    label: "Creator",
-                    className: "subUl",
-                    style: { paddingLeft: "0px" },
-                    // children: [
-                    //   ...(submenuItem &&
-                    //   submenuItem?.submenuChild &&
-                    //   submenuItem?.submenuChild?.length &&
-                    //   submenuItem?.submenuChild[0]?.is_active
-                    //     ? {
-                    //         key: "211",
-                    //         className: "subUlLi",
-                    //         path: "/create-new-content-creation",
-                    //         label: (
-                    //           <NavLink to="/create-new-content-creation">
-                    //             Create New
-                    //           </NavLink>
-                    //         ),
-                    //       }
-                    //     : []),
-                    //   ...(submenuItem &&
-                    //   submenuItem?.submenuChild &&
-                    //   submenuItem?.submenuChild?.length &&
-                    //   submenuItem?.submenuChild[1]?.is_active
-                    //     ? {
-                    //         key: "212",
-                    //         className: "subUlLi",
-                    //         path: "/draft",
-                    //         label: <NavLink to="/draft">Draft</NavLink>,
-                    //       }
-                    //     : []),
-                    //   ...(submenuItem &&
-                    //   submenuItem?.submenuChild &&
-                    //   submenuItem?.submenuChild?.length &&
-                    //   submenuItem?.submenuChild[2]?.is_active
-                    //     ? {
-                    //         key: "213",
-                    //         className: "subUlLi",
-                    //         path: "/submitted",
-                    //         label: (
-                    //           <NavLink to="/submitted">Submitted</NavLink>
-                    //         ),
-                    //       }
-                    //     : []),
-                    // ]
-                    children: [
-                      ...(submenuItem &&
-                      submenuItem?.submenuChild &&
-                      submenuItem?.submenuChild?.length &&
-                      submenuItem?.submenuChild[0]?.is_active
-                        ? [
-                            {
-                              key: "211",
-                              className: "subUlLi",
-                              path: "/create-new-content-creation",
-                              label: (
-                                <NavLink to="/create-new-content-creation">
-                                  Create New
-                                </NavLink>
-                              ),
-                            },
-                          ]
-                        : []),
-                      ...(submenuItem &&
-                      submenuItem?.submenuChild &&
-                      submenuItem?.submenuChild?.length &&
-                      submenuItem?.submenuChild[1]?.is_active
-                        ? [
-                            {
-                              key: "212",
-                              className: "subUlLi",
-                              path: "/draft",
-                              label: <NavLink to="/draft">Draft</NavLink>,
-                            },
-                          ]
-                        : []),
-                      ...(submenuItem &&
-                      submenuItem?.submenuChild &&
-                      submenuItem?.submenuChild?.length &&
-                      submenuItem?.submenuChild[2]?.is_active
-                        ? [
-                            {
-                              key: "213",
-                              className: "subUlLi",
-                              path: "/submitted",
-                              label: (
-                                <NavLink to="/submitted">Submitted</NavLink>
-                              ),
-                            },
-                          ]
-                        : []),
-                    ],
+                    // label: "Moderator",
+                    className: "subUlModerator",
+                    path: "/create-new-content-creation",
+                    label: (
+                      <NavLink style={{ display: "block" }} to="/create-new-content-creation">
+                        Create Leave
+                      </NavLink>
+                    ),
+                    children: [],
                   }))
               : []),
             ...(ele && ele?.submenu?.length
@@ -358,7 +370,7 @@ const AppLayout = (props) => {
                     path: "/moderator",
                     label: (
                       <NavLink style={{ display: "block" }} to={"/moderator"}>
-                        Moderator
+                        Leave Credits
                       </NavLink>
                     ),
                     children: [],
@@ -534,7 +546,7 @@ const AppLayout = (props) => {
           // label: "Events",
           path: "/feed",
 
-          label: <NavLink to={"/feed"}>Feed</NavLink>,
+          label: <NavLink to={"/feed"}>Holidays</NavLink>,
         }))
       : []),
 
@@ -549,6 +561,100 @@ const AppLayout = (props) => {
           label: <NavLink to={"/all-transactions"}>All Transactions</NavLink>,
         }))
       : []),
+
+      // ...(TajurbaAdmin_priviledge_data
+      //   ? TajurbaAdmin_priviledge_data?.filter(
+      //       (ele) => ele?.title === "Leave Management" && ele?.is_active
+      //     ).map((ele, index) => ({
+      //       key: "2",
+      //       className: "navLi",
+      //       icon: <AppstoreOutlined />,
+      //       label: "Leave Management",
+      //       style: { paddingLeft: "0px" },
+      //       children: [
+      //         ...(ele && ele?.submenu?.length
+      //           ? ele?.submenu
+      //               .filter(
+      //                 (submenuItem) =>
+      //                   submenuItem?.title === "Create" && submenuItem?.is_active
+      //               )
+      //               .map((submenuItem, submenuItemIndex) => ({
+      //                 key: "21",
+      //                 label: "Create",
+      //                 className: "subUl",
+      //                 style: { paddingLeft: "0px" },
+      //                 children: [
+      //                   ...(submenuItem &&
+      //                   submenuItem?.submenuChild &&
+      //                   submenuItem?.submenuChild?.length &&
+      //                   submenuItem?.submenuChild[0]?.is_active
+      //                     ? [
+      //                         {
+      //                           key: "211",
+      //                           className: "subUlLi",
+      //                           path: "/create-new-content-creation",
+      //                           label: (
+      //                             <NavLink to="/create-new-content-creation">
+      //                               Create New
+      //                             </NavLink>
+      //                           ),
+      //                         },
+      //                       ]
+      //                     : []),
+      //                   ...(submenuItem &&
+      //                   submenuItem?.submenuChild &&
+      //                   submenuItem?.submenuChild?.length &&
+      //                   submenuItem?.submenuChild[1]?.is_active
+      //                     ? [
+      //                         {
+      //                           key: "212",
+      //                           className: "subUlLi",
+      //                           path: "/draft",
+      //                           label: <NavLink to="/draft">Draft</NavLink>,
+      //                         },
+      //                       ]
+      //                     : []),
+      //                   ...(submenuItem &&
+      //                   submenuItem?.submenuChild &&
+      //                   submenuItem?.submenuChild?.length &&
+      //                   submenuItem?.submenuChild[2]?.is_active
+      //                     ? [
+      //                         {
+      //                           key: "213",
+      //                           className: "subUlLi",
+      //                           path: "/submitted",
+      //                           label: (
+      //                             <NavLink to="/submitted">Submitted</NavLink>
+      //                           ),
+      //                         },
+      //                       ]
+      //                     : []),
+      //                 ],
+      //               }))
+      //           : []),
+      //         ...(ele && ele?.submenu?.length
+      //           ? ele?.submenu
+      //               .filter(
+      //                 (submenuItem) =>
+      //                   submenuItem?.title === "Credit" &&
+      //                   submenuItem?.is_active
+      //               )
+      //               .map((submenuItem) => ({
+      //                 key: "22",
+      //                 // label: "Moderator",
+      //                 className: "subUlModerator",
+      //                 path: "/credit",
+      //                 label: (
+      //                   <NavLink style={{ display: "block" }} to={"/credit"}>
+      //                     Credit
+      //                   </NavLink>
+      //                 ),
+      //                 children: [],
+      //               }))
+      //           : []),
+      //       ],
+      //     }))
+      //   : []),
   ];
   console.log(items);
 

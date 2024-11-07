@@ -256,7 +256,7 @@ const CreateNewContentCreation = () => {
             <div className="col-6">
               <div className="row position-relative mb-3">
                 <div>
-                  <h3 className="headText mt-2 mb-2 fw-bold">Create New</h3>
+                  <h3 className="headText mt-2 mb-2 fw-bold">Create Leave</h3>
                 </div>
               </div>
             </div>
@@ -276,7 +276,7 @@ const CreateNewContentCreation = () => {
                         aria-hidden="true"
                       ></span>
                     )}
-                    Start
+                    Submit
                   </button>
                 </div>
               ) : null}
@@ -292,65 +292,74 @@ const CreateNewContentCreation = () => {
                 <div className="col-xl-6 col-lg-6">
                   <div className="me-xl-5">
                     {/* content title */}
-                    <div className="row mb-3">
-                      <div className="col-12">
+                    <div className="d-flex mb-3">
+                      <div className="col-8">
                         <label className="form-label">
                           <span className="mandatory-star me-1">*</span>
-                          Category
+                          Leave Code
                         </label>
-                        <select
-                          className="form-select w-50 border-radius-2"
-                          aria-label="Default select example"
+                        <input
+                          type="text"
+                          className="form-control w-80 border-radius-2"
+                          aria-label="Leave Code"
                           name="category"
                           disabled={!CheckAccess}
-                          onChange={formik.handleChange}
-                        >
-                          <option selected="" value="">
-                            Select
-                          </option>
-                          {CategoryList &&
-                            CategoryList?.map((ele, index) => {
-                              return (
-                                <option
-                                  selected=""
-                                  value={ele?.category_id}
-                                  key={index}
-                                  checked={formik.values.category.includes(ele)}
-                                  onChange={(e) => {
-                                    const isChecked = e.target.checked;
-                                    if (isChecked) {
-                                      formik.setFieldValue(
-                                        "category",
-                                        [...formik.values.category, item],
-                                        true
-                                      );
-                                    } else {
-                                      formik.setFieldValue(
-                                        "category",
-                                        formik.values.category.filter(
-                                          (selectedOption) =>
-                                            selectedOption !== item
-                                        ),
-                                        true
-                                      );
-                                    }
-                                  }}
-                                >
-                                  {ele?.category_name}
-                                </option>
-                              );
-                            })}
-                          {/* <option selected="">Select</option>
-                          <option value="Marketing">Marketing</option> */}
-                        </select>
+                          onChange={(e) => {
+                            formik.setFieldValue("category", e.target.value);
+                          }}
+                          value={formik.values.category}
+                        />
                       </div>
+
+                      <div className="col-8">
+                        <label className="form-label">
+                          <span className="mandatory-star me-1">*</span>
+                          Leave Name
+                        </label>
+                        <input
+                          type="text"
+                          className="form-control w-80 border-radius-2"
+                          name="category"
+                          aria-label="Leave Name input"
+                          disabled={!CheckAccess}
+                          onChange={formik.handleChange}
+                          value={formik.values.category}
+                          list="categoryOptions"
+                        />
+                        <datalist id="categoryOptions">
+                          {CategoryList &&
+                            CategoryList.map((ele, index) => (
+                              <option key={index} value={ele?.category_name}>
+                                {ele?.category_name}
+                              </option>
+                            ))}
+                        </datalist>
+                      </div>
+
+                      <div className="col-8">
+                        <label className="form-label">
+                          <span className="mandatory-star me-1">*</span>
+                          Leave Balance
+                        </label>
+                        <input
+                          type="number"
+                          className="form-select w-80 border-radius-2"
+                          aria-label="Leave balance input"
+                          name="leaveBalance"
+                          disabled={!CheckAccess}
+                          onChange={formik.handleChange}
+                          value={formik.values.leaveBalance} // Ensure 'leaveBalance' is defined in Formik initial values
+                        />
+                      </div>
+
+
                       {formik.errors.category && formik.touched.category ? (
                         <div className="text-danger">
                           {formik.errors.category}
                         </div>
                       ) : null}
                     </div>
-                    <div className="row mb-3">
+                    {/* <div className="row mb-3">
                       <div className="col-12">
                         <label className="form-label">
                           <span className="mandatory-star me-1">*</span>Course
@@ -369,10 +378,10 @@ const CreateNewContentCreation = () => {
                       {formik.errors.name && formik.touched.name ? (
                         <div className="text-danger">{formik.errors.name}</div>
                       ) : null}
-                    </div>
+                    </div> */}
 
                     {/* author name */}
-                    <div className="row mb-3">
+                    {/* <div className="row mb-3">
                       <div className="col-12">
                         <label className="form-label">
                           <span className="mandatory-star me-1">*</span>Author
@@ -393,10 +402,10 @@ const CreateNewContentCreation = () => {
                           {formik.errors.author_name}
                         </div>
                       ) : null}
-                    </div>
+                    </div> */}
 
                     {/* contengt decription */}
-                    <div className="row mb-3">
+                    {/* <div className="row mb-3">
                       <div className="col-12">
                         <label className="form-label">
                           {" "}
@@ -421,8 +430,8 @@ const CreateNewContentCreation = () => {
                           {formik.errors.description}
                         </div>
                       ) : null}
-                    </div>
-                    <div className="row mb-3">
+                    </div> */}
+                    {/* <div className="row mb-3">
                       <div className="col-12">
                         <label className="form-label">
                           <span className="mandatory-star me-1">*</span>Select
@@ -449,12 +458,12 @@ const CreateNewContentCreation = () => {
                           {formik.errors.course_level}
                         </div>
                       ) : null}
-                    </div>
-                    <div className="row mb-3">
+                    </div> */}
+                    {/* <div className="row mb-3">
                       <div className="col-12">
                         <label className="form-label">
                           <span className="mandatory-star me-1">*</span>Select
-                          the type of account
+                          the type of Leave
                         </label>
                         <div className="ms-2">
                           <div className="form-check form-check-inline">
@@ -471,7 +480,7 @@ const CreateNewContentCreation = () => {
                               className="form-check-label"
                               htmlFor="inlineRadio1"
                             >
-                              Free
+                              Unpaid
                             </label>
                           </div>
                           <div className="form-check form-check-inline">
@@ -533,13 +542,12 @@ const CreateNewContentCreation = () => {
                           <div className="col-6">
                             <label className="form-label">
                               Mention the tenure for discounted amount
-                              {/* in days */}
                             </label>
                           </div>
                         </div>
                         <div className="row mb-3" id="rupees">
                           <div className="col-6">
-                            {/* <label className="form-label">Mention the discounted amount</label> */}
+                            {/* <label className="form-label">Mention the discounted amount</label>
                             <input
                               type="number"
                               className="form-control"
@@ -563,28 +571,28 @@ const CreateNewContentCreation = () => {
                           </div>
                         </div>
                       </>
-                    ) : null}
+                    ) : null} */}
                   </div>
                 </div>
 
                 <div className="col-xl-6 col-lg-6">
                   <div className="me-xl-5">
-                    <label className="form-label">
+                    {/* <label className="form-label">
                       <span className="mandatory-star me-1">*</span>Course Cover
                       Image{" "}
                       <span className="mandatory-star me-1">
                         (Upload only jpg, jpeg ,png)
                       </span>
-                    </label>
+                    </label> */}
 
-                    <div className="col-12 float-start mb-4 position-relative">
+                    {/* <div className="col-12 float-start mb-4 position-relative">
                       <p
                         class="addUserPic p-0 w-70 mt-1 mb-1 d-flex justify-content-center align-items-center"
                         style={{ height: "215px" }}
                       >
                         <div className="d-flex align-items-center justify-content-center">
                           <span class="text-center">
-                            {/* <img src={IconGallery} className="mb-2" /> */}
+                            {/* <img src={IconGallery} className="mb-2" />
                             {formik.values.uploadedFile ? (
                               <img
                                 // crossOrigin="Anonymous"
@@ -608,7 +616,7 @@ const CreateNewContentCreation = () => {
                               </>
                             )}
                             <br />
-                            {/* <a>Upload Image/Video</a> */}
+                            {/* <a>Upload Image/Video</a>
                           </span>
                         </div>
 
@@ -637,8 +645,8 @@ const CreateNewContentCreation = () => {
                           {formik.errors.uploadedFile}
                         </div>
                       ) : null}
-                    </div>
-                    <div className="row mb-3">
+                    </div> */}
+                    {/* <div className="row mb-3">
                       <div className="col-12">
                         <label className="form-label">
                           <span className="mandatory-star me-1">*</span>
@@ -657,10 +665,10 @@ const CreateNewContentCreation = () => {
                           {formik.errors.Community}
                         </div>
                       ) : null}
-                    </div>
+                    </div> */}
 
                     {/* contengt decription */}
-                    <div className="row mb-3">
+                    {/* <div className="row mb-3">
                       <div className="col-12">
                         <label className="form-label">
                           {" "}
@@ -687,7 +695,7 @@ const CreateNewContentCreation = () => {
                           {formik.errors.detail_desciption}
                         </div>
                       ) : null}
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               </div>

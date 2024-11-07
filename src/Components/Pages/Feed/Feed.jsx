@@ -80,7 +80,7 @@ const Feed = () => {
 
           <div className="row mb-4" id="consumers">
             <div className="col-6">
-              <h3 className="headText mt-2 mb-2 fw-bold">Feed Details</h3>
+              <h3 className="headText mt-2 mb-2 fw-bold">Holiday Details</h3>
             </div>
             <div className="col-6 d-flex align-items-center justify-content-end">
               <FilterSearch
