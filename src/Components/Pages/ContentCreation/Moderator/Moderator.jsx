@@ -1092,8 +1092,6 @@
 // export default Moderator;
 
 
-
-/* eslint-disable */
 import React, { useEffect, useState } from "react";
 // import AppLayout from "../../Loyout/App";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
@@ -1165,8 +1163,8 @@ const Moderator = () => {
     if (!values.leave_code) {
       errors.leave_code = "Please select leave code ";
     }
-    if (!values.user_id) {
-      errors.user_id = "Please select Employee name ";
+    if (!values._id) {
+      errors._id = "Please select Employee name ";
     }
     if (!values.assigned_leaves) {
       errors.assigned_leaves = "Please type numbers of leave to be provide.";
@@ -1176,7 +1174,7 @@ const Moderator = () => {
   };
   const formik = useFormik({
     initialValues: {
-      user_id: "",
+      _id: "",
       leave_code: "",
       assigned_leaves: "",
       assigned_date: "",
@@ -1220,10 +1218,12 @@ const Moderator = () => {
         const response = await API.CommanApiCall({
           data: {},
           agent: "admin_user_list",
+          page_no: 1,
+          limit: 100,
+          filter: {}
         });
-        console.log("employee",response)
-        if (response?.data?.status === 200) {
-          setEmployeeList(response.data.data);
+        if (response?.status === 200) {
+          setEmployeeList(response.data.data.data);
         }
       } catch (error) {
         console.log(error);
@@ -1240,7 +1240,7 @@ const Moderator = () => {
         data: {},
         agent: "leave_credit",
       }).then((response) => {
-        console.log(response);
+        console.log("hhhh",response);
         if (response?.data?.data?.status === 200) {
           setListingData(response.data.data.data);
         }
@@ -1256,7 +1256,7 @@ const Moderator = () => {
       API?.CommanApiCall({
         data: {
           leave_code: formik.values.leave_code,
-          user_id: formik.values.user_id,
+          _id: formik.values._id,
           assigned_leaves: formik.values.assigned_leaves,
         },
         agent: "leave_credit",
@@ -1357,7 +1357,7 @@ const Moderator = () => {
                                     if (isChecked) {
                                       formik.setFieldValue(
                                         "leave_code",
-                                        [...formik.values.leave_code, item],
+                                        [...formik.values.leave_code, ele],
                                         true
                                       );
                                     } else {
@@ -1365,7 +1365,7 @@ const Moderator = () => {
                                         "leave_code",
                                         formik.values.leave_code.filter(
                                           (selectedOption) =>
-                                            selectedOption !== item
+                                            selectedOption !== ele
                                         ),
                                         true
                                       );
@@ -1386,7 +1386,7 @@ const Moderator = () => {
                         <select
                           className="form-select w-80 border-radius-2"
                           aria-label="Default select example"
-                          name="user_id"
+                          name="_id"
                           disabled={!CheckAccess}
                           onChange={formik.handleChange}
                         >
@@ -1398,37 +1398,37 @@ const Moderator = () => {
                               return (
                                 <option
                                   selected=""
-                                  value={ele?.user_id}
+                                  value={ele?._id}
                                   key={index}
-                                  checked={formik.values.category.includes(ele)}
+                                  checked={formik.values._id.includes(ele)}
                                   onChange={(e) => {
                                     const isChecked = e.target.checked;
                                     if (isChecked) {
                                       formik.setFieldValue(
-                                        "user_id",
-                                        [...formik.values.user_id, item],
+                                        "_id",
+                                        [...formik.values._id, ele],
                                         true
                                       );
                                     } else {
                                       formik.setFieldValue(
-                                        "user_id",
-                                        formik.values.category.filter(
+                                        "_id",
+                                        formik.values._id.filter(
                                           (selectedOption) =>
-                                            selectedOption !== item
+                                            selectedOption !== ele
                                         ),
                                         true
                                       );
                                     }
                                   }}
                                 >
-                                  {ele?.user_id}
+                                  {ele?.first_name}
                                 </option>
                               );
                             })}
                         </select>
                       </div>
 
-                       <div className="col-8">
+                      <div className="col-8">
                         <label className="form-label">
                           <span className="mandatory-star me-1">*</span>
                           Leave Balance
@@ -1451,11 +1451,11 @@ const Moderator = () => {
                             ))}
                         </datalist>*/}
                       </div>
-                      {formik.errors.category && formik.touched.category ? (
+                      {/* {formik.errors.category && formik.touched.category ? (
                         <div className="text-danger">
                           {formik.errors.category}
                         </div>
-                      ) : null}
+                      ) : null} */}
                     </div>
                   </div>
                 </div>
@@ -1512,7 +1512,7 @@ const Moderator = () => {
                             <tr key={index}>
                               <td>{index + 1}.</td>
                               <td>{ele?.leave_code}</td>
-                              <td>{ele?.user_id}</td>
+                              <td>{ele?._id}</td>
                               <td>{ele?.assigned_leaves}</td>
                               <td>
                                 {new Date(ele?.assigned_date).toLocaleString("en-US", {
