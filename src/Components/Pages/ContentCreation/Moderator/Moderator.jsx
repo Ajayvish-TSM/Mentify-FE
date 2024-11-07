@@ -1098,7 +1098,7 @@ import React, { useEffect, useState } from "react";
 // import AppLayout from "../../Loyout/App";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import DateAndTimeLayout from "../../../Common/DateAndTimeLayout";
-import IconGallery from "../../../../assets/images/IconGallery.svg";
+//import IconGallery from "../../../../assets/images/IconGallery.svg";
 import { useFormik } from "formik";
 import API from "../../../../Api/Api";
 //import AdminRoute from "./../../../Route/RouteDetails";
@@ -1141,21 +1141,20 @@ const Moderator = () => {
     );
 
   // Functionality for Filter and search
-  const FilterOptions = [
-    // { label: "All", value: "all" },
-    { label: "Title", value: "course_title" },
-    { label: "Author", value: "author_name" },
-    { label: "Course Type", value: "course_type" },
-    { label: "Date", value: "createdAt" },
-  ];
+  // const FilterOptions = [
+  //   // { label: "All", value: "all" },
+  //   { label: "Title", value: "course_title" },
+  //   { label: "Author", value: "author_name" },
+  //   { label: "Course Type", value: "course_type" },
+  //   { label: "Date", value: "createdAt" },
+  // ];
 
   const [filterselect, setFilterSelect] = useState("");
   const [search, setSearch] = useState("");
 
-  const [LeaveCodeList, setLeaveCodeList] = useState();
-  const [EmployeeList, setEmployeeList] = useState();
+  const [LeaveCodeList, setLeaveCodeList] = useState([]);
+  const [EmployeeList, setEmployeeList] = useState([]);
   const [errorMessage, SetErrorMessage] = useState("");
-  const [uploadedFile, setUploadedFile] = useState("");
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
@@ -1172,7 +1171,7 @@ const Moderator = () => {
     if (!values.assigned_leaves) {
       errors.assigned_leaves = "Please type numbers of leave to be provide.";
     }
-    console.log("Erroes", errors);
+    console.log("Errors", errors);
     return errors;
   };
   const formik = useFormik({
@@ -1199,6 +1198,42 @@ const Moderator = () => {
     },
     validate,
   });
+
+  useEffect(() => {
+    const fetchLeaveCodeList = async () => {
+      try {
+        const response = await API.CommanApiCall({
+          data: {},
+          agent: "leave_create_list",
+        });
+        // console.log("leave code",response.data.data.data)
+        if (response?.status === 200) {
+          setLeaveCodeList(response.data.data.data);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    const fetchEmployeeList = async () => {
+      try {
+        const response = await API.CommanApiCall({
+          data: {},
+          agent: "admin_user_list",
+        });
+        console.log("employee",response)
+        if (response?.data?.status === 200) {
+          setEmployeeList(response.data.data);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchLeaveCodeList();
+    fetchEmployeeList();
+  }, []);
+
   useEffect(() => {
     try {
       API?.CommanApiCall({
@@ -1302,7 +1337,7 @@ const Moderator = () => {
                         <select
                           className="form-select w-80 border-radius-2"
                           aria-label="Default select example"
-                          name="category"
+                          name="leave_code"
                           disabled={!CheckAccess}
                           onChange={formik.handleChange}
                         >
@@ -1314,21 +1349,21 @@ const Moderator = () => {
                               return (
                                 <option
                                   selected=""
-                                  value={ele?.category_id}
+                                  value={ele?.leave_code}
                                   key={index}
-                                  checked={formik.values.category.includes(ele)}
+                                  checked={formik.values.leave_code.includes(ele)}
                                   onChange={(e) => {
                                     const isChecked = e.target.checked;
                                     if (isChecked) {
                                       formik.setFieldValue(
-                                        "category",
-                                        [...formik.values.category, item],
+                                        "leave_code",
+                                        [...formik.values.leave_code, item],
                                         true
                                       );
                                     } else {
                                       formik.setFieldValue(
-                                        "category",
-                                        formik.values.category.filter(
+                                        "leave_code",
+                                        formik.values.leave_code.filter(
                                           (selectedOption) =>
                                             selectedOption !== item
                                         ),
@@ -1337,7 +1372,7 @@ const Moderator = () => {
                                     }
                                   }}
                                 >
-                                  {ele?.category_name}
+                                  {ele?.leave_code}
                                 </option>
                               );
                             })}
@@ -1351,7 +1386,7 @@ const Moderator = () => {
                         <select
                           className="form-select w-80 border-radius-2"
                           aria-label="Default select example"
-                          name="category"
+                          name="user_id"
                           disabled={!CheckAccess}
                           onChange={formik.handleChange}
                         >
@@ -1363,20 +1398,20 @@ const Moderator = () => {
                               return (
                                 <option
                                   selected=""
-                                  value={ele?.category_id}
+                                  value={ele?.user_id}
                                   key={index}
                                   checked={formik.values.category.includes(ele)}
                                   onChange={(e) => {
                                     const isChecked = e.target.checked;
                                     if (isChecked) {
                                       formik.setFieldValue(
-                                        "category",
-                                        [...formik.values.category, item],
+                                        "user_id",
+                                        [...formik.values.user_id, item],
                                         true
                                       );
                                     } else {
                                       formik.setFieldValue(
-                                        "category",
+                                        "user_id",
                                         formik.values.category.filter(
                                           (selectedOption) =>
                                             selectedOption !== item
@@ -1386,7 +1421,7 @@ const Moderator = () => {
                                     }
                                   }}
                                 >
-                                  {ele?.category_name}
+                                  {ele?.user_id}
                                 </option>
                               );
                             })}
@@ -1403,9 +1438,9 @@ const Moderator = () => {
                           type="number"
                           className="form-control w-80 border-radius-2"
                           aria-label="Leave balance input"
-                          name="leaves"
+                          name="assigned_leaves"
                           onChange={formik.handleChange}
-                          value={formik.values.leaves} // Ensure 'leaveBalance' is defined in Formik initial values
+                          value={formik.values.assigned_leaves} // Ensure 'leaveBalance' is defined in Formik initial values
                         />
                         {/* <datalist id="categoryOptions">
                           {CategoryList &&
@@ -1414,7 +1449,7 @@ const Moderator = () => {
                                 {ele?.category_name}
                               </option>
                             ))}
-                        </datalist> */}
+                        </datalist>*/}
                       </div>
                       {formik.errors.category && formik.touched.category ? (
                         <div className="text-danger">
@@ -1430,13 +1465,13 @@ const Moderator = () => {
 
           <div className="row mb-2" id="">
             <div className="col-6"></div>
-            <FilterSearch
+            {/* <FilterSearch
               FilterOptions={FilterOptions}
               search={search}
               setSearch={setSearch}
               filterselect={filterselect}
               setFilterSelect={setFilterSelect}
-            />
+            /> */}
           </div>
           <div
             className={
@@ -1454,7 +1489,7 @@ const Moderator = () => {
                     <th>S.NO.</th>
                     <th className="">Leave Code</th>
                     <th>Employee Name</th>
-
+                    <th>No. of Leaves</th>
                     <th>Credited On</th>
                   </tr>
                 </thead>
@@ -1478,6 +1513,7 @@ const Moderator = () => {
                               <td>{index + 1}.</td>
                               <td>{ele?.leave_code}</td>
                               <td>{ele?.user_id}</td>
+                              <td>{ele?.assigned_leaves}</td>
                               <td>
                                 {new Date(ele?.assigned_date).toLocaleString("en-US", {
                                   year: "numeric",
