@@ -46,67 +46,23 @@ const CreateNewContentCreation = () => {
   const validate = (values) => {
     console.log(values, "value");
     const errors = {};
-    if (!values.category) {
-      errors.category = "Please select category";
+    if (!values.leave_code) {
+      errors.leave_code = "Please type leave code ";
     }
-    if (!values.name) {
-      errors.name = "Please enter category title";
-    } else if (values.name.trim() === "") {
-      errors.name = "Title cannot be blank";
+    if (!values.leave_name) {
+      errors.leave_name = "Please type leave name ";
     }
-    if (!values.description) {
-      errors.description = "Please enter description";
-    } else if (values.description.trim() === "") {
-      errors.description = "Description cannot be blank";
+    if (!values.leaves) {
+      errors.leave = "Please type numbers of leave to be provide.";
     }
-    if (!values.author_name) {
-      errors.author_name = "Please select author name";
-    } else if (values.author_name.trim() === "") {
-      errors.author_name = "author name cannot be blank";
-    }
-    if (!values.course_level) {
-      errors.course_level = "Please select category course level";
-    }
-
-    if (!values.type) {
-      errors.type = "Please enter type";
-    }
-    if (values.type === "Paid") {
-      if (!values.amount) {
-        errors.amount = "Please enter amount";
-      }
-    }
-
-    if (!values.uploadedFile) {
-      errors.uploadedFile = "Please upload Image";
-    }
-
-    // if (!values.Community) {
-    //   errors.Community = "Please enter Community";
-    // }
-    // if (!values.cover_image) {
-    //   errors.cover_image = "Please enter cover_image";
-    // }
-    // if (!values.detail_desciption) {
-    //   errors.detail_desciption = "Please enter detail_desciption";
-    // }
     console.log("Erroes", errors);
     return errors;
   };
   const formik = useFormik({
     initialValues: {
-      category: "",
-      name: "",
-      author_name: "",
-      description: "",
-      course_level: "",
-      type: "",
-      amount: "",
-      Community: "",
-      uploadedFile: "",
-      detail_desciption: "",
-      discount_amount: "",
-      discount_tenure: "",
+      leave_name: "",
+      leave_code: "",
+      leaves: "",
     },
     onSubmit: (values, { setSubmitting }) => {
       const errors = validate(values);
@@ -131,37 +87,16 @@ const CreateNewContentCreation = () => {
     try {
       API?.CommanApiCall({
         data: {
-          course: {
-            category_id: formik.values.category,
-            course_title: formik.values.name,
-            author_name: formik.values.author_name,
-            description: formik.values.description,
-            cover_img: formik.values.uploadedFile,
-            course_type: formik.values.type,
-            amount: formik.values.type === "Paid" ? formik.values.amount : null,
-            discount_amount:
-              formik.values.type === "Paid"
-                ? formik.values.discount_amount
-                : null,
-            discount_tenure:
-              formik.values.type === "Paid"
-                ? formik.values.discount_tenure
-                : null,
-            course_level: formik.values.course_level,
-            status: 0,
-          },
+          leave_code: formik.values.leave_code,
+          leave_name: formik.values.leave_name,
+          leaves: formik.values.leaves,
         },
-        agent: "course",
+        agent: "leave_management",
       }).then((response) => {
-        console.log(response?.data?.data);
+        console.log(response);
         if (response?.data?.data?.status === 200) {
           setLoading(false);
-          navigate(
-            `../${AdminRoute?.ContentCreation?.CreateContent.replace(
-              "/:id",
-              ""
-            )}/${response?.data?.data?.data?.courseedition_id}`
-          );
+          navigate(0);
         } else if (response?.data?.data?.status === 201) {
           SetErrorMessage(response?.data?.data?.message);
 
@@ -179,69 +114,26 @@ const CreateNewContentCreation = () => {
   };
 
   // Category List API
-  useEffect(() => {
-    try {
-      API?.CommanApiCall({
-        data: {
-          category: [],
-        },
-        agent: "categories",
-      }).then((response) => {
-        //   console.log(response.data?.data);
-        // if (response?.data?.data?.status === 200) {
-        setCategoryList(response.data?.data);
+  // useEffect(() => {
+  //   try {
+  //     API?.CommanApiCall({
+  //       data: {
+  //         category: [],
+  //       },
+  //       agent: "categories",
+  //     }).then((response) => {
+  //       //   console.log(response.data?.data);
+  //       // if (response?.data?.data?.status === 200) {
+  //       setCategoryList(response.data?.data);
 
-        // }
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  }, []);
+  //       // }
+  //     });
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }, []);
 
   // Api for FIle Upload
-
-  const UploadFile = (e) => {
-    // console.log("e", e.target.value);
-    const file = e?.target?.files[0];
-    const allowedTypes = ["image/jpeg", "image/png"];
-
-    if (allowedTypes?.includes(file?.type)) {
-      var myHeaders = new Headers();
-
-      myHeaders.append("x-access-token", adminObject);
-
-      var formdata = new FormData();
-      formdata.append(
-        "file",
-        e.target.files[0]
-        // "Screenshot from 2023-01-05 12-20-01.png"
-      );
-      formdata.append("action", "formcommand");
-      formdata.append("docType", "profile");
-
-      var requestOptions = {
-        method: "POST",
-        headers: myHeaders,
-        body: formdata,
-        redirect: "follow",
-      };
-
-      fetch(
-        baseApi?.baseurl,
-        // "https://server.qodequay.com/tajurba/dev/api/api/apppipeline/",
-        requestOptions
-      )
-        .then((response) => response.json())
-        .then((result) => {
-          console.log(result);
-          formik.setFieldValue("uploadedFile", result?.data?.data?.Location);
-          // setUploadedFile(result?.data?.data?.Location);
-        })
-        .catch((error) => console.log("error", error));
-    } else {
-      toast.error("Only jpg or png should be allowed");
-    }
-  };
 
   return (
     <>
@@ -302,12 +194,12 @@ const CreateNewContentCreation = () => {
                           type="text"
                           className="form-control w-80 border-radius-2"
                           aria-label="Leave Code"
-                          name="category"
+                          name="leave_code"
                           disabled={!CheckAccess}
                           onChange={(e) => {
-                            formik.setFieldValue("category", e.target.value);
+                            formik.setFieldValue("leave_code", e.target.value);
                           }}
-                          value={formik.values.category}
+                          value={formik.values.leave_code}
                         />
                       </div>
 
@@ -319,21 +211,12 @@ const CreateNewContentCreation = () => {
                         <input
                           type="text"
                           className="form-control w-80 border-radius-2"
-                          name="category"
+                          name="leave_name"
                           aria-label="Leave Name input"
                           disabled={!CheckAccess}
                           onChange={formik.handleChange}
-                          value={formik.values.category}
-                          list="categoryOptions"
+                          value={formik.values.leave_name}
                         />
-                        <datalist id="categoryOptions">
-                          {CategoryList &&
-                            CategoryList.map((ele, index) => (
-                              <option key={index} value={ele?.category_name}>
-                                {ele?.category_name}
-                              </option>
-                            ))}
-                        </datalist>
                       </div>
 
                       <div className="col-8">
@@ -341,17 +224,16 @@ const CreateNewContentCreation = () => {
                           <span className="mandatory-star me-1">*</span>
                           Leave Balance
                         </label>
+
                         <input
-                          type="number"
-                          className="form-select w-80 border-radius-2"
+                          type="text"
+                          className="form-control w-80 border-radius-2"
                           aria-label="Leave balance input"
-                          name="leaveBalance"
-                          disabled={!CheckAccess}
+                          name="leaves"
                           onChange={formik.handleChange}
-                          value={formik.values.leaveBalance} // Ensure 'leaveBalance' is defined in Formik initial values
+                          value={formik.values.leaves} // Ensure 'leaveBalance' is defined in Formik initial values
                         />
                       </div>
-
 
                       {formik.errors.category && formik.touched.category ? (
                         <div className="text-danger">
@@ -572,130 +454,6 @@ const CreateNewContentCreation = () => {
                         </div>
                       </>
                     ) : null} */}
-                  </div>
-                </div>
-
-                <div className="col-xl-6 col-lg-6">
-                  <div className="me-xl-5">
-                    {/* <label className="form-label">
-                      <span className="mandatory-star me-1">*</span>Course Cover
-                      Image{" "}
-                      <span className="mandatory-star me-1">
-                        (Upload only jpg, jpeg ,png)
-                      </span>
-                    </label> */}
-
-                    {/* <div className="col-12 float-start mb-4 position-relative">
-                      <p
-                        class="addUserPic p-0 w-70 mt-1 mb-1 d-flex justify-content-center align-items-center"
-                        style={{ height: "215px" }}
-                      >
-                        <div className="d-flex align-items-center justify-content-center">
-                          <span class="text-center">
-                            {/* <img src={IconGallery} className="mb-2" />
-                            {formik.values.uploadedFile ? (
-                              <img
-                                // crossOrigin="Anonymous"
-                                disabled={!CheckAccess}
-                                src={formik.values.uploadedFile}
-                                alt=""
-                                className="w-100"
-                                id="profile-picture-custome"
-                              />
-                            ) : (
-                              <>
-                                <img
-                                  src={IconGallery}
-                                  alt=""
-                                  className="mb-2"
-                                />
-                                <br />
-                                <NavLink className="textBlue font-size-12 ">
-                                  Upload Image
-                                </NavLink>
-                              </>
-                            )}
-                            <br />
-                            {/* <a>Upload Image/Video</a>
-                          </span>
-                        </div>
-
-                        <input
-                          type="file"
-                          class="custom-file-input"
-                          id="customFile"
-                          name="uploadedFile"
-                          //  multiple=""
-                          //  accept="image/*"
-                          disabled={!CheckAccess}
-                          accept="image/jpeg, image/png"
-                          onChange={(e) => {
-                            UploadFile(e);
-                          }}
-                        />
-                        <label
-                          class="custom-file-label mb-0"
-                          htmlForfor="customFile"
-                        ></label>
-                      </p>
-
-                      {formik.errors.uploadedFile &&
-                      formik.touched.uploadedFile ? (
-                        <div className="text-danger">
-                          {formik.errors.uploadedFile}
-                        </div>
-                      ) : null}
-                    </div> */}
-                    {/* <div className="row mb-3">
-                      <div className="col-12">
-                        <label className="form-label">
-                          <span className="mandatory-star me-1">*</span>
-                          Community Name
-                        </label>
-                        <input
-                          type="text"
-                          disabled
-                          className="form-control"
-                          placeholder="Enter Community Name"
-                          value={formik.values.name}
-                        />
-                      </div>
-                      {formik.errors.Community && formik.touched.Community ? (
-                        <div className="text-danger">
-                          {formik.errors.Community}
-                        </div>
-                      ) : null}
-                    </div> */}
-
-                    {/* contengt decription */}
-                    {/* <div className="row mb-3">
-                      <div className="col-12">
-                        <label className="form-label">
-                          {" "}
-                          <span className="mandatory-star me-1">*</span>Give
-                          description
-                        </label>
-                        <textarea
-                          type="text"
-                          className="form-control"
-                          placeholder="Describe the topic in detail"
-                          rows="4"
-                          disabled
-                          // id="Title"
-                          // name="detail_desciption"
-                          value={formik.values.description}
-
-                          // onChange={formik.handleChange}
-                          // onChange={forfa fa-solid fa-pen textBlackmik.handleChange}
-                        />
-                      </div>
-                      {formik.errors.detail_desciption &&
-                      formik.touched.detail_desciption ? (
-                        <div className="text-danger">
-                          {formik.errors.detail_desciption}
-                        </div>
-                      ) : null}
-                    </div> */}
                   </div>
                 </div>
               </div>

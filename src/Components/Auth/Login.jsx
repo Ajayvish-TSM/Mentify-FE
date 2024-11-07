@@ -54,6 +54,7 @@ const Login = () => {
           tokenRequired: false,
         }).then((response) => {
           // console.log(response?.data?.data?.data);
+          console.log("kulo", response);
           if (response?.data?.data?.status === 200) {
             localStorage.setItem(
               "TajurbaAdminUser",
