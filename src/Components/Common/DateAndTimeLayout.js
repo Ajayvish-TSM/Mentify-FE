@@ -1,5 +1,6 @@
 import moment from "moment";
 import React, { useEffect, useState } from "react";
+import AttendanceButton from "../../AttendanceButton";
 
 export default function DateAndTimeLayout() {
   const [dateTime, setDateTime] = useState(new Date());
@@ -20,6 +21,7 @@ export default function DateAndTimeLayout() {
     <div className="row">
       <div className="col-12">
         <div className="page-title-box d-flex align-items-center justify-content-end">
+          <AttendanceButton />
           <h4 className="page-title mb-0 font-size-18 fw-normal text-end">
             <span className="fw-normal d-flex align-items-center">
               <svg width="16" height="16" viewBox="0 0 16 16" className="me-2">

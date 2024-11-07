@@ -195,7 +195,6 @@
 
 // export default Feed;
 
-
 import React, { useEffect, useState } from "react";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import DateAndTimeLayout from "../../Common/DateAndTimeLayout";
@@ -277,7 +276,7 @@ const Feed = () => {
     initialValues: {
       holiday_name: "",
       holiday_date: "",
-      is_compulsory: true,
+      is_compulsory: false,
       // createdAt: "",
     },
     onSubmit: (values, { setSubmitting }) => {
@@ -352,7 +351,9 @@ const Feed = () => {
             <div className="col-6">
               <div className="row position-relative mb-3">
                 <div>
-                  <h3 className="headText mt-2 mb-2 fw-bold">Holiday Details</h3>
+                  <h3 className="headText mt-2 mb-2 fw-bold">
+                    Holiday Details
+                  </h3>
                 </div>
               </div>
             </div>
@@ -398,12 +399,15 @@ const Feed = () => {
                           type="text"
                           className="form-control w-80 border-radius-2"
                           aria-label="Leave Code"
-                          name="leave_code"
+                          name="holiday_name"
                           disabled={!CheckAccess}
                           onChange={(e) => {
-                            formik.setFieldValue("leave_code", e.target.value);
+                            formik.setFieldValue(
+                              "holiday_name",
+                              e.target.value
+                            );
                           }}
-                          value={formik.values.leave_code}
+                          value={formik.values.holiday_name}
                         />
                       </div>
 
@@ -413,28 +417,28 @@ const Feed = () => {
                           Holiday Date
                         </label>
                         <input
-                          type="date"  // Changed from "text" to "date"
+                          type="date" // Changed from "text" to "date"
                           className="form-control w-80 border-radius-2"
                           name="holiday_date"
                           aria-label="Holiday Date input"
                           disabled={!CheckAccess}
                           onChange={formik.handleChange}
-                          value={formik.values.holiday_date}  // Make sure holiday_date is defined in Formik's initial values
+                          value={formik.values.holiday_date} // Make sure holiday_date is defined in Formik's initial values
                         />
                       </div>
 
                       <div className="col-8">
-                        <label className="form-label">
-                          Holiday Type
-                        </label>
+                        <label className="form-label">Holiday Type</label>
                         <div>
                           <label className="me-3">
                             <input
                               type="radio"
                               name="holiday_type"
                               value="mandatory"
-                              checked={formik.values.holiday_type === "mandatory"}
-                              onChange={() => formik.setFieldValue("holiday_type", "mandatory")}
+                              checked={formik.values.is_compulsory === "true"}
+                              onChange={() =>
+                                formik.setFieldValue("is_compulsory", "true")
+                              }
                               disabled={!CheckAccess}
                             />
                             <span className="ms-1">Mandatory</span>
@@ -444,8 +448,10 @@ const Feed = () => {
                               type="radio"
                               name="holiday_type"
                               value="optional"
-                              checked={formik.values.holiday_type === "optional"}
-                              onChange={() => formik.setFieldValue("holiday_type", "optional")}
+                              checked={formik.values.is_compulsory === "false"}
+                              onChange={() =>
+                                formik.setFieldValue("is_compulsory", "false")
+                              }
                               disabled={!CheckAccess}
                             />
                             <span className="ms-1">Optional</span>
@@ -459,7 +465,6 @@ const Feed = () => {
                         </div>
                       ) : null}
                     </div>
-
                   </div>
                 </div>
               </div>
@@ -516,23 +521,31 @@ const Feed = () => {
                               <td>{index + 1}.</td>
                               <td>{ele?.holiday_name}</td>
                               <td>
-                                {new Date(ele?.holiday_date).toLocaleString("en-US", {
-                                  year: "numeric",
-                                  month: "long",
-                                  day: "numeric",
-                                })}
+                                {new Date(ele?.holiday_date).toLocaleString(
+                                  "en-US",
+                                  {
+                                    year: "numeric",
+                                    month: "long",
+                                    day: "numeric",
+                                  }
+                                )}
                               </td>
-                              {/* <td>
-                                {new Date(ele?.createdAt).toLocaleString("en-US", {
-                                  year: "numeric",
-                                  month: "long",
-                                  day: "numeric",
-                                  hour: "2-digit",
-                                  minute: "2-digit",
-                                  hour12: true
-                                })}
-                              </td> */}
-                              <td>{ele?.is_compulsory ? "Mandatory" : "Optional"}</td>
+                              <td>
+                                {new Date(ele?.createdAt).toLocaleString(
+                                  "en-US",
+                                  {
+                                    year: "numeric",
+                                    month: "long",
+                                    day: "numeric",
+                                    hour: "2-digit",
+                                    minute: "2-digit",
+                                    hour12: true,
+                                  }
+                                )}
+                              </td>
+                              <td>
+                                {ele?.is_compulsory ? "Mandatory" : "Optional"}
+                              </td>
                               {/* <td>
                                 <NavLink
                                   to={`../${AdminRoute?.ContentCreation?.Moderator?.ModeratorPending?.replace(
@@ -570,4 +583,3 @@ const Feed = () => {
 };
 
 export default Feed;
-

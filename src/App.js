@@ -7,6 +7,7 @@ import "../src/assets/css/app.css";
 import "../src/assets/css/app.min.css";
 import "../src/assets/css/app.min.css.map";
 import "../src/assets/css/style.css";
+import { AttendanceProvider } from "./AttendanceContext";
 
 function App() {
   // state variable holds the state of the internet connection
@@ -32,7 +33,9 @@ function App() {
   return (
     <div className="App">
       {isOnline ? (
-        <Lazy />
+        <AttendanceProvider>
+          <Lazy />
+        </AttendanceProvider>
       ) : (
         <div className="home-page">
           <div className="container-fluid main-container">
