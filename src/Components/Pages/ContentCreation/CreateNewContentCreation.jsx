@@ -1,7 +1,7 @@
 /* eslint-disable */
 import React, { useEffect, useState } from "react";
 // import AppLayout from "../../Loyout/App";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import DateAndTimeLayout from "../../Common/DateAndTimeLayout";
 import IconGallery from "../../../assets/images/IconGallery.svg";
 import { useFormik } from "formik";
@@ -9,11 +9,20 @@ import API from "../../../Api/Api";
 import AdminRoute from "./../../../Route/RouteDetails";
 import baseApi from "../../../Api/config";
 import { ToastContainer, toast } from "react-toastify";
+import FilterSearch from "../../Common/FilterSearch";
 
 const CreateNewContentCreation = () => {
   const adminObject = JSON.parse(localStorage.getItem("TajurbaAdminToken"));
+  const { state } = useLocation();
+  const [listingData, setListingData] = useState([]);
   const TajurbaAdmin_priviledge_data = JSON.parse(
     localStorage.getItem("TajurbaAdmin_priviledge_data")
+  );
+
+  const [currentTab, setCurrentTab] = useState(
+    state?.moderator_previousTab
+      ? state?.moderator_previousTab
+      : "Moderator_pending"
   );
 
   const CheckAccess =
@@ -35,6 +44,18 @@ const CreateNewContentCreation = () => {
             )
         )
     );
+
+  // Functionality for Filter and search
+  const FilterOptions = [
+    // { label: "All", value: "all" },
+    { label: "Title", value: "course_title" },
+    { label: "Author", value: "author_name" },
+    { label: "Course Type", value: "course_type" },
+    { label: "Date", value: "createdAt" },
+  ];
+
+  const [filterselect, setFilterSelect] = useState("");
+  const [search, setSearch] = useState("");  
 
   const [CategoryList, setCategoryList] = useState();
   const [errorMessage, SetErrorMessage] = useState("");
@@ -342,14 +363,23 @@ const CreateNewContentCreation = () => {
                           Leave Balance
                         </label>
                         <input
-                          type="number"
-                          className="form-select w-80 border-radius-2"
-                          aria-label="Leave balance input"
-                          name="leaveBalance"
+                          type="text"
+                          className="form-control w-80 border-radius-2"
+                          name="category"
+                          aria-label="Leave Balance input"
                           disabled={!CheckAccess}
                           onChange={formik.handleChange}
-                          value={formik.values.leaveBalance} // Ensure 'leaveBalance' is defined in Formik initial values
+                          value={formik.values.category}
+                          list="categoryOptions"
                         />
+                        <datalist id="categoryOptions">
+                          {CategoryList &&
+                            CategoryList.map((ele, index) => (
+                              <option key={index} value={ele?.category_name}>
+                                {ele?.category_name}
+                              </option>
+                            ))}
+                        </datalist>
                       </div>
 
 
@@ -701,6 +731,99 @@ const CreateNewContentCreation = () => {
               </div>
             </form>
           </div>
+
+          <div className="row mb-2" id="">
+                      <div className="col-6"></div>
+                      <FilterSearch
+                        FilterOptions={FilterOptions}
+                        search={search}
+                        setSearch={setSearch}
+                        filterselect={filterselect}
+                        setFilterSelect={setFilterSelect}
+                      />
+                    </div>
+                    <div
+                      className={
+                        currentTab === "Moderator_pending"
+                          ? "tab-pane main-card active p-3 mb-0 box-shadow-bottom-none"
+                          : "tab-pane main-card p-3 mb-0 box-shadow-bottom-none"
+                      }
+                      id="to-Be-Reviewed"
+                      role="tabpanel"
+                    >
+                      <div className="table-responsive">
+                        <table className="table mb-0 tablesWrap">
+                          <thead>
+                            <tr>
+                              <th className="">Leave Code</th>
+                              <th>Employee Name</th>
+                              <th>Leave Type</th>
+
+                              <th>Leave Balance</th>
+                              <th></th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {loading ? (
+                              <tr>
+                                <td colSpan={6}>
+                                  <div className="d-flex justify-content-center">
+                                    <div
+                                      className="spinner-border"
+                                      role="status"
+                                    >
+                                      <span className="visually-hidden">
+                                        Loading...
+                                      </span>
+                                    </div>
+                                  </div>
+                                </td>
+                              </tr>
+                            ) : (
+                              <>
+                                {listingData && listingData?.length ? (
+                                  listingData?.map((ele, index) => {
+                                    return (
+                                      <tr key={index}>
+                                        <td>
+                                          {TooltipCustom(ele?.course_title)}
+                                        </td>
+                                        <td>{ele?.categoryName}</td>
+                                        <td>{ele?.author_name}</td>
+                                        <td>
+                                          {moment(ele?.createdAt).format(
+                                            "DD-MM-YYYY"
+                                          )}
+                                        </td>
+                                        <td>
+                                          <NavLink
+                                            to={`../${AdminRoute?.ContentCreation?.Moderator?.ModeratorPending?.replace(
+                                              "/:id",
+                                              ""
+                                            )}/${ele?.courseedition_id}`}
+                                            className="btn btn-sm waves-effect waves-light btnViewOrange"
+                                          >
+                                            View More
+                                          </NavLink>
+                                        </td>
+                                      </tr>
+                                    );
+                                  })
+                                ) : (
+                                  <>
+                                    <tr>
+                                      <td colSpan={6} className="text-center">
+                                        No data Found
+                                      </td>
+                                    </tr>
+                                  </>
+                                )}{" "}
+                              </>
+                            )}
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
         </div>
       </div>
       {/* </AppLayout> */}
