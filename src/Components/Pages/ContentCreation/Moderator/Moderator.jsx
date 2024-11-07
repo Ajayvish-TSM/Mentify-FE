@@ -342,13 +342,13 @@ const Moderator = () => {
                                   <div className="me-xl-5">
                                     {/* content title */}
                                     <div className="d-flex mb-3">
-                                      <div className="col-10">
+                                      <div className="col-8">
                                         <label className="form-label">
                                           <span className="mandatory-star me-1">*</span>
                                           Leave Code
                                         </label>
                                         <select
-                                          className="form-select w-50 border-radius-2"
+                                          className="form-select w-80 border-radius-2"
                                           aria-label="Default select example"
                                           name="category"
                                           disabled={!CheckAccess}
@@ -391,13 +391,13 @@ const Moderator = () => {
                                             })}
                                         </select>
                                       </div>
-                                      <div className="col-10">
+                                      <div className="col-8">
                                         <label className="form-label">
                                           <span className="mandatory-star me-1">*</span>
                                           Employee Name
                                         </label>
                                         <select
-                                          className="form-select w-50 border-radius-2"
+                                          className="form-select w-80 border-radius-2"
                                           aria-label="Default select example"
                                           name="category"
                                           disabled={!CheckAccess}
@@ -440,13 +440,13 @@ const Moderator = () => {
                                             })}
                                         </select>
                                       </div>
-                                      <div className="col-10">
+                                      <div className="col-8">
                                         <label className="form-label">
                                           <span className="mandatory-star me-1">*</span>
                                           Leave Balance
                                         </label>
                                         <select
-                                          className="form-select w-50 border-radius-2"
+                                          className="form-select w-80 border-radius-2"
                                           aria-label="Default select example"
                                           name="category"
                                           disabled={!CheckAccess}
@@ -495,7 +495,7 @@ const Moderator = () => {
                                         </div>
                                       ) : null}
                                     </div>
-                                    <div className="row mb-3">
+                                    {/* <div className="row mb-3">
                                       <div className="col-12">
                                         <label className="form-label">
                                           <span className="mandatory-star me-1">*</span>Select
@@ -578,13 +578,12 @@ const Moderator = () => {
                                           <div className="col-6">
                                             <label className="form-label">
                                               Mention the tenure for discounted amount
-                                              {/* in days */}
                                             </label>
                                           </div>
                                         </div>
                                         <div className="row mb-3" id="rupees">
                                           <div className="col-6">
-                                            {/* <label className="form-label">Mention the discounted amount</label> */}
+                                            {/* <label className="form-label">Mention the discounted amount</label> 
                                             <input
                                               type="number"
                                               className="form-control"
@@ -608,7 +607,7 @@ const Moderator = () => {
                                           </div>
                                         </div>
                                       </>
-                                    ) : null}
+                                    ) : null} */}
                                   </div>
                                 </div>
                               </div>
@@ -618,7 +617,7 @@ const Moderator = () => {
                       </div>
                     </div>
 
-                    <div className="row mb-2" id="">
+                    {/* <div className="row mb-2" id="">
                       <div className="col-6"></div>
                       <FilterSearch
                         FilterOptions={FilterOptions}
@@ -709,9 +708,9 @@ const Moderator = () => {
                           </tbody>
                         </table>
                       </div>
-                    </div>
+                    </div> */}
 
-                    <div
+                    {/* <div
                       className={
                         currentTab === "Rejected"
                           ? "tab-pane main-card active p-3 mb-0 box-shadow-bottom-none"
@@ -892,13 +891,13 @@ const Moderator = () => {
                           </tbody>
                         </table>
                       </div>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          <Pagination
+          {/* <Pagination
             totalPagess={totalPagess}
             setTotalPage={setTotalPage}
             totalItems={totalItems}
@@ -908,7 +907,7 @@ const Moderator = () => {
             itemsPerPage={itemsPerPage}
             setItemsPerPage={setItemsPerPage}
           />
-          {/* <div className="main-card p-3 ">
+           <div className="main-card p-3 ">
               <div className="row card-footer">
                 <div className="col-6 card-footer-left">
                   <span className="text-muted">
@@ -1083,10 +1082,9 @@ const Moderator = () => {
                   </nav>
                 </div>
               </div>
-            </div> */}
+            </div>*/}
         </div>
-      </div>
-      {/* </AppLayout> */}
+      </div> 
     </>
   );
 };
