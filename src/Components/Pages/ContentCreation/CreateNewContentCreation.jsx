@@ -73,9 +73,9 @@ const CreateNewContentCreation = () => {
     if (!values.leave_name) {
       errors.leave_name = "Please type leave name ";
     }
-    if (!values.leaves) {
-      errors.leave = "Please type numbers of leave to be provide.";
-    }
+    // if (!values.leaves) {
+    //   errors.leave = "Please type numbers of leave to be provide.";
+    // }
     console.log("Erroes", errors);
     return errors;
   };
@@ -84,6 +84,7 @@ const CreateNewContentCreation = () => {
       leave_name: "",
       leave_code: "",
       leaves: "",
+      createdAt: "",
     },
     onSubmit: (values, { setSubmitting }) => {
       const errors = validate(values);
@@ -254,7 +255,7 @@ const CreateNewContentCreation = () => {
                         />
                       </div>
 
-                      <div className="col-8">
+                      {/* <div className="col-8">
                         <label className="form-label">
                           <span className="mandatory-star me-1">*</span>
                           Leave Balance
@@ -276,7 +277,7 @@ const CreateNewContentCreation = () => {
                               </option>
                             ))}
                         </datalist>
-                      </div>
+                      </div> */}
 
                       {formik.errors.category && formik.touched.category ? (
                         <div className="text-danger">
@@ -530,7 +531,7 @@ const CreateNewContentCreation = () => {
                     <th className="">Leave Code</th>
                     <th>Leave Name</th>
 
-                    <th>Leave Balance (days)</th>
+                    <th>Created On</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -553,7 +554,16 @@ const CreateNewContentCreation = () => {
                               <td>{index + 1}.</td>
                               <td>{ele?.leave_code}</td>
                               <td>{ele?.leave_name}</td>
-                              <td>{ele?.leaves}</td>
+                              <td>
+                                {new Date(ele?.createdAt).toLocaleString("en-US", {
+                                  year: "numeric",
+                                  month: "long",
+                                  day: "numeric",
+                                  hour: "2-digit",
+                                  minute: "2-digit",
+                                  hour12: true
+                                })}
+                              </td>
                               {/* <td>
                                 <NavLink
                                   to={`../${AdminRoute?.ContentCreation?.Moderator?.ModeratorPending?.replace(
