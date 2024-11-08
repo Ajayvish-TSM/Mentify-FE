@@ -32,7 +32,7 @@ const AttendanceButton = () => {
   };
 
   useEffect(() => {
-    console.log("Using static location:", userLocation);
+    //console.log("Using static location:", userLocation);
 
     // Calculate distance from static user location to office
     const distance = getDistanceFromLatLonInKm(
@@ -42,7 +42,7 @@ const AttendanceButton = () => {
       officeCoordinates.longitude
     );
 
-    console.log("Distance from office (should be 0):", distance);
+    //console.log("Distance from office (should be 0):", distance);
     setIsWithinRadius(distance <= 10);
   }, [userLocation]);
 

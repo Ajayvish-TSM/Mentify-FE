@@ -1158,7 +1158,7 @@ const Moderator = () => {
   const navigate = useNavigate();
 
   const validate = (values) => {
-    console.log(values, "value");
+    //console.log(values, "value");
     const errors = {};
     if (!values.leave_code) {
       errors.leave_code = "Please select leave code ";
@@ -1177,8 +1177,8 @@ const Moderator = () => {
       _id: "",
       leave_code: "",
       assigned_leaves: "",
-      assigned_date: "",
-      //assigned_by: "",
+      //assigned_date: "",
+      assigned_by: "658d616aaab868cac6542f55",
     },
     onSubmit: (values, { setSubmitting }) => {
       const errors = validate(values);
@@ -1239,8 +1239,9 @@ const Moderator = () => {
       API?.CommanApiCall({
         data: {},
         agent: "leave_credit",
+        function : "get_credit_list",
       }).then((response) => {
-        console.log("hhhh",response);
+        console.log("in fetch",response);
         if (response?.data?.data?.status === 200) {
           setListingData(response.data.data.data);
         }
@@ -1249,6 +1250,7 @@ const Moderator = () => {
       console.log(error);
     }
   }, []);
+  
   const handleSave = () => {
     SetErrorMessage("");
     setLoading(true);
@@ -1256,16 +1258,17 @@ const Moderator = () => {
       API?.CommanApiCall({
         data: {
           leave_code: formik.values.leave_code,
-          _id: formik.values._id,
+          user_id: formik.values._id,
           assigned_leaves: formik.values.assigned_leaves,
+          assigned_by: formik.values.assigned_by,
         },
         agent: "leave_credit",
       }).then((response) => {
-        console.log(response);
         if (response?.data?.data?.status === 200) {
           setLoading(false);
           navigate(0);
         } else if (response?.data?.data?.status === 201) {
+          console.log("errorrr")
           SetErrorMessage(response?.data?.data?.message);
 
           setTimeout(() => {
@@ -1486,7 +1489,7 @@ const Moderator = () => {
               <table className="table mb-0 tablesWrap">
                 <thead>
                   <tr>
-                    <th>S.NO.</th>
+                    <th>S.No</th>
                     <th className="">Leave Code</th>
                     <th>Employee Name</th>
                     <th>No. of Leaves</th>

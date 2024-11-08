@@ -450,7 +450,7 @@ const AppLayout = (props) => {
           // label: "Subscription Plans",
           path: "/subscription-plans",
           label: (
-            <NavLink to={"/subscription-plans"}>Subscription Plans</NavLink>
+            <NavLink to={"/subscription-plans"}>Leave Apply</NavLink>
           ),
         }))
       : []),

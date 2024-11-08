@@ -45,22 +45,9 @@ const CreateNewContentCreation = () => {
         )
     );
 
-  // Functionality for Filter and search
-  const FilterOptions = [
-    // { label: "All", value: "all" },
-    { label: "Title", value: "course_title" },
-    { label: "Author", value: "author_name" },
-    { label: "Course Type", value: "course_type" },
-    { label: "Date", value: "createdAt" },
-  ];
-
-  const [filterselect, setFilterSelect] = useState("");
-  const [search, setSearch] = useState("");
-
-  const [CategoryList, setCategoryList] = useState();
   const [errorMessage, SetErrorMessage] = useState("");
-  const [uploadedFile, setUploadedFile] = useState("");
   const [loading, setLoading] = useState(false);
+  const [editItemId, setEditItemId] = useState(null);
 
   const navigate = useNavigate();
 
@@ -102,6 +89,7 @@ const CreateNewContentCreation = () => {
     },
     validate,
   });
+
   useEffect(() => {
     try {
       API?.CommanApiCall({
@@ -117,6 +105,16 @@ const CreateNewContentCreation = () => {
       console.log(error);
     }
   }, []);
+
+  const handleEdit = (item) => {
+    setEditItemId(item._id);
+    formik.setValues({
+      leave_code: item.leave_code,
+      leave_name: item.leave_name,
+      leaves: item.leaves,
+    });
+  };
+
   const handleSave = () => {
     SetErrorMessage("");
     setLoading(true);
@@ -127,11 +125,13 @@ const CreateNewContentCreation = () => {
           leave_name: formik.values.leave_name,
           leaves: formik.values.leaves,
         },
-        agent: "leave_management",
+        agent: editItemId ? "leave_management_update" : "leave_management",
+        id: editItemId,
       }).then((response) => {
         console.log(response);
         if (response?.data?.data?.status === 200) {
           setLoading(false);
+          setEditItemId(null);
           navigate(0);
         } else if (response?.data?.data?.status === 201) {
           SetErrorMessage(response?.data?.data?.message);
@@ -144,32 +144,8 @@ const CreateNewContentCreation = () => {
     } catch (error) {
       console.log(error);
     }
-    // finally {
-
-    // }
   };
   console.log("listing data", listingData);
-  // Category List API
-  // useEffect(() => {
-  //   try {
-  //     API?.CommanApiCall({
-  //       data: {
-  //         category: [],
-  //       },
-  //       agent: "categories",
-  //     }).then((response) => {
-  //       //   console.log(response.data?.data);
-  //       // if (response?.data?.data?.status === 200) {
-  //       setCategoryList(response.data?.data);
-
-  //       // }
-  //     });
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }, []);
-
-  // Api for FIle Upload
 
   return (
     <>
@@ -506,13 +482,6 @@ const CreateNewContentCreation = () => {
 
           <div className="row mb-2" id="">
             <div className="col-6"></div>
-            <FilterSearch
-              FilterOptions={FilterOptions}
-              search={search}
-              setSearch={setSearch}
-              filterselect={filterselect}
-              setFilterSelect={setFilterSelect}
-            />
           </div>
           <div
             className={
@@ -527,7 +496,7 @@ const CreateNewContentCreation = () => {
               <table className="table mb-0 tablesWrap">
                 <thead>
                   <tr>
-                    <th>S.NO.</th>
+                    <th>S.No</th>
                     <th className="">Leave Code</th>
                     <th>Leave Name</th>
 
@@ -564,17 +533,14 @@ const CreateNewContentCreation = () => {
                                   hour12: true
                                 })}
                               </td>
-                              {/* <td>
-                                <NavLink
-                                  to={`../${AdminRoute?.ContentCreation?.Moderator?.ModeratorPending?.replace(
-                                    "/:id",
-                                    ""
-                                  )}/${ele?.courseedition_id}`}
-                                  className="btn btn-sm waves-effect waves-light btnViewOrange"
+                              <td>
+                                <button
+                                  className="btn btn-sm btn-primary"
+                                  onClick={() => handleEdit(ele)}
                                 >
-                                  View More
-                                </NavLink>
-                              </td> */}
+                                  Edit
+                                </button>
+                              </td>
                             </tr>
                           );
                         })
@@ -595,7 +561,6 @@ const CreateNewContentCreation = () => {
           </div>
         </div>
       </div>
-      {/* </AppLayout> */}
     </>
   );
 };

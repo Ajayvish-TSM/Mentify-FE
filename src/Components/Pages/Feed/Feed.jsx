@@ -247,15 +247,11 @@ const Feed = () => {
   //   { label: "Date", value: "createdAt" },
   // ];
 
-  const [filterselect, setFilterSelect] = useState("");
-  const [search, setSearch] = useState("");
-
-  const [CategoryList, setCategoryList] = useState();
   const [errorMessage, SetErrorMessage] = useState("");
-  const [uploadedFile, setUploadedFile] = useState("");
   const [loading, setLoading] = useState(false);
-
   const navigate = useNavigate();
+  const [selectedItem, setSelectedItem] = useState(null);
+  const [isEditMode, setIsEditMode] = useState(false);
 
   const validate = (values) => {
     console.log(values, "value");
@@ -272,6 +268,7 @@ const Feed = () => {
     console.log("Erroes", errors);
     return errors;
   };
+
   const formik = useFormik({
     initialValues: {
       holiday_name: "",
@@ -292,6 +289,7 @@ const Feed = () => {
     },
     validate,
   });
+
   useEffect(() => {
     try {
       API?.CommanApiCall({
@@ -299,7 +297,7 @@ const Feed = () => {
         agent: "holiday_create",
         function: "get_holiday_list",
       }).then((response) => {
-        console.log(response);
+        //console.log(response);
         if (response?.data?.data?.status === 200) {
           setListingData(response.data.data.data);
         }
@@ -308,25 +306,40 @@ const Feed = () => {
       console.log(error);
     }
   }, []);
+
   const handleSave = () => {
     SetErrorMessage("");
     setLoading(true);
+  
+    const apiData = {
+      holiday_name: formik.values.holiday_name,
+      holiday_date: formik.values.holiday_date,
+      is_compulsory: formik.values.is_compulsory,
+    };
+  
+    const agentType = "holiday_create";
+    const functionType = isEditMode ? "update_holiday_list" : null;
+  
+    // Conditionally add ID for edit functionality
+    if (isEditMode && selectedItem) {
+      apiData["holiday_id"] = selectedItem._id;
+    }
+  
     try {
       API?.CommanApiCall({
-        data: {
-          holiday_name: formik.values.holiday_name,
-          holiday_date: formik.values.holiday_date,
-          is_compulsory: formik.values.is_compulsory,
-        },
-        agent: "holiday_create",
+        data: apiData,
+        agent: agentType,
+        function: functionType,
       }).then((response) => {
         console.log(response);
         if (response?.data?.data?.status === 200) {
           setLoading(false);
+          setIsEditMode(false);
+          setSelectedItem(null);
           navigate(0);
         } else if (response?.data?.data?.status === 201) {
           SetErrorMessage(response?.data?.data?.message);
-
+  
           setTimeout(() => {
             SetErrorMessage("");
           }, 5000);
@@ -336,7 +349,17 @@ const Feed = () => {
       console.log(error);
     }
   };
-  console.log("holiday data", listingData);
+
+  const handleEdit = (item) => {
+    setSelectedItem(item);
+    setIsEditMode(true);
+    formik.setValues({ 
+      holiday_name: item.holiday_name,
+      holiday_date: new Date(item.holiday_date).toISOString().split("T")[0],
+      is_compulsory: item.is_compulsory,
+    });
+  };
+  //console.log("holiday data", listingData);
 
   return (
     <>
@@ -545,6 +568,14 @@ const Feed = () => {
                               </td>
                               <td>
                                 {ele?.is_compulsory ? "Mandatory" : "Optional"}
+                              </td>
+                              <td>
+                                <button
+                                  className="btn btn-sm btn-primary"
+                                  onClick={() => handleEdit(ele)}
+                                >
+                                  Edit
+                                </button>
                               </td>
                               {/* <td>
                                 <NavLink
