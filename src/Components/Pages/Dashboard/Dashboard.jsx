@@ -33,6 +33,48 @@ const Dashboard = () => {
   const [CosumptionDetails, setConsumptionDetails] = useState([]);
 
   const [loading, setLoading] = useState(true);
+  const [userProfileDetails, setUserProfileDetails] = useState("");
+  const [edit, setEdit] = useState(false);
+  const adminObject = JSON.parse(localStorage.getItem("TajurbaAdminUser"));
+
+
+  const GetDetails = () => {
+    try {
+      API?.CommanApiCall({
+        agent: "createAdminUser",
+        function: "getUserDetails",
+        data: {
+          user_id: parseInt(id),
+        },
+      }).then((response) => {
+        if (response?.data?.data?.status === 200) {
+          // console.log(
+          //   "response for Get User details api",
+          //   response?.data?.data?.data[0]
+          // );
+
+          //  setrolePreviledgeData(response?.data?.data?.data?.priviledge_data);
+          setUserProfileDetails(response?.data?.data?.data[0]);
+          setFormValues({
+            ...formValues,
+            firstName: response?.data?.data?.data[0]?.first_name,
+            email: response?.data?.data?.data[0]?.email,
+            mobile: response?.data?.data?.data[0]?.mobile_no,
+            roles: response?.data?.data?.data[0]?.result?.role_id,
+          });
+          setProfileStatus(response?.data?.data?.data[0]?.is_active);
+          setProfileImg(response?.data?.data?.data[0]?.image);
+          setrolePreviledgeData(
+            response?.data?.data?.data[0]?.result?.priviledge_data
+          );
+          setRoleName(response?.data?.data?.data[0]?.result?.name);
+        }
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
 
   // console.log(
   //   "Start date in Event listing",
@@ -469,85 +511,394 @@ const Dashboard = () => {
           </div>
           {/* end page title */}
           <div className="row">
-            <div className="col-xl-6">
-              <div className="main-card bg-white p-4 pt-5">
-                <div className="d-flex justify-content-between">
-                  <h3 className="fw-bold">Total Revenue</h3>
-                  <div className="text-end">
-                    <h2 className="h2 fw-bold self-font-family">
-                      ₹{" "}
-                      {formatRevenue(
-                        dashboardDetails && dashboardDetails?.total_revenue
-                      )}
-                    </h2>
-                    <span className="defaultGrey ">Till Date</span>
-                  </div>
-                </div>
-                <div class="row dashboard-bg mt-4 mx-1">
-                  <div class="col px-0 py-2 text-center">
-                    <div className="border-right-lightgrey p-2 h-100 dashboard-col">
-                      <p className="darkGrey">Course Content</p>
-                      <h4 className="mb-0">
-                        {" "}
-                        {formatRevenue(
-                          dashboardDetails &&
-                            dashboardDetails?.total_course_amount
-                        )}
-                      </h4>
-                    </div>
-                  </div>
-                  <div class="col px-0 py-2 text-center">
-                    <div className="border-right-lightgrey p-2 h-100 dashboard-col">
-                      <p className="darkGrey">Events</p>
-                      <h4 className="mb-0">
-                        {" "}
-                        {formatRevenue(
-                          dashboardDetails &&
-                            dashboardDetails?.total_event_amount
-                        )}
-                      </h4>
-                    </div>
-                  </div>
-                  <div class="col px-0 py-2 text-center">
-                    <div className="border-right-lightgrey p-2 h-100 dashboard-col">
-                      <p className="darkGrey">Subscription</p>
-                      <h4 className="mb-0">
-                        {formatRevenue(
-                          dashboardDetails &&
-                            dashboardDetails?.total_subscription_amount
-                        )}
-                      </h4>
-                    </div>
-                  </div>
-                  {/* <div class="col px-0 py-2 text-center">
-                      <div className="border-right-lightgrey p-2 h-100 dashboard-col">
-                        <p className="darkGrey">Community</p>
-                        <h4 className="mb-0">2k</h4>
+            <div>
+              <ToastContainer />
+              <div className="main-content">
+                <div className="page-content">
+                  {/* start page title */}
+                  <DateAndTimeLayout />
+                  {/* end page title */}
+                  <div className="row">
+                    <div className="col-6">
+                      <div className="row d-flex align-items-center mb-3">
+                        <a
+                          //to="/dashboard"
+                          onClick={() => {
+                            if (edit) {
+                              setEdit(false);
+                            } else {
+                              navigate(
+                                "/dashboard"
+                                //   {
+                                //     state: { myTeam_previousTab: status },
+                                //   }
+                              );
+                            }
+                          }}
+                          style={{ cursor: "pointer" }}
+                          className="w-auto float-start pe-1 textBlack"
+                        >
+                          <div className="backArrow">
+                            <i className="fa fa-solid fa-chevron-left"></i>
+                          </div>
+                        </a>
+
+                        <h4 className="headText mt-2 mb-2 fw-bold w-auto textBlack">
+                          {edit ? "Edit" : null} Profile
+                        </h4>
                       </div>
-                    </div> */}
-                  {/* <div class="col px-0 py-2 text-center">
-                      <div className="p-2 dashboard-col h-100">
-                        <p className="darkGrey">Session</p>
-                        <h4 className="mb-0">46k</h4>
+                    </div>
+                    <div className="col-6">
+                      <div className="col-12 d-flex justify-content-end">
+                        {!edit ? (
+                          <div className="saveBtn">
+                            <NavLink
+                              onClick={() => {
+                                setEdit(true);
+                              }}
+                              className="btn bgBlack text-white border-radius-2 px-4 float-end"
+                            >
+                              <i className="fa fa-regular fa-pen-to-square"></i>{" "}
+                              <span className="">Edit</span>
+                            </NavLink>
+                          </div>
+                        ) : (
+                          <div className="col-6 pe-0">
+                            <div className="col-12 d-flex justify-content-end">
+                              <div className="cancelBtn">
+                                <NavLink
+                                  disabled={loading}
+                                  onClick={() => {
+                                    setEdit(false);
+                                    GetDetails();
+                                  }}
+                                  className="btn btn-reject me-3 px-4"
+                                >
+                                  <span className="">Close</span>
+                                </NavLink>
+                              </div>
+                              <div className="saveBtn">
+                                <NavLink
+                                  disabled={loading}
+                                  onClick={(e) => handleSave(e)}
+                                  className="btn bgBlack text-white border-radius-2 px-4 float-end"
+                                >
+                                  <span className="">
+                                    {loading && (
+                                      <span
+                                        className="spinner-border spinner-border-sm me-2"
+                                        role="status"
+                                        aria-hidden="true"
+                                      ></span>
+                                    )}
+                                    Save
+                                  </span>
+                                </NavLink>
+                              </div>
+                            </div>
+                          </div>
+                        )}
                       </div>
-                    </div> */}
+                    </div>
+                  </div>
+
+                  {!edit ? (
+                    <div className="row">
+                      <div className="col-xl-7">
+                        <div className="main-card p-0">
+                          <div className="custum-orange-bgbox"></div>
+                          <div className="px-4">
+                            <div className="pofileInfo">
+                              <div className="row d-flex align-items-center">
+                                <div className="col-8">
+                                  <div className="d-flex align-items-center">
+                                    <img
+                                      // crossOrigin="Anonymous"
+                                      src={
+                                        userProfileDetails && userProfileDetails?.image
+                                      }
+                                      alt="Profile"
+                                      className="rounded-0 profile"
+                                      id="profile-picture-custome"
+                                    />
+                                    <div className="consumerProfileText ms-3">
+                                      <h2 className="fw-bold letter-spacing-6">
+                                        {userProfileDetails &&
+                                          userProfileDetails?.first_name}{" "}
+                                        {userProfileDetails &&
+                                          userProfileDetails?.last_name}
+                                      </h2>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div className="col-4 d-flex justify-content-end">
+                                  <div className="button b2" id="button-13">
+                                    <input
+                                      type="checkbox"
+                                      className="checkbox"
+                                      checked={
+                                        userProfileDetails &&
+                                        userProfileDetails?.is_active != true
+                                      }
+                                    />
+                                    <div className="knobs">
+                                      <span>|||</span>
+                                    </div>
+                                    <div className="layer"></div>
+                                  </div>
+
+                                  <p className="mt-1 ms-3 ">
+                                    {adminObject?.is_active == true
+                                      ? "Active"
+                                      : "Inactive"}
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div className="mt-4">
+                              <p>Personal Details</p>
+                              <hr className="borderHr mb-4" />
+                              <div className="row pb-5">
+                                <div className="col-6">
+                                  {" "}
+                                  <div className="">
+                                    <p>Email</p>
+                                    <h5 className="fw-bold">
+                                      {" "}
+                                      {userProfileDetails && userProfileDetails?.email}
+                                    </h5>
+                                  </div>
+                                  <div className="mt-5">
+                                    <p>Role</p>
+                                    <h5 className="fw-bold">
+                                      {userProfileDetails &&
+                                        userProfileDetails?.result?.name}
+                                    </h5>
+                                  </div>
+                                  <div className="mt-5">
+                                    <p>Registration Date</p>
+                                    <h5 className="fw-bold">
+                                      {moment(
+                                        userProfileDetails &&
+                                        userProfileDetails?.createdAt
+                                      ).format("DD-MM-YYYY")}
+                                    </h5>
+                                  </div>
+                                </div>
+                                <div className="col-6">
+                                  <div className="border-left-grey h-100">
+                                    <div className="ps-4">
+                                      {" "}
+                                      <div className="">
+                                        <p>Contact</p>
+                                        <h5 className="fw-bold">
+                                          {" "}
+                                          {userProfileDetails &&
+                                            userProfileDetails?.mobile_no}
+                                        </h5>
+                                      </div>
+                                      {/* <div className="mt-5">
+                                <p>Address</p>
+                                <h5 className="fw-bold">
+                                  High Street, NY, 123456
+                                </h5>
+                              </div> */}
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="row">
+                      <div className="col-12">
+                        <div className="main-card p-0">
+                          <div className="custum-orange-bgbox"></div>
+                          <div className="px-4">
+                            <div className="pofileInfo">
+                              <div className="row d-flex align-items-center">
+                                <div className="col-8">
+                                  <div className="d-flex align-items-center">
+                                    <img
+                                      //  crossOrigin="Anonymous"
+                                      src={profileImg}
+                                      alt=""
+                                      className="rounded-0 profile"
+                                      id="profile-picture-custome"
+                                      name="filename"
+                                      accept="image/*"
+                                    />
+                                    <p className="text-danger">
+                                      {formErrors?.profileImg}
+                                    </p>
+
+                                    <div className="file-upload-container ms-3 d-flex align-items-center">
+                                      <div className="contentBg">
+                                        <i className="fa fa-light fa-pen text-white"></i>
+                                      </div>
+
+                                      <input
+                                        id="file-input"
+                                        type="file"
+                                        name="filename"
+                                        accept="image/*"
+                                        onChange={handleFileChange}
+                                      />
+                                      <label htmlFor="file-input" className="ms-2 mb-0">
+                                        Change Profile Image
+                                      </label>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div className="col-4 d-flex justify-content-end">
+                                  <label className="button b2 me-2" id="button-13">
+                                    <input
+                                      type="checkbox"
+                                      className="ms-3"
+                                      disabled
+                                      checked={profileStatus}
+                                      onChange={handleToggle}
+                                    />
+                                    <span className="slider round">
+                                      <div class="knobs">{/* <span>|||</span> */}</div>
+                                    </span>
+                                    <div
+                                      style={{ backgroundColor: "transparent" }}
+                                      class="layer"
+                                    ></div>
+                                  </label>
+                                  <span
+                                    className={
+                                      profileStatus ? "activelabel" : "inactivelabel"
+                                    }
+                                  >
+                                    {profileStatus ? "Active" : "Inactive"}
+                                  </span>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div className="row">
+                              <div className="col-8">
+                                <div className="my-4">
+                                  <p>Personal Details</p>
+                                  <hr className="borderHr" />
+                                  <div className="row">
+                                    <div className="row">
+                                      <div className="col-6">
+                                        <label className="form-label">Name</label>
+                                        <input
+                                          type="text"
+                                          className="form-control"
+                                          placeholder="Enter name"
+                                          name="firstName"
+                                          value={formValues?.firstName}
+                                          onChange={(e) => handleChange(e)}
+                                        />
+                                        <p className="text-danger">
+                                          {formErrors?.firstName}
+                                        </p>
+                                      </div>
+                                    </div>
+                                    <div className="row  mb-3">
+                                      <div className="col-6"></div>
+                                      <div className="col-6"></div>
+                                    </div>
+                                    <div className="col-12 mb-3">
+                                      <div className="row">
+                                        <div className="col-6">
+                                          <label className="form-label">Email</label>
+                                          <input
+                                            type="email"
+                                            className="form-control"
+                                            disabled
+                                            name="email"
+                                            placeholder="Enter Email"
+                                            value={formValues?.email}
+                                            onChange={(e) => handleChange(e)}
+                                          />
+                                          <p className="text-danger">
+                                            {formErrors?.email}
+                                          </p>
+                                          {errorMessageData && errorMessageData ? (
+                                            <p className="text-danger ">
+                                              {errorMessageData}
+                                            </p>
+                                          ) : null}
+                                        </div>
+                                        <div className="col-6">
+                                          <label className="form-label">
+                                            Mobile No.
+                                          </label>
+                                          <input
+                                            name="mobile"
+                                            type="number"
+                                            className="form-control"
+                                            placeholder="Enter Mobile No."
+                                            value={formValues?.mobile}
+                                            onChange={(e) => handleChange(e)}
+                                          />
+                                          <p className="text-danger">
+                                            {formErrors?.mobile}
+                                          </p>
+                                        </div>
+                                      </div>
+                                      <div className="row">
+                                        <div className="col-6"></div>
+                                        <div className="col-6"></div>
+                                      </div>
+
+                                      <div className="row">
+                                        <div className="col-6 mt-4">
+                                          <label className="form-label">
+                                            Designation
+                                          </label>
+
+                                          <select
+                                            className="form-select"
+                                            aria-label="Default select example"
+                                            name="roles"
+                                            disabled
+                                            value={formValues?.roles}
+                                          >
+                                            <option value="">Select</option>
+                                            {roleListing?.map((ele, index) => {
+                                              // Check if the role matches the formValues.roles
+                                              const isSelected =
+                                                ele.name === formValues?.roles;
+                                              return (
+                                                <option
+                                                  key={index}
+                                                  value={ele.role_id}
+                                                  selected={isSelected}
+                                                >
+                                                  {ele.name}
+                                                </option>
+                                              );
+                                            })}
+                                          </select>
+                                          <p className="text-danger">
+                                            {formErrors?.roles}
+                                          </p>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
-              <div className="main-card bg-white px-4 py-5">
-                <div className="d-flex justify-content-between">
-                  <h3 className="fw-bold">Total Users</h3>
-                  <div className="text-end">
-                    <h2 className="h2 fw-bold">
-                      {/* {(dashboardDetails &&
-                        dashboardDetails?.userCount[0]?.count) ||
-                        0 + dashboardDetails?.userCount[1]?.count ||
-                        0} */}
-                      {totalUser}
-                    </h2>
-                    <span className="defaultGrey ">Till Date</span>
-                  </div>
-                </div>
-              </div>
+              {/* </AppLayout> */}
             </div>
             {/* <div className="col-xl-6">
                 <div className="main-card bg-white p-3">
