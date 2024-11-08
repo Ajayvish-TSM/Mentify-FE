@@ -399,8 +399,8 @@ const Dashboard = () => {
   const GetConsumerConseptionDetails = () => {
     try {
       API?.CommanApiCall({
-        agent: "course",
-        function: "content_consumtion",
+        agent: "holiday_create",
+        function: "get_holiday_list",
         // data: {
         //   user_id: parseInt(id),
         // },
@@ -533,39 +533,6 @@ const Dashboard = () => {
                     </div> */}
                 </div>
               </div>
-              <div className="main-card bg-white p-4 pt-5">
-                <div className="d-flex justify-content-between">
-                  <h3 className="fw-bold">Total Communities</h3>
-                  <div className="text-end">
-                    <h2 className="h2 fw-bold">{totalCommunitiesCount}</h2>
-                    <span className="defaultGrey ">Till Date</span>
-                  </div>
-                </div>
-                <div class="row dashboard-bg mt-4 mx-1">
-                  <div class="col-6 px-0 py-2 text-center">
-                    <div className="border-right-lightgrey p-2 h-100">
-                      <p className="darkGrey">Paid Community</p>
-                      <h4 className="mb-0">
-                        {(dashboardDetails &&
-                          dashboardDetails?.communityCount[0] &&
-                          dashboardDetails?.communityCount[0]?.count) ||
-                          0}
-                      </h4>
-                    </div>
-                  </div>
-                  <div class="col-6 px-0 py-2 text-center">
-                    <div className="p-2 h-100">
-                      <p className="darkGrey">Free Community</p>
-                      <h4 className="mb-0">
-                        {(dashboardDetails &&
-                          dashboardDetails?.communityCount[1] &&
-                          dashboardDetails?.communityCount[1]?.count) ||
-                          0}
-                      </h4>
-                    </div>
-                  </div>
-                </div>
-              </div>
               <div className="main-card bg-white px-4 py-5">
                 <div className="d-flex justify-content-between">
                   <h3 className="fw-bold">Total Users</h3>
@@ -580,34 +547,6 @@ const Dashboard = () => {
                     <span className="defaultGrey ">Till Date</span>
                   </div>
                 </div>
-                <div class="row dashboard-bg mt-4 mx-1">
-                  <div class="col-6 px-0 py-2 text-center">
-                    <div className="border-right-lightgrey p-2 h-100">
-                      <p className="darkGrey">Free Users</p>
-                      <h4 className="mb-0">
-                        {/* {(dashboardDetails &&
-                          dashboardDetails?.userCount[0] &&
-                          dashboardDetails?.userCount[0]?.count) ||
-                          0} */}
-                        {user1}
-                      </h4>
-                    </div>
-                  </div>
-
-                  <div class="col-6 px-0 py-2 text-center">
-                    <div className="p-2 h-100">
-                      <p className="darkGrey">Paid Users</p>
-                      <h4 className="mb-0">
-                        {/* {(dashboardDetails &&
-                          dashboardDetails?.userCount[1] &&
-                          dashboardDetails?.userCount[1]?.count) ||
-                          0} */}
-                        {user2}
-                      </h4>
-                    </div>
-                  </div>
-                </div>
-                <div className="height-80"></div>
               </div>
             </div>
             {/* <div className="col-xl-6">
@@ -910,7 +849,7 @@ const Dashboard = () => {
                 </div>
               </div>
               <div className="main-card bg-white p-4">
-                <h3 className="fw-bold">Content Consumtion</h3>
+                <h3 className="fw-bold">Holidays</h3>
 
                 {/* <img src={contentConsumtionImg} className="img-fluid w-70" /> */}
                 <div className="row mt-3">
@@ -922,10 +861,10 @@ const Dashboard = () => {
                       <thead>
                         <tr>
                           <th scope="col" className="lightGrey">
-                            Content list
+                            Holiday Name
                           </th>
                           <th scope="col" className="lightGrey">
-                            Price
+                            Date
                           </th>
                         </tr>
                       </thead>
@@ -952,10 +891,17 @@ const Dashboard = () => {
                                       scope="row"
                                       className="darkGrey fw-bold"
                                     >
-                                      {ele.course_data?.course_title}
+                                      {ele?.holiday_name}
                                     </td>
                                     <td className="darkGrey">
-                                      {ele?.paid_amount}/-
+                                      {new Date(
+                                        ele?.holiday_date
+                                      ).toLocaleString("en-US", {
+                                        year: "numeric",
+                                        month: "long",
+                                        day: "numeric",
+                                      })}{" "}
+                                      {ele?.paid_amount}
                                     </td>
                                   </tr>
                                 );

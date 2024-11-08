@@ -14,6 +14,7 @@ const CreateUser = () => {
     email: "",
     mobile: "",
     roles: "",
+    employee_type: "",
   };
   const navigate = useNavigate();
   const adminObject = JSON.parse(localStorage.getItem("TajurbaAdminToken"));
@@ -26,6 +27,15 @@ const CreateUser = () => {
   const errorMessageData = useSelector((state) => state.counter.errorData);
   const [loading, setLoading] = useState(false);
   const [errorMessage, SetErrorMessage] = useState("");
+  const [employeeType, setEmployeeType] = useState([
+    "Admin",
+    "Management",
+    "Manager",
+    "Intern",
+    "Trainee",
+    "Employee",
+    "Contract",
+  ]);
 
   const dispatch = useDispatch();
 
@@ -43,6 +53,9 @@ const CreateUser = () => {
     //   /^(?!\.)[a-zA-Z0-9._%+-]{1,10}@([a-zA-Z0-9-]{1,10}\.){1,}[a-zA-Z]{2,}$/;
     const mobileregex = /^(\+\d{1,3}[- ]?)?\d{10}$/;
     const specialCharacter = /^[A-Za-z0-9 ]+$/;
+    if (!values?.employee_type) {
+      error.employee_type = "Please select employee type";
+    }
 
     if (!values?.email) {
       errors.email = "Please enter Email Id";
@@ -123,6 +136,7 @@ const CreateUser = () => {
             email: formValues?.email,
             status: profileStatus,
             image: profileImg,
+            employee_type: formValues?.employee_type,
             is_admin: 1,
             loggedin_via: "email",
             usertype_in: 1,
@@ -386,6 +400,33 @@ const CreateUser = () => {
                             })}
                           </select>
                           <p className="text-danger">{formErrors?.roles}</p>
+                        </div>
+                      </div>
+                      <div className="row ps-0 ps-md-4 mt-4">
+                        <div className="col-12">
+                          <h4 className="fw-bold mb-3">Employee Type</h4>
+                        </div>
+                        <hr className="borderHr" />
+                        <div className="col-4 mb-3">
+                          <select
+                            className="form-select bg-white"
+                            aria-label="Default select example"
+                            name="roles"
+                            onChange={(e) => handleChange(e)}
+                          >
+                            <option value="">Select</option>
+                            {employeeType?.map((ele, index) => {
+                              // if (ele?.is_active)
+                              return (
+                                <option key={index} value={ele}>
+                                  {ele}
+                                </option>
+                              );
+                            })}
+                          </select>
+                          <p className="text-danger">
+                            {formErrors?.employee_type}
+                          </p>
                         </div>
                       </div>
 
