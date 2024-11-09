@@ -5,6 +5,7 @@ import DateAndTimeLayout from "../../Common/DateAndTimeLayout";
 import { useFormik } from "formik";
 import API from "../../../Api/Api";
 import { ToastContainer, toast } from "react-toastify";
+import { Tooltip } from "antd";
 
 const SubscriptionPlans = () => {
   const adminObject = JSON.parse(localStorage.getItem("TajurbaAdminToken"));
@@ -109,7 +110,7 @@ const SubscriptionPlans = () => {
         agent: "leave_application",
         function: "get_leave_application"
       }).then((response) => {
-        console.log("leave",response);
+        console.log("leave", response);
         if (response?.data?.data?.status === 200) {
           setLeaveData(response.data.data.data);
         }
@@ -377,16 +378,13 @@ const SubscriptionPlans = () => {
                                 })}
                               </td>
                               <td>{ele?.status}</td>
-                              <td>{ele?.leave_reason}</td>
-
-                              {/* <td>
-                                <button
-                                  className="btn btn-sm btn-primary"
-                                  onClick={() => handleEdit(ele)}
-                                >
-                                  Edit
-                                </button>
-                              </td> */}
+                              <td>
+                                <Tooltip title={ele?.leave_reason?.length > 20 ? ele.leave_reason : ""}>
+                                  {ele?.leave_reason?.length > 20
+                                    ? `${ele.leave_reason.slice(0, 20)}...`
+                                    : ele.leave_reason} 
+                                </Tooltip>
+                              </td>
                             </tr>
                           );
                         })

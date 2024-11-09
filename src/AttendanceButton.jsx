@@ -101,6 +101,7 @@
 import { useEffect, useState } from "react";
 import { useAttendance } from "./AttendanceContext";
 import API from "./Api/Api";
+import { Tooltip } from "antd";
 
 const AttendanceButton = () => {
   // const { attendanceStatus, toggleAttendance, userLocation } = useAttendance();
@@ -193,15 +194,22 @@ const AttendanceButton = () => {
   };
 
   return (
-    <div>
-      {isWithinRadius ? (
-        <button onClick={handleAttendance}>
-          {attendanceStatus === "logged_in" ? "Logout" : "Login"}
-        </button>
-      ) : (
-        <p>You are not within the office radius.</p>
-      )}
-    </div>
+    <div style={{ paddingRight: "20px" }}>
+    <Tooltip title={!isWithinRadius ? "You are not within the office radius." : ""}>
+      <button
+        onClick={handleAttendance}
+        disabled={!isWithinRadius}
+        style={{
+          width: "80px",
+          color: "#FFFFFF",
+          cursor: !isWithinRadius ? "not-allowed" : "pointer",
+          opacity: !isWithinRadius ? 0.6 : 1, // Add a dim effect for disabled
+        }}
+      >
+        {attendanceStatus === "logged_in" ? "Logout" : "Login"}
+      </button>
+    </Tooltip>
+  </div>
   );
 };
 
