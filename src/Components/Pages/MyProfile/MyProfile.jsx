@@ -26,7 +26,7 @@ const MyProfile = () => {
     roles: "",
     image: "",
   };
-
+  console.log(userProfileDetails, "djsafdjfls");
   const navigate = useNavigate();
   const [formValues, setFormValues] = useState(initialValues);
   const [formErrors, setFormErrors] = useState({});
@@ -57,6 +57,7 @@ const MyProfile = () => {
           user_id: parseInt(id),
         },
       }).then((response) => {
+        console.log("details of user", response);
         if (response?.data?.data?.status === 200) {
           // console.log(
           //   "response for Get User details api",
