@@ -203,6 +203,7 @@ import { useFormik } from "formik";
 import API from "../../../Api/Api";
 import { ToastContainer, toast } from "react-toastify";
 import FilterSearch from "../../Common/FilterSearch";
+import { EditFilled } from "@ant-design/icons";
 
 const Feed = () => {
   const adminObject = JSON.parse(localStorage.getItem("TajurbaAdminToken"));
@@ -310,21 +311,21 @@ const Feed = () => {
   const handleSave = () => {
     SetErrorMessage("");
     setLoading(true);
-  
+
     const apiData = {
       holiday_name: formik.values.holiday_name,
       holiday_date: formik.values.holiday_date,
       is_compulsory: formik.values.is_compulsory,
     };
-  
+
     const agentType = "holiday_create";
     const functionType = isEditMode ? "update_holiday_list" : null;
-  
+
     // Conditionally add ID for edit functionality
     if (isEditMode && selectedItem) {
       apiData["holiday_id"] = selectedItem._id;
     }
-  
+
     try {
       API?.CommanApiCall({
         data: apiData,
@@ -339,7 +340,7 @@ const Feed = () => {
           navigate(0);
         } else if (response?.data?.data?.status === 201) {
           SetErrorMessage(response?.data?.data?.message);
-  
+
           setTimeout(() => {
             SetErrorMessage("");
           }, 5000);
@@ -353,7 +354,7 @@ const Feed = () => {
   const handleEdit = (item) => {
     setSelectedItem(item);
     setIsEditMode(true);
-    formik.setValues({ 
+    formik.setValues({
       holiday_name: item.holiday_name,
       holiday_date: new Date(item.holiday_date).toISOString().split("T")[0],
       is_compulsory: item.is_compulsory,
@@ -517,11 +518,11 @@ const Feed = () => {
               <table className="table mb-0 tablesWrap">
                 <thead>
                   <tr>
-                    <th>S.NO.</th>
+                    <th>S.No.</th>
                     <th className="">Holiday Name</th>
-                    <th>On Date</th>
-                    <th>Created On</th>
                     <th>Holiday Type</th>
+                    <th>Holiday Date</th>
+                    <th>Created On</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -544,6 +545,9 @@ const Feed = () => {
                               <td>{index + 1}.</td>
                               <td>{ele?.holiday_name}</td>
                               <td>
+                                {ele?.is_compulsory ? "Mandatory" : "Optional"}
+                              </td>
+                              <td>
                                 {new Date(ele?.holiday_date).toLocaleString(
                                   "en-US",
                                   {
@@ -560,21 +564,21 @@ const Feed = () => {
                                     year: "numeric",
                                     month: "long",
                                     day: "numeric",
-                                    hour: "2-digit",
-                                    minute: "2-digit",
-                                    hour12: true,
                                   }
                                 )}
                               </td>
-                              <td>
-                                {ele?.is_compulsory ? "Mandatory" : "Optional"}
-                              </td>
+
                               <td>
                                 <button
-                                  className="btn btn-sm btn-primary"
+                                  className="btn btn-sm  "
                                   onClick={() => handleEdit(ele)}
                                 >
-                                  Edit
+                                  <EditFilled
+                                    style={{
+                                      fontSize: "20px",
+                                      color: "#1EB9F3",
+                                    }}
+                                  />
                                 </button>
                               </td>
                               {/* <td>

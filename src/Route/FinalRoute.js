@@ -175,7 +175,7 @@ const AdminRoute = [
     // exact: true,
   },
   {
-    path: RouteName.ContentCreation.CreateNewContentCreation,
+    path: RouteName.ContentCreation.CreateLeave,
     element: <CreateNewContentCreation />,
     exact: true,
     protected: true,
@@ -310,7 +310,7 @@ const AdminRoute = [
   },
 
   {
-    path: RouteName.ContentCreation.Moderator.Moderator,
+    path: RouteName.ContentCreation.CreditLeaveCreation,
     element: <Moderator />,
     exact: true,
     protected: true,
