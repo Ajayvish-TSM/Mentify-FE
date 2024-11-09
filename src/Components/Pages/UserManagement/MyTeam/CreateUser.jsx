@@ -411,7 +411,7 @@ const CreateUser = () => {
                           <select
                             className="form-select bg-white"
                             aria-label="Default select example"
-                            name="roles"
+                            name="employee_type"
                             onChange={(e) => handleChange(e)}
                           >
                             <option value="">Select</option>
