@@ -16,6 +16,8 @@ const RouteName = {
     MyProfileEdit: "my-profile-edit",
   },
   ContentCreation: {
+    CreateLeave: "create-leave",
+    CreditLeaveCreation: "leave-credit-create",
     CreateNewContentCreation: "create-new-content-creation",
     CreateContent: "create-new-content-creation/create-content/:id",
     CreateShort: "create-short",

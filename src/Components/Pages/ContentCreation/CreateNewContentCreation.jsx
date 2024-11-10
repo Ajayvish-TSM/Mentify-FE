@@ -10,6 +10,8 @@ import AdminRoute from "./../../../Route/RouteDetails";
 import baseApi from "../../../Api/config";
 import { ToastContainer, toast } from "react-toastify";
 import FilterSearch from "../../Common/FilterSearch";
+import { EditFilled } from "@ant-design/icons";
+import { isEditable } from "@testing-library/user-event/dist/utils";
 
 const CreateNewContentCreation = () => {
   const adminObject = JSON.parse(localStorage.getItem("TajurbaAdminToken"));
@@ -70,7 +72,7 @@ const CreateNewContentCreation = () => {
     initialValues: {
       leave_name: "",
       leave_code: "",
-      leaves: "",
+
       createdAt: "",
     },
     onSubmit: (values, { setSubmitting }) => {
@@ -111,22 +113,24 @@ const CreateNewContentCreation = () => {
     formik.setValues({
       leave_code: item.leave_code,
       leave_name: item.leave_name,
-      leaves: item.leaves,
     });
   };
 
   const handleSave = () => {
     SetErrorMessage("");
     setLoading(true);
+    const apiData = {
+      leave_code: formik.values.leave_code,
+      leave_name: formik.values.leave_name,
+      leaves: formik.values.leaves,
+    };
+    if (editItemId) {
+      apiData["leave_id"] = editItemId;
+    }
     try {
       API?.CommanApiCall({
-        data: {
-          leave_code: formik.values.leave_code,
-          leave_name: formik.values.leave_name,
-          leaves: formik.values.leaves,
-        },
+        data: apiData,
         agent: editItemId ? "leave_management_update" : "leave_management",
-        id: editItemId,
       }).then((response) => {
         console.log(response);
         if (response?.data?.data?.status === 200) {
@@ -163,27 +167,6 @@ const CreateNewContentCreation = () => {
                   <h3 className="headText mt-2 mb-2 fw-bold">Create Leave</h3>
                 </div>
               </div>
-            </div>
-            <div className="col-6">
-              {CheckAccess ? (
-                <div className="saveBtn">
-                  <button
-                    className="btn profileBtn border-radius-5 text-white border-radius-10 px-4 float-end"
-                    onClick={formik.handleSubmit}
-                    type="submit"
-                    disabled={loading}
-                  >
-                    {loading && (
-                      <span
-                        className="spinner-border spinner-border-sm me-2"
-                        role="status"
-                        aria-hidden="true"
-                      ></span>
-                    )}
-                    Submit
-                  </button>
-                </div>
-              ) : null}
             </div>
           </div>
 
@@ -260,6 +243,27 @@ const CreateNewContentCreation = () => {
                           {formik.errors.category}
                         </div>
                       ) : null}
+                      <div>
+                        {CheckAccess ? (
+                          <div className="saveBtn">
+                            <button
+                              className="btn profileBtn border-radius-5 text-white border-radius-10 px-4 float-end"
+                              onClick={formik.handleSubmit}
+                              type="submit"
+                              disabled={loading}
+                            >
+                              {loading && (
+                                <span
+                                  className="spinner-border spinner-border-sm me-2"
+                                  role="status"
+                                  aria-hidden="true"
+                                ></span>
+                              )}
+                              Submit
+                            </button>
+                          </div>
+                        ) : null}
+                      </div>
                     </div>
                     {/* <div className="row mb-3">
                       <div className="col-12">
@@ -524,21 +528,26 @@ const CreateNewContentCreation = () => {
                               <td>{ele?.leave_code}</td>
                               <td>{ele?.leave_name}</td>
                               <td>
-                                {new Date(ele?.createdAt).toLocaleString("en-US", {
-                                  year: "numeric",
-                                  month: "long",
-                                  day: "numeric",
-                                  hour: "2-digit",
-                                  minute: "2-digit",
-                                  hour12: true
-                                })}
+                                {new Date(ele?.createdAt).toLocaleString(
+                                  "en-US",
+                                  {
+                                    year: "numeric",
+                                    month: "long",
+                                    day: "numeric",
+                                  }
+                                )}
                               </td>
                               <td>
                                 <button
-                                  className="btn btn-sm btn-primary"
+                                  className="btn btn-sm  "
                                   onClick={() => handleEdit(ele)}
                                 >
-                                  Edit
+                                  <EditFilled
+                                    style={{
+                                      fontSize: "20px",
+                                      color: "#1EB9F3",
+                                    }}
+                                  />
                                 </button>
                               </td>
                             </tr>

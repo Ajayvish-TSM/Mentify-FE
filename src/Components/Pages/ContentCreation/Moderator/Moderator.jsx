@@ -187,7 +187,6 @@
 //     validate,
 //   });
 
-
 //   return (
 //     <>
 //       {/* <AppLayout> */}
@@ -291,9 +290,9 @@
 //                               >
 //                                 <span>Rejected by Publisher</span>
 //                               </a>
-//                             </li> 
+//                             </li>
 //                         </ul>
-//                       </div> 
+//                       </div>
 //                       <FilterSearch
 //                         FilterOptions={FilterOptions}
 //                         search={search}
@@ -583,7 +582,7 @@
 //                                         </div>
 //                                         <div className="row mb-3" id="rupees">
 //                                           <div className="col-6">
-//                                             {/* <label className="form-label">Mention the discounted amount</label> 
+//                                             {/* <label className="form-label">Mention the discounted amount</label>
 //                                             <input
 //                                               type="number"
 //                                               className="form-control"
@@ -1091,7 +1090,6 @@
 
 // export default Moderator;
 
-
 import React, { useEffect, useState } from "react";
 // import AppLayout from "../../Loyout/App";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
@@ -1220,7 +1218,7 @@ const Moderator = () => {
           agent: "admin_user_list",
           page_no: 1,
           limit: 100,
-          filter: {}
+          filter: {},
         });
         if (response?.status === 200) {
           setEmployeeList(response.data.data.data);
@@ -1239,9 +1237,9 @@ const Moderator = () => {
       API?.CommanApiCall({
         data: {},
         agent: "leave_credit",
-        function : "get_credit_list",
+        function: "get_credit_list",
       }).then((response) => {
-        console.log("in fetch",response);
+        console.log("in fetch", response);
         if (response?.data?.data?.status === 200) {
           setListingData(response.data.data.data);
         }
@@ -1250,7 +1248,7 @@ const Moderator = () => {
       console.log(error);
     }
   }, []);
-  
+
   const handleSave = () => {
     SetErrorMessage("");
     setLoading(true);
@@ -1268,7 +1266,7 @@ const Moderator = () => {
           setLoading(false);
           navigate(0);
         } else if (response?.data?.data?.status === 201) {
-          console.log("errorrr")
+          console.log("errorrr");
           SetErrorMessage(response?.data?.data?.message);
 
           setTimeout(() => {
@@ -1354,7 +1352,9 @@ const Moderator = () => {
                                   selected=""
                                   value={ele?.leave_code}
                                   key={index}
-                                  checked={formik.values.leave_code.includes(ele)}
+                                  checked={formik.values.leave_code.includes(
+                                    ele
+                                  )}
                                   onChange={(e) => {
                                     const isChecked = e.target.checked;
                                     if (isChecked) {
@@ -1518,14 +1518,14 @@ const Moderator = () => {
                               <td>{ele?._id}</td>
                               <td>{ele?.assigned_leaves}</td>
                               <td>
-                                {new Date(ele?.assigned_date).toLocaleString("en-US", {
-                                  year: "numeric",
-                                  month: "long",
-                                  day: "numeric",
-                                  hour: "2-digit",
-                                  minute: "2-digit",
-                                  hour12: true
-                                })}
+                                {new Date(ele?.assigned_date).toLocaleString(
+                                  "en-US",
+                                  {
+                                    year: "numeric",
+                                    month: "long",
+                                    day: "numeric",
+                                  }
+                                )}
                               </td>
                               {/* <td>
                                 <NavLink
@@ -1564,4 +1564,3 @@ const Moderator = () => {
 };
 
 export default Moderator;
-
