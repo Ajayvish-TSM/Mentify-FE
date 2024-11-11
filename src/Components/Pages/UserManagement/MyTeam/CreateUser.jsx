@@ -1,5 +1,5 @@
 /* eslint-disable */
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 // import AppLayout from "../../../Loyout/App";
 import { NavLink, useNavigate } from "react-router-dom";
 import DateAndTimeLayout from "../../../Common/DateAndTimeLayout";
@@ -14,7 +14,8 @@ const CreateUser = () => {
     email: "",
     mobile: "",
     roles: "",
-    employee_type: "",
+    // employee_type: "",
+    reporting_to: "",
   };
   const navigate = useNavigate();
   const adminObject = JSON.parse(localStorage.getItem("TajurbaAdminToken"));
@@ -36,7 +37,8 @@ const CreateUser = () => {
     "Employee",
     "Contract",
   ]);
-
+  const [EmployeeList, setEmployeeList] = useState([]);
+  const fileInputRef = useRef(null);
   const dispatch = useDispatch();
 
   const handleChange = (e) => {
@@ -53,9 +55,6 @@ const CreateUser = () => {
     //   /^(?!\.)[a-zA-Z0-9._%+-]{1,10}@([a-zA-Z0-9-]{1,10}\.){1,}[a-zA-Z]{2,}$/;
     const mobileregex = /^(\+\d{1,3}[- ]?)?\d{10}$/;
     const specialCharacter = /^[A-Za-z0-9 ]+$/;
-    if (!values?.employee_type) {
-      error.employee_type = "Please select employee type";
-    }
 
     if (!values?.email) {
       errors.email = "Please enter Email Id";
@@ -70,6 +69,8 @@ const CreateUser = () => {
       errors.firstName = "Name cannot be blank";
     } else if (!specialCharacter.test(values?.firstName)) {
       errors.firstName = "Please enter valid Name";
+    } else if (!values?.reporting_to) {
+      errors.employee_type = "Please select Reporting To";
     }
     // else if (
     //   values?.firstName?.length < 3 ||
@@ -95,8 +96,31 @@ const CreateUser = () => {
 
     return errors;
   };
-
+  const handlePlusIconClick = () => {
+    fileInputRef.current.click();
+  };
   // Function for role listing
+  useEffect(() => {
+    const fetchEmployeeList = async () => {
+      try {
+        const response = await API.CommanApiCall({
+          data: {},
+          agent: "admin_user_list",
+          page_no: 1,
+          limit: 100,
+          filter: {},
+        });
+        if (response?.status === 200) {
+          setEmployeeList(response.data.data.data);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchEmployeeList();
+  }, []);
+
   useEffect(() => {
     try {
       var payload = {
@@ -136,7 +160,8 @@ const CreateUser = () => {
             email: formValues?.email,
             status: profileStatus,
             image: profileImg,
-            employee_type: formValues?.employee_type,
+            // employee_type: formValues?.employee_type,
+            reporting_to: formValues?.reporting_to,
             is_admin: 1,
             loggedin_via: "email",
             usertype_in: 1,
@@ -186,7 +211,10 @@ const CreateUser = () => {
     setFormErrors(validate(formValues));
     setIsSubmit(true);
   };
-
+  const handleReset = () => {
+    setFormValues(initialValues);
+    setProfileImg("");
+  };
   // Function for upload File
   const UploadFile = (file) => {
     const allowedTypes = ["image/jpeg", "image/png"];
@@ -253,13 +281,12 @@ const CreateUser = () => {
             <div className="col-6">
               <div className="col-12 d-flex justify-content-end">
                 <div className="cancelBtn">
-                  <NavLink
-                    to="/my-team"
-                    disabled={loading}
+                  <button
+                    onClick={handleReset}
                     className="btn btn-reject me-3 px-4"
                   >
-                    <span className="">Close</span>
-                  </NavLink>
+                    <span className="">Reset</span>
+                  </button>
                 </div>
                 <div className="saveBtn">
                   <button
@@ -300,6 +327,7 @@ const CreateUser = () => {
                             </span> */}
                           <input
                             type="file"
+                            ref={fileInputRef}
                             className="custom-file-input"
                             id="customFile"
                             name="filename"
@@ -319,7 +347,10 @@ const CreateUser = () => {
                           />
                         </p>
                         <div className="mx-auto text-center">
-                          <button className="btn btn-main btn-main-orange btn-sm mt-3">
+                          <button
+                            className="btn btn-main btn-main-orange btn-sm mt-3"
+                            onClick={handlePlusIconClick}
+                          >
                             <i className="fa fa-solid fa-plus textBlack"></i>
                           </button>
                           <p className="text-danger">
@@ -343,6 +374,7 @@ const CreateUser = () => {
                             placeholder=" Enter Full Name"
                             name="firstName"
                             onChange={(e) => handleChange(e)}
+                            value={formValues?.firstName}
                           />
                           <p className="text-danger">{formErrors?.firstName}</p>
                         </div>
@@ -357,6 +389,7 @@ const CreateUser = () => {
                                 className="form-control bg-white"
                                 placeholder="Enter Email"
                                 onChange={(e) => handleChange(e)}
+                                value={formValues?.email}
                               />{" "}
                               <p className="text-danger">{formErrors?.email}</p>
                             </div>
@@ -368,6 +401,7 @@ const CreateUser = () => {
                                 className="form-control bg-white"
                                 placeholder="Enter Mobile No."
                                 onChange={(e) => handleChange(e)}
+                                value={formValues?.mobile}
                               />
                               <p className="text-danger">
                                 {formErrors?.mobile}
@@ -388,6 +422,7 @@ const CreateUser = () => {
                             aria-label="Default select example"
                             name="roles"
                             onChange={(e) => handleChange(e)}
+                            value={formValues?.roles}
                           >
                             <option value="">Select</option>
                             {roleListing?.map((ele, index) => {
@@ -404,25 +439,38 @@ const CreateUser = () => {
                       </div>
                       <div className="row ps-0 ps-md-4 mt-4">
                         <div className="col-12">
-                          <h4 className="fw-bold mb-3">Employee Type</h4>
+                          <h4 className="fw-bold mb-3">Reporting To</h4>
                         </div>
                         <hr className="borderHr" />
                         <div className="col-4 mb-3">
                           <select
                             className="form-select bg-white"
                             aria-label="Default select example"
-                            name="employee_type"
+                            name="reporting_to"
                             onChange={(e) => handleChange(e)}
+                            value={formValues?.reporting_to}
                           >
                             <option value="">Select</option>
-                            {employeeType?.map((ele, index) => {
+                            {/* {employeeType?.map((ele, index) => {
                               // if (ele?.is_active)
                               return (
                                 <option key={index} value={ele}>
                                   {ele}
                                 </option>
                               );
-                            })}
+                            })} */}
+                            {EmployeeList &&
+                              EmployeeList?.map((ele, index) => {
+                                return (
+                                  <option
+                                    selected=""
+                                    value={ele?._id}
+                                    key={index}
+                                  >
+                                    {ele?.first_name}
+                                  </option>
+                                );
+                              })}
                           </select>
                           <p className="text-danger">
                             {formErrors?.employee_type}
@@ -459,9 +507,9 @@ const CreateUser = () => {
                               <div className="layer"></div>
                             </div>
 
-                            <p className="mt-1">
+                            {/* <p className="mt-1">
                               {profileStatus === false ? "Inactive" : "Active"}
-                            </p>
+                            </p> */}
                           </div>
                         </div>
                       </div>

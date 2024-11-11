@@ -1101,6 +1101,7 @@ import API from "../../../../Api/Api";
 //import baseApi from "../../../Api/config";
 import { ToastContainer, toast } from "react-toastify";
 import FilterSearch from "../../../Common/FilterSearch";
+import { _ } from "ajv";
 
 const Moderator = () => {
   const adminObject = JSON.parse(localStorage.getItem("TajurbaAdminToken"));
@@ -1109,6 +1110,7 @@ const Moderator = () => {
   const TajurbaAdmin_priviledge_data = JSON.parse(
     localStorage.getItem("TajurbaAdmin_priviledge_data")
   );
+  const admin_id = JSON.parse(localStorage.getItem("TajurbaAdminUser"));
 
   const [currentTab, setCurrentTab] = useState(
     state?.moderator_previousTab
@@ -1120,19 +1122,11 @@ const Moderator = () => {
     TajurbaAdmin_priviledge_data &&
     TajurbaAdmin_priviledge_data.some(
       (ele) =>
-        ele.title === "Content Creation" &&
+        ele.title === "Leave Management" &&
         ele.is_active === true &&
         ele?.submenu &&
         ele?.submenu.some(
-          (sub) =>
-            sub.title === "Creator" &&
-            sub.is_active === true &&
-            sub?.submenuChild.some(
-              (subMenuChild) =>
-                subMenuChild.title === "Create new" &&
-                subMenuChild.is_active === true &&
-                subMenuChild.is_edit === true
-            )
+          (sub) => sub.title === "Leave Credits" && sub.is_active === true
         )
     );
 
@@ -1176,7 +1170,7 @@ const Moderator = () => {
       leave_code: "",
       assigned_leaves: "",
       //assigned_date: "",
-      assigned_by: "658d616aaab868cac6542f55",
+      assigned_by: admin_id._id,
     },
     onSubmit: (values, { setSubmitting }) => {
       const errors = validate(values);
@@ -1515,7 +1509,11 @@ const Moderator = () => {
                             <tr key={index}>
                               <td>{index + 1}.</td>
                               <td>{ele?.leave_code}</td>
-                              <td>{ele?._id}</td>
+                              <td>
+                                {EmployeeList.find(
+                                  (emp) => emp?._id === ele?.user_id
+                                )?.first_name || "NA"}
+                              </td>
                               <td>{ele?.assigned_leaves}</td>
                               <td>
                                 {new Date(ele?.assigned_date).toLocaleString(

@@ -20,6 +20,7 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 import moment from "moment";
 import tippy from "tippy.js";
 import "tippy.js/dist/tippy.css";
+import { LinkedinFilled } from "@ant-design/icons";
 
 const Dashboard = () => {
   const [duration, setDuration] = useState("monthly");
@@ -734,150 +735,110 @@ const Dashboard = () => {
                 </div>
               </div> */}
             <div className="col-xl-6">
-              <div className="main-card p-0">
-                <div className="custum-orange-bgbox"></div>
-                <div className="px-4">
-                  <div className="pofileInfo">
-                    <div className="row d-flex align-items-center">
-                      <div className="">
-                        <div className="d-flex align-items-center">
-                          <img
-                            // crossOrigin="Anonymous"
-                            src={adminObject && adminObject?.image}
-                            alt="Profile"
-                            className="rounded-0 profile"
-                            id="profile-picture-custome"
-                          />
-                          <div className="consumerProfileText ms-3">
-                            <h2 className="fw-bold letter-spacing-6">
-                              {adminObject && adminObject?.first_name}{" "}
-                              {adminObject && adminObject?.last_name}
-                            </h2>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="mt-4">
-                    <p>Personal Details</p>
-                    <hr className="borderHr mb-4" />
-                    <div className="row pb-5">
-                      <div className="col-6">
-                        {" "}
-                        <div className="">
-                          <p>Email</p>
-                          <h5 className="fw-bold">
-                            {" "}
-                            {adminObject && adminObject?.email}
-                          </h5>
-                        </div>
-                        <div className="mt-5">
-                          <p>Employee Type</p>
-                          <h5 className="fw-bold">
-                            {adminObject && adminObject?.result?.name}
-                          </h5>
-                        </div>
-                        <div className="mt-5">
-                          <p>Registration Date</p>
-                          <h5 className="fw-bold">
-                            {moment(
-                              adminObject && adminObject?.createdAt
-                            ).format("DD-MM-YYYY")}
-                          </h5>
-                        </div>
-                      </div>
-                      <div className="col-6">
-                        <div className="border-left-grey h-100">
-                          <div className="ps-4">
-                            {" "}
-                            <div className="">
-                              <p>Contact</p>
-                              <h5 className="fw-bold">
-                                {" "}
-                                {adminObject && adminObject?.mobile_no}
-                              </h5>
-                            </div>
-                            {/* <div className="mt-5">
-                                <p>Address</p>
-                                <h5 className="fw-bold">
-                                  High Street, NY, 123456
-                                </h5>
-                              </div> */}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="col-xl-6">
-              <div className="main-card bg-white p-4">
-                <h3 className="fw-bold">My To Do </h3>
-                <div>
-                  {/* <OwlCarousel
-                    className="owl-theme"
-                    loop
-                    margin={10}
-                    nav
-                    items={1}
-                    dots={false}
-                    // onTranslated={handleDateNav}
-                  > */}
+              <div
+                style={{
+                  backgroundColor: "white",
+                  borderRadius: "20px",
+                  height: "255px",
+                  padding: "25px",
+                  display: "flex",
+                  alignItems: "center",
+                  marginBottom: "16px",
+                }}
+              >
+                <img
+                  // crossOrigin="Anonymous"
+                  src={adminObject && adminObject?.image}
+                  alt="Profile"
+                  className="  profile "
+                  id="profile-picture-custome"
+                />
+                <div className="consumerProfileText ms-3">
+                  <h2
+                    className="fw-bold letter-spacing-6"
+                    style={{ marginBottom: "20px" }}
+                  >
+                    {adminObject && adminObject?.first_name}{" "}
+                    {adminObject && adminObject?.last_name}
+                  </h2>
                   <div>
-                    <div>
+                    <div
+                      style={{
+                        display: "flex",
+                        gap: "2rem",
+                      }}
+                    >
                       <div>
-                        <div>
-                          {events && events?.length > 0 ? (
-                            <FullCalendar
-                              plugins={[
-                                dayGridPlugin,
-                                timeGridPlugin,
-                                interactionPlugin,
-                              ]}
-                              // headerToolbar={{
-                              //   start:
-                              //     "dayGridMonth,timeGridWeek,timeGridDay",
-                              //   center: "title",
-                              //   end: "prevYear,prev,today,next,nextYear",
-                              // }}
-                              // buttonText={{
-                              //   // Custom button text
-                              //   today: "Today",
-                              //   prevYear: "Previous Year",
-                              //   nextYear: "Next Year",
-                              // }}
-                              initialView="dayGridMonth"
-                              eventTimeFormat={{
-                                hour: "numeric",
-                                minute: "2-digit",
-                                meridiem: "short",
-                              }}
-                              weekends={true}
-                              ref={calendarRef}
-                              events={events}
-                              eventContent={renderEventContent}
-                              datesSet={handleDateNav}
-                              progressiveEventRendering={true}
-                              dayCellDidMount={handleDayCellDidMount}
-                              eventDisplay="list-item"
-                            />
-                          ) : (
-                            <div class="d-flex justify-content-center">
-                              <div class="spinner-border" role="status">
-                                <span class="visually-hidden">Loading...</span>
-                              </div>
-                            </div>
-                          )}
-                        </div>
+                        <p style={{ color: "#A9A9A9" }}>
+                          Role:{" "}
+                          <span
+                            style={{
+                              color: "black",
+                              fontWeight: "normal",
+                              fontSize: "13px",
+                              paddingLeft: "4px",
+                            }}
+                          >
+                            {adminObject.role_details.name}
+                          </span>
+                        </p>
+                      </div>
+                      <div>
+                        <p style={{ color: "#A9A9A9" }}>
+                          position:{" "}
+                          <span
+                            style={{
+                              color: "black",
+                              fontWeight: "normal",
+                              fontSize: "13px",
+                              paddingLeft: "4px",
+                            }}
+                          >
+                            {adminObject.employee_type || "Management"}
+                          </span>
+                        </p>
                       </div>
                     </div>
                   </div>
-                  {/* </OwlCarousel> */}
+                  <div>
+                    <p style={{ color: "#A9A9A9" }}>
+                      Email:{" "}
+                      <span
+                        style={{
+                          color: "black",
+                          fontWeight: "normal",
+                          fontSize: "13px",
+                          paddingLeft: "4px",
+                        }}
+                      >
+                        {adminObject.email}
+                      </span>
+                    </p>
+                  </div>
+                  <div>
+                    <p style={{ color: "#A9A9A9" }}>
+                      Phone:{" "}
+                      <span
+                        style={{
+                          color: "black",
+                          fontWeight: "normal",
+                          fontSize: "13px",
+                          paddingLeft: "4px",
+                        }}
+                      >
+                        +(91) {adminObject.mobile_no}
+                      </span>
+                    </p>
+                  </div>
+                  <LinkedinFilled
+                    style={{ fontSize: "1.5rem", color: "#1877F2" }}
+                  />
                 </div>
               </div>
-              <div className="main-card bg-white p-4">
+              <div
+                className="main-card bg-white p-4"
+                style={{ borderRadius: "25px" }}
+              >
                 <h3 className="fw-bold">Holidays</h3>
 
                 {/* <img src={contentConsumtionImg} className="img-fluid w-70" /> */}
@@ -949,6 +910,146 @@ const Dashboard = () => {
                       </tbody>
                     </table>
                   </div>
+                </div>
+              </div>
+              {/* <div className="main-card p-0">
+                <div className="px-4">
+                  <div className="pofileInfo">
+                    <div className="row d-flex align-items-center">
+                      <div className="">
+                        <div className="d-flex align-items-center">
+                          <img
+                            // crossOrigin="Anonymous"
+                            src={adminObject && adminObject?.image}
+                            alt="Profile"
+                            className="  profile "
+                            id="profile-picture-custome"
+                          />
+                          <div className="consumerProfileText ms-3">
+                            <h2 className="fw-bold letter-spacing-6">
+                              {adminObject && adminObject?.first_name}{" "}
+                              {adminObject && adminObject?.last_name}
+                            </h2>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="mt-4">
+                    <p>Personal Details</p>
+                    <hr className="borderHr mb-4" />
+                    <div className="row pb-5">
+                      <div className="col-6">
+                        {" "}
+                        <div className="">
+                          <p>Email</p>
+                          <h5 className="fw-bold">
+                            {" "}
+                            {adminObject && adminObject?.email}
+                          </h5>
+                        </div>
+                        <div className="mt-5">
+                          <p>Employee Type</p>
+                          <h5 className="fw-bold">
+                            {adminObject && adminObject?.result?.name}
+                          </h5>
+                        </div>
+                        <div className="mt-5">
+                          <p>Registration Date</p>
+                          <h5 className="fw-bold">
+                            {moment(
+                              adminObject && adminObject?.createdAt
+                            ).format("DD-MM-YYYY")}
+                          </h5>
+                        </div>
+                      </div>
+                      <div className="col-6">
+                        <div className="border-left-grey h-100">
+                          <div className="ps-4">
+                            {" "}
+                            <div className="">
+                              <p>Contact</p>
+                              <h5 className="fw-bold">
+                                {" "}
+                                {adminObject && adminObject?.mobile_no}
+                              </h5>
+                            </div>
+                           
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div> */}
+            </div>
+            <div className="col-xl-6">
+              <div
+                className="main-card bg-white p-4"
+                style={{ borderRadius: "25px" }}
+              >
+                <h3 className="fw-bold">Attendance</h3>
+                <div>
+                  {/* <OwlCarousel
+                    className="owl-theme"
+                    loop
+                    margin={10}
+                    nav
+                    items={1}
+                    dots={false}
+                    // onTranslated={handleDateNav}
+                  > */}
+                  <div>
+                    <div>
+                      <div>
+                        <div>
+                          {events && events?.length > 0 ? (
+                            <FullCalendar
+                              plugins={[
+                                dayGridPlugin,
+                                timeGridPlugin,
+                                interactionPlugin,
+                              ]}
+                              // headerToolbar={{
+                              //   start:
+                              //     "dayGridMonth,timeGridWeek,timeGridDay",
+                              //   center: "title",
+                              //   end: "prevYear,prev,today,next,nextYear",
+                              // }}
+                              // buttonText={{
+                              //   // Custom button text
+                              //   today: "Today",
+                              //   prevYear: "Previous Year",
+                              //   nextYear: "Next Year",
+                              // }}
+                              initialView="dayGridMonth"
+                              eventTimeFormat={{
+                                hour: "numeric",
+                                minute: "2-digit",
+                                meridiem: "short",
+                              }}
+                              weekends={true}
+                              ref={calendarRef}
+                              events={events}
+                              eventContent={renderEventContent}
+                              datesSet={handleDateNav}
+                              progressiveEventRendering={true}
+                              dayCellDidMount={handleDayCellDidMount}
+                              eventDisplay="list-item"
+                            />
+                          ) : (
+                            <div class="d-flex justify-content-center">
+                              <div class="spinner-border" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  {/* </OwlCarousel> */}
                 </div>
               </div>
             </div>

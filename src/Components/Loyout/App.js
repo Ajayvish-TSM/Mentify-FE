@@ -237,7 +237,7 @@ const AppLayout = (props) => {
 
     ...(TajurbaAdmin_priviledge_data
       ? TajurbaAdmin_priviledge_data?.filter(
-          (ele) => ele?.title === "Content Creation" && ele?.is_active
+          (ele) => ele?.title === "Leave Management" && ele?.is_active
         ).map((ele, index) => ({
           key: "2",
           className: "navLi",
@@ -249,7 +249,8 @@ const AppLayout = (props) => {
               ? ele?.submenu
                   .filter(
                     (submenuItem) =>
-                      submenuItem?.title === "Creator" && submenuItem?.is_active
+                      submenuItem?.title === "Create Leave" &&
+                      submenuItem?.is_active
                   )
                   // .map((submenuItem, submenuItemIndex) => ({
                   //   key: "21",
@@ -362,7 +363,7 @@ const AppLayout = (props) => {
               ? ele?.submenu
                   .filter(
                     (submenuItem) =>
-                      submenuItem?.title === "Moderator" &&
+                      submenuItem?.title === "Leave Credits" &&
                       submenuItem?.is_active
                   )
                   .map((submenuItem) => ({
@@ -448,13 +449,13 @@ const AppLayout = (props) => {
 
     ...(TajurbaAdmin_priviledge_data
       ? TajurbaAdmin_priviledge_data?.filter(
-          (ele) => ele?.title === "Subsciption plans" && ele?.is_active
+          (ele) => ele?.title === "Apply Leave" && ele?.is_active
         ).map((ele, index) => ({
           key: "4",
           icon: <AppstoreOutlined />,
           // label: "Subscription Plans",
-          path: "/subscription-plans",
-          label: <NavLink to={"/subscription-plans"}>Leave Apply</NavLink>,
+          path: "/leave-apply",
+          label: <NavLink to={"/leave-apply"}>Leave</NavLink>,
         }))
       : []),
 
@@ -501,7 +502,7 @@ const AppLayout = (props) => {
                     className: "subUlModerator",
                     label: (
                       <NavLink style={{ display: "block" }} to={"/my-team"}>
-                        My Team
+                        Create User
                       </NavLink>
                     ),
                     children: [],
@@ -542,14 +543,14 @@ const AppLayout = (props) => {
       : []),
     ...(TajurbaAdmin_priviledge_data
       ? TajurbaAdmin_priviledge_data?.filter(
-          (ele) => ele?.title === "Feed" && ele?.is_active
+          (ele) => ele?.title === "Create Holiday" && ele?.is_active
         ).map((ele, index) => ({
           key: "7",
           icon: <AppstoreOutlined />,
           // label: "Events",
-          path: "/feed",
+          path: "/create-holiday",
 
-          label: <NavLink to={"/feed"}>Holiday Creation</NavLink>,
+          label: <NavLink to={"/create-holiday"}>Create Holiday</NavLink>,
         }))
       : []),
 

@@ -1063,6 +1063,8 @@ a {
 
 .profile {
   border: 5px solid #fff;
+  border-radius: 50%;
+  float: left;
 }
 
 .profileBg {
@@ -2153,6 +2155,9 @@ timeline start */
 .pofileInfo {
   position: relative;
   top: -30px;
+}
+.dashboard-profile-img {
+  border-radius: 50%;
 }
 
 .buynow-page {
