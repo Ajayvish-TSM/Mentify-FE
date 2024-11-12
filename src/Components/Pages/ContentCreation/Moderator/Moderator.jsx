@@ -1428,7 +1428,7 @@ const Moderator = () => {
                       <div className="col-8">
                         <label className="form-label">
                           <span className="mandatory-star me-1">*</span>
-                          Leave Balance
+                          No. of Leaves
                         </label>
 
                         <input
@@ -1486,7 +1486,7 @@ const Moderator = () => {
                     <th>S.No</th>
                     <th className="">Leave Code</th>
                     <th>Employee Name</th>
-                    <th>No. of Leaves</th>
+                    <th>Leave Balance</th>
                     <th>Credited On</th>
                   </tr>
                 </thead>

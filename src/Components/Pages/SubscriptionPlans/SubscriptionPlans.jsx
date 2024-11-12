@@ -67,7 +67,7 @@ const SubscriptionPlans = () => {
 
       if (Object.keys(errors).length === 0) {
         console.log("hhhhhhhhhhhhhhhhh");
-        // handleSave();
+        handleSave();
       } else {
         console.log("Validation errors:", errors);
       }
