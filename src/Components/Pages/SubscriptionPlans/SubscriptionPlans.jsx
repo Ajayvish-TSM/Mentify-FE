@@ -16,6 +16,7 @@ const SubscriptionPlans = () => {
     localStorage.getItem("TajurbaAdmin_priviledge_data")
   );
 
+  const [formErrors, setFormErrors] = useState({});
   const [currentTab, setCurrentTab] = useState(
     state?.moderator_previousTab
       ? state?.moderator_previousTab
@@ -25,24 +26,10 @@ const SubscriptionPlans = () => {
   const CheckAccess =
     TajurbaAdmin_priviledge_data &&
     TajurbaAdmin_priviledge_data.some(
-      (ele) =>
-        ele.title === "Content Creation" &&
-        ele.is_active === true &&
-        ele?.submenu &&
-        ele?.submenu.some(
-          (sub) =>
-            sub.title === "Creator" &&
-            sub.is_active === true &&
-            sub?.submenuChild.some(
-              (subMenuChild) =>
-                subMenuChild.title === "Create new" &&
-                subMenuChild.is_active === true &&
-                subMenuChild.is_edit === true
-            )
-        )
+      (ele) => ele.title === "Apply Leave" && ele.is_active === true
     );
 
-  const [errorMessage, SetErrorMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const [editItemId, setEditItemId] = useState(null);
 
@@ -75,9 +62,11 @@ const SubscriptionPlans = () => {
       status: "pending",
     },
     onSubmit: (values, { setSubmitting }) => {
+      console.log("ssssssssssssssssssssssssss");
       const errors = validate(values);
 
       if (Object.keys(errors).length === 0) {
+        console.log("hhhhhhhhhhhhhhhhh");
         handleSave();
       } else {
         console.log("Validation errors:", errors);
@@ -108,7 +97,7 @@ const SubscriptionPlans = () => {
       API?.CommanApiCall({
         data: {},
         agent: "leave_application",
-        function: "get_leave_application"
+        function: "get_leave_application",
       }).then((response) => {
         console.log("leave", response);
         if (response?.data?.data?.status === 200) {
@@ -175,7 +164,7 @@ const SubscriptionPlans = () => {
             <div className="col-6">
               <div className="row position-relative mb-3">
                 <div>
-                  <h3 className="headText mt-2 mb-2 fw-bold">Leave Apply</h3>
+                  <h3 className="headText mt-2 mb-2 fw-bold">Leave </h3>
                 </div>
               </div>
             </div>
@@ -234,7 +223,9 @@ const SubscriptionPlans = () => {
                                   selected=""
                                   value={ele?.leave_code}
                                   key={index}
-                                  checked={formik.values.leave_code.includes(ele)}
+                                  checked={formik.values.leave_code.includes(
+                                    ele
+                                  )}
                                   onChange={(e) => {
                                     const isChecked = e.target.checked;
                                     if (isChecked) {
@@ -313,7 +304,6 @@ const SubscriptionPlans = () => {
                         </div>
                       ) : null}
                     </div>
-
                   </div>
                 </div>
               </div>
@@ -364,25 +354,37 @@ const SubscriptionPlans = () => {
                               <td>{index + 1}.</td>
                               <td>{ele?.leave_code}</td>
                               <td>
-                                {new Date(ele?.from_date).toLocaleString("en-US", {
-                                  year: "numeric",
-                                  month: "long",
-                                  day: "numeric",
-                                })}
+                                {new Date(ele?.from_date).toLocaleString(
+                                  "en-US",
+                                  {
+                                    year: "numeric",
+                                    month: "long",
+                                    day: "numeric",
+                                  }
+                                )}
                               </td>
                               <td>
-                                {new Date(ele?.to_date).toLocaleString("en-US", {
-                                  year: "numeric",
-                                  month: "long",
-                                  day: "numeric",
-                                })}
+                                {new Date(ele?.to_date).toLocaleString(
+                                  "en-US",
+                                  {
+                                    year: "numeric",
+                                    month: "long",
+                                    day: "numeric",
+                                  }
+                                )}
                               </td>
                               <td>{ele?.status}</td>
                               <td>
-                                <Tooltip title={ele?.leave_reason?.length > 20 ? ele.leave_reason : ""}>
+                                <Tooltip
+                                  title={
+                                    ele?.leave_reason?.length > 20
+                                      ? ele.leave_reason
+                                      : ""
+                                  }
+                                >
                                   {ele?.leave_reason?.length > 20
                                     ? `${ele.leave_reason.slice(0, 20)}...`
-                                    : ele.leave_reason} 
+                                    : ele.leave_reason}
                                 </Tooltip>
                               </td>
                             </tr>

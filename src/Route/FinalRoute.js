@@ -493,7 +493,7 @@ const AdminRoute = [
     // exact: true,
   },
   {
-    path: RouteName.SubscriptionPlans.SubscriptionPlans,
+    path: RouteName.SubscriptionPlans.leaveApply,
     element: <SubscriptionPlans />,
     exact: true,
     protected: true,

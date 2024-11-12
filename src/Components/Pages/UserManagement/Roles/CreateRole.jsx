@@ -265,7 +265,7 @@ const CreateRole = () => {
               <div class="d-flex w-100">
                 <div class="mt-1 me-2">
                   <span class="mandatory-star me-1">*</span>
-                  <label class="form-label mb-0">Describe:</label>
+                  <label class="form-label mb-0">Description:</label>
                 </div>
                 <div class=" flex-grow-1">
                   <div class="w-100">

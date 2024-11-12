@@ -56,6 +56,7 @@ const RouteName = {
     },
   },
   SubscriptionPlans: {
+    leaveApply: "leave-apply",
     SubscriptionPlans: "subscription-plans",
     CreateSubscriptionPlans: "subscription-plans/create-subscription-plans",
   },
@@ -114,7 +115,7 @@ const RouteName = {
     },
   },
   Feed: {
-    Feed: "feed",
+    Feed: "create-holiday",
     ConsumerActivityProfile: "feed/consumer-activity-profile/:id",
   },
 
