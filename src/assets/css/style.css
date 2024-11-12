@@ -318,7 +318,7 @@ a {
   color: #383cc1;
 }
 .textlightBlue {
-  color: #120e43;
+  color: #62a6dc;
 }
 
 .darkGrey {
@@ -555,7 +555,7 @@ a {
 .login-page {
   min-height: 100vh;
   /* background: url("../images/background/leaf-bg.webp"); */
-  background-color: #120e43;
+  background-color: #62a6dc;
   background-position: center center;
   background-size: cover;
   display: flex;
@@ -1017,7 +1017,7 @@ a {
   /* background: url("../images/login-banner.png"); */
   background-position: center center;
   background-size: cover;
-  background-color: #120e43;
+  background-color: #62a6dc;
 }
 
 .btnBackArrow,
@@ -1856,7 +1856,7 @@ timeline start */
 /* Consumer */
 
 .orangeLeftB {
-  border-left: 8px solid #120e43;
+  border-left: 8px solid #62a6dc;
 }
 
 .secondaryLeftB {

@@ -11,7 +11,6 @@ const AttendanceButton = () => {
 
   const adminObject = JSON.parse(localStorage.getItem("TajurbaAdminUser"));
   const userL = JSON.parse(localStorage.getItem("userLocation"));
-  // console.log(userL, "jdsfldslfjlsdjflsdjlfjl");
 
   // Static office coordinates for testing
   const officeCoordinates = {
@@ -90,9 +89,14 @@ const AttendanceButton = () => {
           disabled={!isWithinRadius}
           style={{
             width: "80px",
-            color: "#FFFFFF",
+            height: "25px",
+            color: "white",
+            backgroundColor: "#62a6dc",
+            border: "none",
+            borderRadius: "15px",
+            fontWeight: "bold",
             cursor: !isWithinRadius ? "not-allowed" : "pointer",
-            opacity: !isWithinRadius ? 0.6 : 1, // Add a dim effect for disabled
+            opacity: !isWithinRadius ? 0.6 : 1,
           }}
         >
           {attendanceStatus === "logged_in" ? "Logout" : "Login"}
