@@ -12,13 +12,10 @@ import TooltipCustom from "../../Common/TooltipCustom";
 import AttendanceButton from "../../../AttendanceButton";
 
 const LeaveNotify = () => {
-  const { state } = useLocation();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [leaveData, setLeaveData] = useState([]);
-  const [currentTab, setCurrentTab] = useState(
-    state?.myTeam_previousTab ? state?.myTeam_previousTab : "All"
-  );
+  const [currentTab, setCurrentTab] = useState("pending");
 
   const TajurbaAdmin_priviledge_data = JSON.parse(
     localStorage.getItem("TajurbaAdmin_priviledge_data")
@@ -34,15 +31,6 @@ const LeaveNotify = () => {
   const [itemsPerPage, setItemsPerPage] = useState(10);
   const [goToPage, setGoToPage] = useState(1);
 
-  // Functionality for Filter and search
-  const FilterOptions = [
-    { label: "All", value: "all" },
-    { label: "Name", value: "first_name" },
-    { label: "Email", value: "email" },
-    { label: "Status", value: "is_active" },
-    { label: "Role", value: "role" },
-  ];
-
   const [filterselect, setFilterSelect] = useState("all");
   const [search, setSearch] = useState("");
   function calculateLeaveDays(from_date, to_date) {
@@ -54,30 +42,21 @@ const LeaveNotify = () => {
   const admin_id = JSON.parse(localStorage.getItem("TajurbaAdminUser"));
   const MyTeamTabList = (flagForList) => {
     try {
-      var payload = {
-        agent: "admin_user_list",
-        flag: flagForList,
-        page_no: currentPage,
-        limit: itemsPerPage,
-        //filter: {},
-        // createdAt: -1,
-      };
-      if (filterselect === "" || search === "") {
-        payload.filter = {};
-      } else {
-        payload.filter = {
-          [filterselect]: search,
-        };
-      }
-      API?.CommanApiCall(payload).then((response) => {
-        console.log(
-          "Response from My Team listing api ",
-          response?.data?.data?.data
-        );
+      API?.CommanApiCall({
+        data: {
+          status: flagForList,
+        },
+        agent: "leave_application",
+        function: "get_leave_application",
+      }).then((response) => {
+        console.log("leave", response);
         if (response?.data?.data?.status === 200) {
-          setListingData(response?.data?.data?.data);
-          setTotalPage(response?.data?.data?.total_pages);
-          setTotalItems(response?.data?.data?.total_data);
+          // const updatedData = response.data.data.data.map((ele) => ({
+          //   ...ele,
+          //   leaveDays: calculateLeaveDays(ele.from_date, ele.to_date),
+          // }));
+
+          setLeaveData(response.data.data.data);
           setLoading(false);
         }
       });
@@ -85,27 +64,7 @@ const LeaveNotify = () => {
       console.log(error);
     }
   };
-  useEffect(() => {
-    try {
-      API?.CommanApiCall({
-        data: {},
-        agent: "leave_application",
-        function: "get_leave_application",
-      }).then((response) => {
-        console.log("leave", response);
-        if (response?.data?.data?.status === 200) {
-          const updatedData = response.data.data.data.map((ele) => ({
-            ...ele,
-            leaveDays: calculateLeaveDays(ele.from_date, ele.to_date),
-          }));
 
-          setLeaveData(updatedData);
-        }
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  }, []);
   useEffect(() => {
     const fetchEmployeeList = async () => {
       try {
@@ -126,28 +85,54 @@ const LeaveNotify = () => {
 
     fetchEmployeeList();
   }, []);
-  const handleApprove = (leaveId) => {
+  const handleStatus = async (leaveId, applicationId, flagForList) => {
     console.log("Approved leave ID:", leaveId);
-    // Add logic to update leave status to "Approved"
-  };
+    setLoading(true);
+    try {
+      API?.CommanApiCall({
+        data: {
+          user_id: leaveId,
+          application_id: applicationId,
 
-  const handleReject = (leaveId) => {
-    console.log("Rejected leave ID:", leaveId);
-    // Add logic to update leave status to "Rejected"
+          status: flagForList,
+        },
+        agent: "leave_application",
+        function: "update_leave_application",
+      }).then((response) => {
+        console.log("leave", response);
+        if (response?.data?.data?.status === 200) {
+          setLoading(false);
+          navigate(0);
+        }
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
     MyTeamTabList(currentTab);
   }, [currentTab, currentPage, itemsPerPage, filterselect, search]);
 
-  const filteredData = leaveData.filter((leave) => {
-    const employee = EmployeeList.find(
-      (emp) => emp._id == leave.user_id && emp.reporting_to == admin_id._id
-    );
-    const update = { ...employee };
-    return employee;
-  });
-  console.log("eplist", EmployeeList);
+  console.log("lejrlejfljsl ", leaveData);
+  const filteredData =
+    leaveData &&
+    leaveData
+      .filter((leave) => {
+        const employee = EmployeeList.find(
+          (emp) => emp._id == leave.user_id && emp.reporting_to == admin_id._id
+        );
+
+        return employee;
+      })
+      .map((leave) => {
+        const employee = EmployeeList.find((emp) => emp._id == leave.user_id);
+        return {
+          ...leave,
+          first_name: employee ? employee.first_name : null, // Add the employee's name if found
+        };
+      });
+  console.log("eplist", filteredData);
   return (
     <>
       {/* <AppLayout> */}
@@ -182,14 +167,11 @@ const LeaveNotify = () => {
                             className="nav-item"
                             onClick={() => {
                               setCurrentTab("pending");
-                              navigate({
-                                state: {},
-                              });
                             }}
                           >
                             <a
                               className={
-                                currentTab === "All"
+                                currentTab === "pending"
                                   ? "nav-link active"
                                   : "nav-link"
                               }
@@ -204,14 +186,11 @@ const LeaveNotify = () => {
                             className="nav-item"
                             onClick={() => {
                               setCurrentTab("approved");
-                              navigate({
-                                state: {},
-                              });
                             }}
                           >
                             <a
                               className={
-                                currentTab === "Active"
+                                currentTab === "approved"
                                   ? "nav-link active"
                                   : "nav-link"
                               }
@@ -226,14 +205,11 @@ const LeaveNotify = () => {
                             className="nav-item"
                             onClick={() => {
                               setCurrentTab("rejected");
-                              navigate({
-                                state: {},
-                              });
                             }}
                           >
                             <a
                               className={
-                                currentTab === "Inactive"
+                                currentTab === "rejected"
                                   ? "nav-link active"
                                   : "nav-link"
                               }
@@ -250,7 +226,7 @@ const LeaveNotify = () => {
 
                     <div
                       className={
-                        currentTab === "All"
+                        currentTab === "pending"
                           ? "tab-pane main-card p-3 mb-0 box-shadow-bottom-none active"
                           : "tab-pane main-card p-3 mb-0 box-shadow-bottom-none"
                       }
@@ -294,7 +270,7 @@ const LeaveNotify = () => {
                                       <tr key={index}>
                                         <td className="fw-bold">
                                           {/* {TooltipCustom(ele?.first_name)} */}{" "}
-                                          {ele?.user_id}
+                                          {ele?.first_name}
                                         </td>
                                         <td>{ele?.leave_code}</td>
                                         <td>
@@ -317,10 +293,20 @@ const LeaveNotify = () => {
                                             // to={`../${AdminRoute?.UserManagement?.MyTeam?.UserProfile}`}
                                             className="btn btn-sm waves-effect waves-light btnViewOrange text-white"
                                             onClick={() => {
-                                              handleApprove(ele?._id);
+                                              handleStatus(
+                                                ele?.user_id,
+                                                ele?._id,
+                                                "approved"
+                                              );
+                                            }}
+                                            style={{
+                                              display: "flex",
+                                              backgroundColor: " #62a6dc",
+                                              borderRadius: "20px",
+                                              fontWeight: "600",
                                             }}
                                           >
-                                            Approved
+                                            Approve
                                           </button>
                                         </td>
                                         <td>
@@ -328,10 +314,20 @@ const LeaveNotify = () => {
                                             // to={`../${AdminRoute?.UserManagement?.MyTeam?.UserProfile}`}
                                             className="btn btn-sm waves-effect waves-light btnViewOrange text-white"
                                             onClick={() => {
-                                              handleReject(ele?._id);
+                                              handleStatus(
+                                                ele?.user_id,
+                                                ele?._id,
+                                                "rejected"
+                                              );
+                                            }}
+                                            style={{
+                                              display: "flex",
+                                              backgroundColor: " #62a6dc",
+                                              borderRadius: "20px",
+                                              fontWeight: "600",
                                             }}
                                           >
-                                            Rejected
+                                            Reject
                                           </button>
                                         </td>
                                       </tr>
@@ -355,7 +351,7 @@ const LeaveNotify = () => {
 
                     <div
                       className={
-                        currentTab === "Active"
+                        currentTab === "approved"
                           ? "tab-pane main-card p-3 mb-0 box-shadow-bottom-none active"
                           : "tab-pane main-card p-3 mb-0 box-shadow-bottom-none"
                       }
@@ -393,47 +389,28 @@ const LeaveNotify = () => {
                               </tr>
                             ) : (
                               <>
-                                {listingData && listingData?.length ? (
-                                  listingData?.map((ele, index) => {
+                                {filteredData && filteredData?.length ? (
+                                  filteredData?.map((ele, index) => {
                                     return (
                                       <tr key={index}>
                                         <td className="fw-bold">
-                                          {TooltipCustom(ele?.first_name)}
+                                          {/* {TooltipCustom(ele?.first_name)} */}{" "}
+                                          {ele?.first_name}
                                         </td>
-                                        <td>{ele?.mobile_no}</td>
-                                        <td style={{ wordBreak: "break-all" }}>
-                                          {ele?.email}
-                                        </td>
-                                        <td>{ele?.roles[0]?.name}</td>
+                                        <td>{ele?.leave_code}</td>
                                         <td>
-                                          {moment(ele?.createdAt).format(
+                                          {TooltipCustom(ele?.leave_reason)}
+                                        </td>
+                                        {/* <td>{ele?.roles[0]?.name}</td> */}
+                                        <td>
+                                          {moment(ele?.from_date).format(
                                             "DD-MM-YYYY"
                                           )}
                                         </td>
-
                                         <td>
-                                          <button
-                                            className="btn btn-sm waves-effect waves-light bgBlack text-white"
-                                            to={`../${AdminRoute?.UserManagement?.MyTeam?.UserProfile?.replace(
-                                              ":status",
-                                              currentTab
-                                            ).replace(":id", ele?.user_id)}`}
-                                          >
-                                            View More
-                                          </button>
-                                        </td>
-
-                                        <td>
-                                          <button
-                                            // to={`../${AdminRoute?.UserManagement?.MyTeam?.UserProfile}`}
-                                            className="btn btn-sm waves-effect waves-light bgBlack text-white"
-                                            to={`../${AdminRoute?.UserManagement?.MyTeam?.UserProfile?.replace(
-                                              ":status",
-                                              currentTab
-                                            ).replace(":id", ele?.user_id)}`}
-                                          >
-                                            View More
-                                          </button>
+                                          {moment(ele?.to_date).format(
+                                            "DD-MM-YYYY"
+                                          )}
                                         </td>
                                       </tr>
                                     );
@@ -456,7 +433,7 @@ const LeaveNotify = () => {
 
                     <div
                       className={
-                        currentTab === "Inactive"
+                        currentTab === "rejected"
                           ? "tab-pane main-card p-3 mb-0 box-shadow-bottom-none active"
                           : "tab-pane main-card p-3 mb-0 box-shadow-bottom-none"
                       }
@@ -494,35 +471,28 @@ const LeaveNotify = () => {
                               </tr>
                             ) : (
                               <>
-                                {listingData && listingData?.length ? (
-                                  listingData?.map((ele, index) => {
+                                {filteredData && filteredData?.length ? (
+                                  filteredData?.map((ele, index) => {
                                     return (
                                       <tr key={index}>
                                         <td className="fw-bold">
-                                          {TooltipCustom(ele?.first_name)}
+                                          {/* {TooltipCustom(ele?.first_name)} */}{" "}
+                                          {ele?.first_name}
                                         </td>
-                                        <td>{ele?.mobile_no}</td>
-                                        <td style={{ wordBreak: "break-all" }}>
-                                          {ele?.email}
-                                        </td>
-                                        <td>{ele?.roles[0]?.name}</td>
+                                        <td>{ele?.leave_code}</td>
                                         <td>
-                                          {moment(ele?.createdAt).format(
+                                          {TooltipCustom(ele?.leave_reason)}
+                                        </td>
+                                        {/* <td>{ele?.roles[0]?.name}</td> */}
+                                        <td>
+                                          {moment(ele?.from_date).format(
                                             "DD-MM-YYYY"
                                           )}
                                         </td>
-
                                         <td>
-                                          <NavLink
-                                            // to={`../${AdminRoute?.UserManagement?.MyTeam?.UserProfile}`}
-                                            className="btn btn-sm waves-effect waves-light btnViewOrange"
-                                            to={`../${AdminRoute?.UserManagement?.MyTeam?.UserProfile?.replace(
-                                              ":status",
-                                              currentTab
-                                            ).replace(":id", ele?.user_id)}`}
-                                          >
-                                            View More
-                                          </NavLink>
+                                          {moment(ele?.to_date).format(
+                                            "DD-MM-YYYY"
+                                          )}
                                         </td>
                                       </tr>
                                     );
