@@ -281,7 +281,10 @@ const RoleDetails = () => {
                           setEdit(true);
                         }}
                         //  to="/edit-role"
-                        className="btn bgBlack text-white border-radius-2 px-4 float-end"
+                        className="btn text-white px-4 float-end"
+                        style={{
+                          backgroundColor: "#62a6dc",
+                          borderRadius: "20px"}}
                       >
                         <span className="">Edit</span>
                       </NavLink>

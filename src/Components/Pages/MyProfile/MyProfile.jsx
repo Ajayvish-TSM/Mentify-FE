@@ -355,9 +355,15 @@ const MyProfile = () => {
                       onClick={() => {
                         setEdit(true);
                       }}
-                      className="btn bgBlack text-white border-radius-2 px-4 float-end"
+                      className="btn text-white px-4 float-end"
+                      style={{
+                        display: "flex",
+                        gap: "5px",
+                        backgroundColor: "#62a6dc",
+                        borderRadius: "20px",
+                      }}
                     >
-                      <i className="fa fa-regular fa-pen-to-square"></i>{" "}
+                      <i className="fa fa-regular fa-pen-to-square" style={{marginTop: "2px"}}></i>{" "}
                       <span className="">Edit</span>
                     </NavLink>
                   </div>
@@ -475,15 +481,6 @@ const MyProfile = () => {
                                 userProfileDetails?.result?.name}
                             </h5>
                           </div>
-                          <div className="mt-5">
-                            <p>Registration Date</p>
-                            <h5 className="fw-bold">
-                              {moment(
-                                userProfileDetails &&
-                                  userProfileDetails?.createdAt
-                              ).format("DD-MM-YYYY")}
-                            </h5>
-                          </div>
                         </div>
                         <div className="col-6">
                           <div className="border-left-grey h-100">
@@ -503,6 +500,15 @@ const MyProfile = () => {
                                   High Street, NY, 123456
                                 </h5>
                               </div> */}
+                               <div className="mt-5">
+                            <p>Registration Date</p>
+                            <h5 className="fw-bold">
+                              {moment(
+                                userProfileDetails &&
+                                  userProfileDetails?.createdAt
+                              ).format("DD-MM-YYYY")}
+                            </h5>
+                          </div>
                             </div>
                           </div>
                         </div>

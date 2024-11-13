@@ -365,7 +365,10 @@ const MyTeam = () => {
                         ) ? (
                           <NavLink
                             to="/my-team/create-user"
-                            className="btn bgDarkBlack text-white px-4 float-end ms-3"
+                            className="btn text-white px-4 float-end ms-3"
+                            style={{
+                              backgroundColor: "#62a6dc",
+                              borderRadius: "20px"}}
                           >
                             <i className="fa-regular fa-plus"></i>
                             <span className="ms-2">Create User</span>
@@ -544,6 +547,9 @@ const MyTeam = () => {
                                         <td>
                                           <NavLink
                                             // to={`../${AdminRoute?.UserManagement?.MyTeam?.UserProfile}`}
+                                            style={{
+                                              backgroundColor: "#62a6dc",
+                                              borderRadius: "20px",}}
                                             className="btn btn-sm waves-effect waves-light btnViewOrange text-white"
                                             to={`../${AdminRoute?.UserManagement?.MyTeam?.UserProfile?.replace(
                                               ":status",

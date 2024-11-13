@@ -1,36 +1,35 @@
 import React from "react";
-import { NavLink, Outlet } from "react-router-dom";
-import logo1 from "./../../assets/images/logo1.png";
+import { Outlet } from "react-router-dom";
 
 const LoginLayout = (propslogin) => {
   return (
-    <>
-      <div className="login-page">
-        <div className="container-fluid main-container vh-100">
-          <div className="row h-100">
-            <div className="col-lg-7 loginBanner">
-              <div className="row align-items-center  h-100">
-                <div className="ps-5 py-5">
-                  <NavLink to="/" className="text-decoration-none">
-                    <img src={logo1} style={{ width: "250px" }} />
-                  </NavLink>
-                  <h1 className="text-white  mb-0 mt-0 letter-spacing-4 fw-500">
-                    Mentify: Innovate. Lead. Succeed.
-                  </h1>
-                </div>
-              </div>
-            </div>
-            <div
-              className="col-lg-5 col-12 center-me"
-              style={{ background: "#120e43" }}
-            >
-              {propslogin.children}
-            </div>
-          </div>
+    <div
+      className="login-page d-flex align-items-center justify-content-center vh-100"
+      style={{
+        backgroundColor: "#f5f5f5", // Light background color for the page
+      }}
+    >
+      <div
+        className="login-form-container p-4"
+        style={{
+          width: "100%",
+          maxWidth: "450px", // Optional max width for the login form
+          backgroundColor: "#fff", // White theme for the form background
+          borderRadius: "8px",
+          boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+        }}
+      >
+        {/* Login form content */}
+        <div
+          className="login-content"
+          style={{ color: "black" }} // All text color set to black
+        >
+          {propslogin.children}
         </div>
       </div>
       <Outlet />
-    </>
+    </div>
   );
 };
+
 export default LoginLayout;

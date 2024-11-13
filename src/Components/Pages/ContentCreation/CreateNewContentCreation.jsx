@@ -188,7 +188,7 @@ const CreateNewContentCreation = () => {
           </div>
 
           <div className="row" id="createContent">
-            <div className="row justify-content-between main-card p-4">
+            <div className="row justify-content-between main-card p-4" style={{marginLeft: "12px"}}>
               {errorMessage ? (
                 <span className="text-danger text-end">{errorMessage}</span>
               ) : null}
@@ -282,11 +282,14 @@ const CreateNewContentCreation = () => {
                       {CheckAccess ? (
                         <div className="saveBtn">
                           <button
-                            className="btn profileBtn border-radius-5 text-white border-radius-10 px-4 float-end"
+                            className="btn profileBtn text-white px-4 float-end"
                             onClick={(e) => handleSave(e)}
                             disabled={loading}
                             style={{
                               display: "flex",
+                              backgroundColor: "#62a6dc",
+                              borderRadius: "20px",
+                              fontWeight: "bold",
                             }}
                           >
                             {loading && (

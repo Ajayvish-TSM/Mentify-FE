@@ -464,6 +464,7 @@ const AppLayout = (props) => {
         ).map((ele, index) => ({
           key: "4",
           icon: <AppstoreOutlined />,
+<<<<<<< Updated upstream
           className: "navLi",
           label: "Leave",
           style: { paddingLeft: "0px" },
@@ -531,6 +532,11 @@ const AppLayout = (props) => {
             //       }))
             //   : []),
           ],
+=======
+           //label: "Subscription Plans",
+          path: "/leave-apply",
+          label: <NavLink to={"/leave-apply"}>Leave</NavLink>,
+>>>>>>> Stashed changes
         }))
       : []),
 
@@ -1104,6 +1110,9 @@ const AppLayout = (props) => {
                                 adminObject?.user_id
                               )}`}
                               className="btn profileBtn rounded-pill mt-4 font-size-12"
+                              style={{ display: "flex",
+                                backgroundColor: "#62a6dc",
+                                borderRadius: "20px",}}
                             >
                               View Profile
                             </NavLink>

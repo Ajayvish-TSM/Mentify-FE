@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useAttendance } from "./AttendanceContext";
 import API from "./Api/Api";
 import { Tooltip } from "antd";
+import { message } from 'antd';
 
 const AttendanceButton = () => {
   // const { attendanceStatus, toggleAttendance, userLocation } = useAttendance();
@@ -29,8 +30,13 @@ const AttendanceButton = () => {
       (Math.cos((lat1 * Math.PI) / 180) *
         Math.cos((lat2 * Math.PI) / 180) *
         (1 - Math.cos(dLon))) /
+<<<<<<< Updated upstream
         2;
     return (R * 2 * Math.asin(Math.sqrt(a))) / 1000; // Distance in meters
+=======
+      2;
+    return R * 2 * Math.asin(Math.sqrt(a)); // Distance in meters
+>>>>>>> Stashed changes
   };
 
   useEffect(() => {
@@ -55,9 +61,10 @@ const AttendanceButton = () => {
   //   )
   // );
 
+
   const handleAttendance = async () => {
     if (!isWithinRadius) {
-      alert("You are not within the office radius.");
+      message.error("You are not within the office radius."); // Use message.error for errors
       return;
     }
 
@@ -78,15 +85,16 @@ const AttendanceButton = () => {
         toggleAttendance(
           attendanceStatus === "logged_in" ? "logged_out" : "logged_in"
         );
-        alert(response?.data?.data?.message);
+        message.success(response?.data?.data?.message); // Show success message
       } else {
-        alert(response?.data?.data?.message || "Something went wrong.");
+        message.error(response?.data?.data?.message || "Something went wrong."); // Error message
       }
     } catch (error) {
       console.error("Error during API call:", error);
-      alert("An error occurred while updating attendance.");
+      message.error("An error occurred while updating attendance."); // Show error message on catch
     }
   };
+
 
   return (
     <div style={{ paddingRight: "20px" }}>
