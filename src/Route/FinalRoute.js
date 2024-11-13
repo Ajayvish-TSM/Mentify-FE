@@ -80,6 +80,8 @@ import Feed from "../Components/Pages/Feed/Feed";
 import ConsumerActivityProfile from "../Components/Pages/Feed/ConsumerActivityProfile";
 import CommunityViewDetails from "../Components/Pages/Community/Community/CommunityViewDetails";
 import CommunityPreviewDetails from "../Components/Pages/Community/Community/CommunityPreviewDetails";
+import { element, exact } from "prop-types";
+import LeaveNotify from "../Components/Pages/leaveNotification/LeaveNotify";
 
 const AdminRoute = [
   {
@@ -213,6 +215,13 @@ const AdminRoute = [
     //   </ProtectedRoute>
     // ),
     // exact: true,
+  },
+  {
+    path: RouteName.leave.notification,
+    element: <LeaveNotify />,
+    exact: true,
+    protected: true,
+    redirectPath: RouteName.Auth.Login,
   },
 
   {

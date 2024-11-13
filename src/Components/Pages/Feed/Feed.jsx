@@ -222,7 +222,13 @@ const Feed = () => {
   const CheckAccess =
     TajurbaAdmin_priviledge_data &&
     TajurbaAdmin_priviledge_data.some(
-      (ele) => ele.title === "Create Holiday" && ele.is_active === true
+      (ele) =>
+        ele.title === "Holiday" &&
+        ele.is_active === true &&
+        ele?.submenu &&
+        ele?.submenu.some(
+          (sub) => sub.title === "Create Holiday" && sub.is_active === true
+        )
     );
 
   // Functionality for Filter and search

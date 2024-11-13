@@ -447,15 +447,90 @@ const AppLayout = (props) => {
 
     ///
 
+    // ...(TajurbaAdmin_priviledge_data
+    //   ? TajurbaAdmin_priviledge_data?.filter(
+    //       (ele) => ele?.title === "Apply Leave" && ele?.is_active
+    //     ).map((ele, index) => ({
+    //       key: "4",
+    //       icon: <AppstoreOutlined />,
+    //       // label: "Subscription Plans",
+    //       path: "/leave-apply",
+    //       label: <NavLink to={"/leave-apply"}>Leave</NavLink>,
+    //     }))
+    //   : []),
     ...(TajurbaAdmin_priviledge_data
       ? TajurbaAdmin_priviledge_data?.filter(
-          (ele) => ele?.title === "Apply Leave" && ele?.is_active
+          (ele) => ele?.title === "Leave" && ele?.is_active
         ).map((ele, index) => ({
           key: "4",
           icon: <AppstoreOutlined />,
-          // label: "Subscription Plans",
-          path: "/leave-apply",
-          label: <NavLink to={"/leave-apply"}>Leave</NavLink>,
+          className: "navLi",
+          label: "Leave",
+          style: { paddingLeft: "0px" },
+          children: [
+            ...(ele && ele?.submenu?.length
+              ? ele?.submenu
+                  .filter(
+                    (submenuItem) =>
+                      submenuItem?.title === "Apply Leave" &&
+                      submenuItem?.is_active
+                  )
+                  .map((submenuItem) => ({
+                    key: "41",
+                    // label: "Consumer",
+                    className: "subUlModerator",
+                    path: "/leave-apply",
+                    label: (
+                      <NavLink style={{ display: "block" }} to={"/leave-apply"}>
+                        Apply Leave
+                      </NavLink>
+                    ),
+                    children: [],
+                  }))
+              : []),
+            ...(ele && ele?.submenu?.length
+              ? ele?.submenu
+                  .filter(
+                    (submenuItem) =>
+                      submenuItem?.title === "Notification" &&
+                      submenuItem?.is_active
+                  )
+                  .map((submenuItem) => ({
+                    key: "42",
+                    // label: "My Team",
+                    path: "/notification",
+                    className: "subUlModerator",
+                    label: (
+                      <NavLink
+                        style={{ display: "block" }}
+                        to={"/notification"}
+                      >
+                        Notification
+                      </NavLink>
+                    ),
+                    children: [],
+                  }))
+              : []),
+            // ...(ele && ele?.submenu?.length
+            //   ? ele?.submenu
+            //       .filter(
+            //         (submenuItem) =>
+            //           submenuItem?.title === "Roles" && submenuItem?.is_active
+            //       )
+            //       .map((submenuItem) => ({
+            //         key: "53",
+            //         // label: "Roles",
+            //         path: "/roles",
+            //         className: "subUlModerator",
+            //         label: (
+            //           <NavLink style={{ display: "block" }} to={"/roles"}>
+            //             Roles
+            //           </NavLink>
+            //         ),
+            //         children: [],
+            //       }))
+            //   : []),
+          ],
         }))
       : []),
 
@@ -532,27 +607,101 @@ const AppLayout = (props) => {
       : []),
     ...(TajurbaAdmin_priviledge_data
       ? TajurbaAdmin_priviledge_data?.filter(
-          (ele) => ele?.title === "Events" && ele?.is_active
+          (ele) => ele?.title === "Holiday" && ele?.is_active
         ).map((ele, index) => ({
           key: "6",
+          icon: <AppstoreOutlined />,
+          className: "navLi",
+          label: "Holiday",
+          style: { paddingLeft: "0px" },
+          children: [
+            ...(ele && ele?.submenu?.length
+              ? ele?.submenu
+                  .filter(
+                    (submenuItem) =>
+                      submenuItem?.title === "Create Holiday" &&
+                      submenuItem?.is_active
+                  )
+                  .map((submenuItem) => ({
+                    key: "60",
+                    // label: "Consumer",
+                    className: "subUlModerator",
+                    path: "/create-holiday",
+                    label: (
+                      <NavLink
+                        style={{ display: "block" }}
+                        to={"/create-holiday"}
+                      >
+                        Create Holiday
+                      </NavLink>
+                    ),
+                    children: [],
+                  }))
+              : []),
+            // ...(ele && ele?.submenu?.length
+            //   ? ele?.submenu
+            //       .filter(
+            //         (submenuItem) =>
+            //           submenuItem?.title === "My Team" && submenuItem?.is_active
+            //       )
+            //       .map((submenuItem) => ({
+            //         key: "52",
+            //         // label: "My Team",
+            //         path: "/my-team",
+            //         className: "subUlModerator",
+            //         label: (
+            //           <NavLink style={{ display: "block" }} to={"/my-team"}>
+            //             Create User
+            //           </NavLink>
+            //         ),
+            //         children: [],
+            //       }))
+            //   : []),
+            // ...(ele && ele?.submenu?.length
+            //   ? ele?.submenu
+            //       .filter(
+            //         (submenuItem) =>
+            //           submenuItem?.title === "Roles" && submenuItem?.is_active
+            //       )
+            //       .map((submenuItem) => ({
+            //         key: "53",
+            //         // label: "Roles",
+            //         path: "/roles",
+            //         className: "subUlModerator",
+            //         label: (
+            //           <NavLink style={{ display: "block" }} to={"/roles"}>
+            //             Roles
+            //           </NavLink>
+            //         ),
+            //         children: [],
+            //       }))
+            //   : []),
+          ],
+        }))
+      : []),
+    ...(TajurbaAdmin_priviledge_data
+      ? TajurbaAdmin_priviledge_data?.filter(
+          (ele) => ele?.title === "Events" && ele?.is_active
+        ).map((ele, index) => ({
+          key: "7",
           icon: <AppstoreOutlined />,
           // label: "Events",
           path: "/events",
           label: <NavLink to={"/events"}>Events</NavLink>,
         }))
       : []),
-    ...(TajurbaAdmin_priviledge_data
-      ? TajurbaAdmin_priviledge_data?.filter(
-          (ele) => ele?.title === "Create Holiday" && ele?.is_active
-        ).map((ele, index) => ({
-          key: "7",
-          icon: <AppstoreOutlined />,
-          // label: "Events",
-          path: "/create-holiday",
+    // ...(TajurbaAdmin_priviledge_data
+    //   ? TajurbaAdmin_priviledge_data?.filter(
+    //       (ele) => ele?.title === "Create Holiday" && ele?.is_active
+    //     ).map((ele, index) => ({
+    //       key: "7",
+    //       icon: <AppstoreOutlined />,
+    //       // label: "Events",
+    //       path: "/create-holiday",
 
-          label: <NavLink to={"/create-holiday"}>Create Holiday</NavLink>,
-        }))
-      : []),
+    //       label: <NavLink to={"/create-holiday"}>Create Holiday</NavLink>,
+    //     }))
+    //   : []),
 
     ...(TajurbaAdmin_priviledge_data
       ? TajurbaAdmin_priviledge_data?.filter(
