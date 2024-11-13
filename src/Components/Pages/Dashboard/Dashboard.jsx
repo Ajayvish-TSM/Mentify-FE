@@ -21,6 +21,7 @@ import moment from "moment";
 import tippy from "tippy.js";
 import "tippy.js/dist/tippy.css";
 import { LinkedinFilled } from "@ant-design/icons";
+import dummy from "../../../assets/images/dummy-profile.jpg";
 
 const Dashboard = () => {
   const [duration, setDuration] = useState("monthly");
@@ -38,6 +39,8 @@ const Dashboard = () => {
   const [edit, setEdit] = useState(false);
   const adminObject = JSON.parse(localStorage.getItem("TajurbaAdminUser"));
   console.log(adminObject, "fjasdfjsdfljj");
+  const [EmployeeList, setEmployeeList] = useState([]);
+
 
   const GetDetails = () => {
     try {
@@ -62,6 +65,28 @@ const Dashboard = () => {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    const fetchEmployeeList = async () => {
+      try {
+        const response = await API.CommanApiCall({
+          data: {},
+          agent: "admin_user_list",
+          page_no: 1,
+          limit: 100,
+          filter: {},
+        });
+        console.log("employee", response)
+        if (response?.status === 200) {
+          setEmployeeList(response.data.data.data);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchEmployeeList();
+  }, []);
+
   useEffect(() => {
     GetDetails();
   }, []);
@@ -750,54 +775,54 @@ const Dashboard = () => {
                   // crossOrigin="Anonymous"
                   src={adminObject && adminObject?.image}
                   alt="Profile"
-                  className="  profile "
+                  className="profile"
                   id="profile-picture-custome"
+                  style={{
+                    width: "160px",  // Decrease the width of the image
+                    height: "160px", // Adjust height to maintain aspect ratio if needed
+                    borderRadius: "50%", // Optional: To make the image circular
+                  }}
                 />
-                <div className="consumerProfileText ms-3">
-                  <h2
-                    className="fw-bold letter-spacing-6"
-                    style={{ marginBottom: "20px" }}
-                  >
+                <div
+                  className="consumerProfileText ms-3"
+                  style={{
+                    flex: 1, // This will make the text container take up the remaining space
+                  }}
+                >
+                  <h3 className="fw-bold letter-spacing-6" style={{ marginBottom: "20px" }}>
                     {adminObject && adminObject?.first_name}{" "}
                     {adminObject && adminObject?.last_name}
-                  </h2>
-                  <div>
-                    <div
-                      style={{
-                        display: "flex",
-                        gap: "2rem",
-                      }}
-                    >
-                      <div>
-                        <p style={{ color: "#A9A9A9" }}>
-                          Role:{" "}
-                          <span
-                            style={{
-                              color: "black",
-                              fontWeight: "normal",
-                              fontSize: "13px",
-                              paddingLeft: "4px",
-                            }}
-                          >
-                            {adminObject.role_details.name}
-                          </span>
-                        </p>
-                      </div>
-                      <div>
-                        <p style={{ color: "#A9A9A9" }}>
-                          position:{" "}
-                          <span
-                            style={{
-                              color: "black",
-                              fontWeight: "normal",
-                              fontSize: "13px",
-                              paddingLeft: "4px",
-                            }}
-                          >
-                            {adminObject.employee_type || "Management"}
-                          </span>
-                        </p>
-                      </div>
+                  </h3>
+                  <div style={{ display: "flex", gap: "2rem" }}>
+                    <div>
+                      <p style={{ color: "#A9A9A9" }}>
+                        Role:{" "}
+                        <span
+                          style={{
+                            color: "black",
+                            fontWeight: "normal",
+                            fontSize: "13px",
+                            paddingLeft: "4px",
+                          }}
+                        >
+                          {adminObject.role_details.name}
+                        </span>
+                      </p>
+                    </div>
+                    <div>
+                      <p style={{ color: "#A9A9A9" }}>
+                        Position:{" "}
+                        <span
+                          style={{
+                            color: "black",
+                            fontWeight: "normal",
+                            fontSize: "13px",
+                            paddingLeft: "4px",
+                          }}
+                        >
+                          {adminObject.employee_type || "Management"}
+                        </span>
+                      </p>
                     </div>
                   </div>
                   <div>
@@ -830,11 +855,10 @@ const Dashboard = () => {
                       </span>
                     </p>
                   </div>
-                  <LinkedinFilled
-                    style={{ fontSize: "1.5rem", color: "#1877F2" }}
-                  />
+                  <LinkedinFilled style={{ fontSize: "1.5rem", color: "#1877F2" }} />
                 </div>
               </div>
+
               <div
                 className="main-card bg-white p-4"
                 style={{ borderRadius: "25px" }}
@@ -909,6 +933,80 @@ const Dashboard = () => {
                         )}
                       </tbody>
                     </table>
+                  </div>
+                </div>
+              </div>
+             
+              <div className="main-card bg-white p-4" style={{
+                borderRadius: "25px",
+                width: "100%",
+              }}>
+                <h3 className="fw-bold">My Team</h3>
+
+                {/* Map through the employees list */}
+                <div className="row mt-3" style={{
+                  height: "355px", // Fixed height for the card
+                  margin: "0 auto", // Center the card horizontally
+                  overflowY: "auto", 
+                  padding: "5px",
+                }}>
+                  <div className="col-12">
+                    {loading ? (
+                      <div className="d-flex justify-content-center">
+                        <div className="spinner-border" role="status">
+                          <span className="visually-hidden">Loading...</span>
+                        </div>
+                      </div>
+                    ) : (
+                      <>
+                        {EmployeeList && EmployeeList.length ? (
+                          EmployeeList.map((employee, index) => (
+                            <div
+                              key={index}
+                              className="employee-card d-flex align-items-center mb-3"
+                              style={{
+                                backgroundColor: "white",
+                                borderRadius: "15px",
+                                padding: "5px",
+                                boxShadow: "0 2px 10px rgba(0, 0, 0, 0.1)",
+                                height: "75px",
+                              }}
+                            >
+                              <img
+                                //src={employee.profilePicture}
+                                src={dummy}
+                                alt={`${employee.first_name}`}
+                                style={{
+                                  width: "60px",
+                                  height: "60px",
+                                  borderRadius: "50%",
+                                  marginRight: "20px",
+                                }}
+                              />
+                              <div style={{marginTop: "18px"}}>
+                                <h5 className="fw-bold" style={{ marginBottom: "5px" }}>
+                                  {employee.first_name}
+                                </h5>
+                                <p style={{ marginBottom: "5px", color: "#A9A9A9" }}>
+                                  Email:{" "}
+                                  <span style={{ color: "black", fontWeight: "normal" }}>
+                                    {employee.email}
+                                  </span>
+                                </p>
+                                <p style={{ color: "#A9A9A9" }}>
+                                  Type:{" "}
+                                  <span style={{ color: "black", fontWeight: "normal" }}>
+                                    {employee.employeeType}
+                                  </span>
+                                </p>
+                              </div>
+                            </div>
+                          ))
+                        ) : (
+                          <p className="text-center">No employees found</p>
+                        )}
+                      </>
+                    )}
                   </div>
                 </div>
               </div>

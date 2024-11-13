@@ -168,7 +168,7 @@ File: Main Css File
 
 body[data-topbar="dark"] #page-topbar,
 body[data-topbar="colored"] #page-topbar {
-  background-color: #120e43;
+  background-color: #62a6dc;
 }
 
 body[data-topbar="dark"] .navbar-header .dropdown .header-item.show,
@@ -1331,12 +1331,12 @@ body[data-layout="horizontal"][data-layout-size="boxed"] .navbar-header {
     display: none;
   }
   body[data-layout="detached"] .navbar-brand-box {
-    margin-left: 24px;
+    /* margin-left: 24px; */
   }
   body[data-layout="detached"] .vertical-menu {
     border-radius: 7px;
     position: relative;
-    margin-top: 35px;
+    margin-top: 95px;
   }
   body[data-layout="detached"] .vertical-menu .user-img img {
     padding: 6px;

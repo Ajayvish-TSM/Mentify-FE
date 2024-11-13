@@ -373,32 +373,11 @@ const Feed = () => {
                 </div>
               </div>
             </div>
-            <div className="col-6">
-              {CheckAccess ? (
-                <div className="saveBtn">
-                  <button
-                    className="btn profileBtn border-radius-5 text-white border-radius-10 px-4 float-end"
-                    onClick={formik.handleSubmit}
-                    type="submit"
-                    disabled={loading}
-                  >
-                    {loading && (
-                      <span
-                        className="spinner-border spinner-border-sm me-2"
-                        role="status"
-                        aria-hidden="true"
-                      ></span>
-                    )}
-                    Submit
-                  </button>
-                </div>
-              ) : null}
-            </div>
           </div>
 
           <div className="row" id="createContent">
             <form onSubmit={formik.handleSubmit}>
-              <div className="row justify-content-between main-card p-4">
+              <div className="row justify-content-between main-card p-4" style={{marginLeft: "2px"}}>
                 {errorMessage ? (
                   <span className="text-danger text-end">{errorMessage}</span>
                 ) : null}
@@ -480,6 +459,32 @@ const Feed = () => {
                           {formik.errors.category}
                         </div>
                       ) : null}
+                      <div>
+                        {CheckAccess ? (
+                          <div className="saveBtn" style={{marginTop: "30px"}}>
+                            <button
+                              className="btn profileBtn text-white px-4 float-end"
+                              onClick={formik.handleSubmit}
+                              type="submit"
+                              style={{
+                                display: "flex",
+                                backgroundColor: "#62a6dc",
+                                borderRadius: "20px",
+                              }}
+                              disabled={loading}
+                            >
+                              {loading && (
+                                <span
+                                  className="spinner-border spinner-border-sm me-2"
+                                  role="status"
+                                  aria-hidden="true"
+                                ></span>
+                              )}
+                              Submit
+                            </button>
+                          </div>
+                        ) : null}
+                      </div>
                     </div>
                   </div>
                 </div>

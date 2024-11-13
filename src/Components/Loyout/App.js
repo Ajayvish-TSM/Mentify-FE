@@ -7,7 +7,7 @@ import profilePhoto from "../../assets/images/profile.png";
 import API from "../../Api/Api";
 import { useDispatch } from "react-redux";
 import { NavbarMenuData } from "../../Redux/slice";
-import logo1 from "./../../assets/images/logo1.png";
+import logo from "./../../assets/images/icons/logo.svg";
 import profileImg from "./../../assets/images/profileu.png";
 import Dropdown from "react-bootstrap/Dropdown";
 import MenuNavbar from "./Navbar/MenuNavbar";
@@ -1104,6 +1104,9 @@ const AppLayout = (props) => {
                                 adminObject?.user_id
                               )}`}
                               className="btn profileBtn rounded-pill mt-4 font-size-12"
+                              style={{ display: "flex",
+                                backgroundColor: "#62a6dc",
+                                borderRadius: "20px",}}
                             >
                               View Profile
                             </NavLink>
@@ -1155,7 +1158,7 @@ const AppLayout = (props) => {
                     >
                       <a href="index.html" className="logo logo-light">
                         <span className="log">
-                          <img src={logo1} style={{ width: "40px" }} />
+                          <img src={logo} style={{ width: "60px" }} />
                         </span>
                       </a>
                     </div>

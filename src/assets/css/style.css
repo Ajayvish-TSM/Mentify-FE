@@ -218,7 +218,7 @@ a {
 .textlightpurple,
 .textlightpurple:hover,
 .textlightpurple:active {
-  color: #c6cdea !important;
+  color: #eff3f9 !important;
 }
 .text-color1 {
   color: #6e788a;
@@ -318,7 +318,7 @@ a {
   color: #383cc1;
 }
 .textlightBlue {
-  color: #120e43;
+  color: #62a6dc;
 }
 
 .darkGrey {
@@ -338,7 +338,7 @@ a {
 }
 
 .orangrBg {
-  background: #c6cdea !important;
+  background: #eff3f9 !important;
 }
 .textGreen {
   color: #52c844 !important;
@@ -555,7 +555,7 @@ a {
 .login-page {
   min-height: 100vh;
   /* background: url("../images/background/leaf-bg.webp"); */
-  background-color: #120e43;
+  background-color: #62a6dc;
   background-position: center center;
   background-size: cover;
   display: flex;
@@ -983,22 +983,23 @@ a {
 }
 
 #login .form-control-field:focus {
-  background: #2d3450 0% 0% no-repeat padding-box;
+  background: #ffffff 0% 0% no-repeat padding-box;
   border-radius: 25px;
   box-shadow: none;
   border: none;
+  border: 1px solid#dddddd;
 }
 
 #login .form-control-field {
-  border: 0;
-  background: #2d3450 0% 0% no-repeat padding-box;
+  border: 1px solid#dddddd;
+  background: #ffffff 0% 0% no-repeat padding-box;
   border-radius: 25px;
-  border-bottom: 1px solid #1e2838 !important;
-  color: #fff !important;
+  /* border-bottom: 1px solid #1e2838 !important; */
+  color: black !important;
   padding: 10px 15px;
 }
 #login ::placeholder {
-  color: #fff !important;
+  color: grey !important;
   font-size: 12px;
   font-family: var(--theme-font-family-poppins);
 }
@@ -1017,7 +1018,7 @@ a {
   /* background: url("../images/login-banner.png"); */
   background-position: center center;
   background-size: cover;
-  background-color: #120e43;
+  background-color: #62a6dc;
 }
 
 .btnBackArrow,
@@ -1078,8 +1079,8 @@ a {
 .profileBtn:active,
 .profileBtn:focus-visible {
   /* background: #ac1617 !important; */
-  background: transparent linear-gradient(180deg, #36dae9 0%, #0090ff 100%) 0%
-    0% no-repeat padding-box;
+  /* background: transparent linear-gradient(180deg, #36dae9 0%, #0090ff 100%) 0%
+    0% no-repeat padding-box; */
   /* border: 0; */
   border-radius: 2px;
   color: #fff !important;
@@ -1856,7 +1857,7 @@ timeline start */
 /* Consumer */
 
 .orangeLeftB {
-  border-left: 8px solid #120e43;
+  border-left: 8px solid #62a6dc;
 }
 
 .secondaryLeftB {
@@ -1917,8 +1918,6 @@ timeline start */
 .btnViewOrange:hover,
 .btnViewOrange:active {
   /* background: #fff4e5 !important; */
-  background: transparent linear-gradient(180deg, #36dae9 0%, #0090ff 100%) 0%
-    0% no-repeat padding-box;
   border-radius: 2px;
   color: #fff !important;
   padding: 8px 15px;
@@ -1947,7 +1946,7 @@ timeline start */
 
 .custum-orange-bgbox {
   height: 85px;
-  background: #c6cdea;
+  background: #eff3f9;
   border-radius: 5px 5px 0px 0px;
 }
 .custum-orange-bgboxC {
@@ -3058,7 +3057,7 @@ input[type="range"]::-moz-range-track {
   /* color: var(--bs-nav-tabs-link-active-color); */
   /* background-color: var(--bs-nav-tabs-link-active-bg); */
   /* border-color: var(--bs-nav-tabs-link-active-border-color); */
-  background: #c6cdea !important;
+  background: #eff3f9 !important;
   border-radius: 10px 10px 0px 0px;
   color: #2d3450 !important;
   font-weight: 600;
@@ -3427,7 +3426,7 @@ li.ant-menu-item.ant-menu-item-only-child.subUlLi {
 .navLi .ant-menu-item .ant-menu-item-selected .ant-menu-item-only-child,
 .subUl.ant-menu-item-selected,
 .subUl .ant-menu .ant-menu-item-selected {
-  background-color: #c6cdea !important;
+  background-color: #eff3f9 !important;
   text-decoration: none !important;
   color: #1e2838 !important;
   border-left: 0px !important;

@@ -244,7 +244,7 @@ body[data-topbar="dark"] .app-search span {
 }
 
 body[data-topbar="colored"] #page-topbar {
-  background: #120e43;
+  background: #62a6dc;
 }
 
 body[data-topbar="colored"] .navbar-header .dropdown .header-item.show {
@@ -1431,7 +1431,7 @@ body[data-layout="horizontal"][data-layout-size="boxed"] .navbar-header {
   body[data-layout="detached"] .vertical-menu {
     border-radius: 7px;
     position: relative;
-    margin-top: 35px;
+    margin-top: 95px;
   }
 
   body[data-layout="detached"] .vertical-menu .user-img img {
@@ -1498,7 +1498,7 @@ body[data-layout="detached"] #layout-wrapper::before {
     from(#273c92),
     to(#293e92)
   );
-  background: #3a3a3a;
+  background: #fff;
   background-size: cover;
   -webkit-box-shadow: 1px 0 7px 0 rgba(0, 0, 0, 0.5);
   box-shadow: 1px 0 7px 0 rgba(0, 0, 0, 0.5);
@@ -1567,7 +1567,7 @@ body[data-layout="detached"] .page-title-box .breadcrumb-item.active {
 
 @media (max-width: 991.98px) {
   body[data-topbar="colored"] #page-topbar {
-    background-color: #120e43;
+    background-color: #62a6dc;
   }
 }
 
@@ -2629,7 +2629,7 @@ small {
 
 .fc-event,
 .fc-event-dot {
-  background-color: #120e43;
+  background-color: #62a6dc;
 }
 
 .fc-event .fc-content {

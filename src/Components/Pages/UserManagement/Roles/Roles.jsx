@@ -347,21 +347,24 @@ const Roles = () => {
                         />
 
                         {TajurbaAdmin_priviledge_data &&
-                        TajurbaAdmin_priviledge_data.some(
-                          (ele) =>
-                            ele.title === "User Management" &&
-                            ele.is_active === true &&
-                            ele?.submenu &&
-                            ele?.submenu.some(
-                              (sub) =>
-                                sub.title === "Roles" &&
-                                sub.is_active === true &&
-                                sub.is_edit === true
-                            )
-                        ) ? (
+                          TajurbaAdmin_priviledge_data.some(
+                            (ele) =>
+                              ele.title === "User Management" &&
+                              ele.is_active === true &&
+                              ele?.submenu &&
+                              ele?.submenu.some(
+                                (sub) =>
+                                  sub.title === "Roles" &&
+                                  sub.is_active === true &&
+                                  sub.is_edit === true
+                              )
+                          ) ? (
                           <NavLink
                             to="/roles/create-role"
-                            className="btn bgDarkBlack text-white px-4 float-end ms-3"
+                            className="btn text-white px-4 float-end ms-3"
+                            style={{
+                              backgroundColor: "#62a6dc",
+                              borderRadius: "20px"}}
                           >
                             <i className="fa-regular fa-plus"></i>
                             <span className="ms-2">Create Role</span>
@@ -430,6 +433,10 @@ const Roles = () => {
                                         <td>
                                           <NavLink
                                             className="btn btn-sm waves-effect waves-light btnViewOrange"
+                                            style={{
+                                              backgroundColor: "#62a6dc",
+                                              borderRadius: "20px",
+                                            }}
                                             to={`../${AdminRoute?.UserManagement?.Roles?.RoleDetails?.replace(
                                               ":status",
                                               currentTab
