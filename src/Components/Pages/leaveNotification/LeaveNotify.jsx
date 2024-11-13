@@ -144,7 +144,7 @@ const LeaveNotify = () => {
     const employee = EmployeeList.find(
       (emp) => emp._id == leave.user_id && emp.reporting_to == admin_id._id
     );
-    console.log(employee, "employee");
+    const update = { ...employee };
     return employee;
   });
   console.log("eplist", EmployeeList);
