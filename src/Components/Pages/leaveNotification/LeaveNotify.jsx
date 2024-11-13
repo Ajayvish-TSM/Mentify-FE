@@ -126,20 +126,28 @@ const LeaveNotify = () => {
 
     fetchEmployeeList();
   }, []);
+  const handleApprove = (leaveId) => {
+    console.log("Approved leave ID:", leaveId);
+    // Add logic to update leave status to "Approved"
+  };
+
+  const handleReject = (leaveId) => {
+    console.log("Rejected leave ID:", leaveId);
+    // Add logic to update leave status to "Rejected"
+  };
 
   useEffect(() => {
     MyTeamTabList(currentTab);
   }, [currentTab, currentPage, itemsPerPage, filterselect, search]);
-  console.log(admin_id);
+
   const filteredData = leaveData.filter((leave) => {
-    console.log(leave, "leave");
     const employee = EmployeeList.find(
       (emp) => emp._id == leave.user_id && emp.reporting_to == admin_id._id
     );
     console.log(employee, "employee");
     return employee;
   });
-  console.log("eplist", filteredData);
+  console.log("eplist", EmployeeList);
   return (
     <>
       {/* <AppLayout> */}
@@ -173,7 +181,7 @@ const LeaveNotify = () => {
                           <li
                             className="nav-item"
                             onClick={() => {
-                              setCurrentTab("All");
+                              setCurrentTab("pending");
                               navigate({
                                 state: {},
                               });
@@ -195,7 +203,7 @@ const LeaveNotify = () => {
                           <li
                             className="nav-item"
                             onClick={() => {
-                              setCurrentTab("Active");
+                              setCurrentTab("approved");
                               navigate({
                                 state: {},
                               });
@@ -217,7 +225,7 @@ const LeaveNotify = () => {
                           <li
                             className="nav-item"
                             onClick={() => {
-                              setCurrentTab("Inactive");
+                              setCurrentTab("rejected");
                               navigate({
                                 state: {},
                               });
@@ -263,109 +271,6 @@ const LeaveNotify = () => {
                             </tr>
                           </thead>
                           <tbody>
-                            {/* <tr>
-                                <td className="fw-bold">Kevin Smith</td>
-                                <td>+1 202 555 0140</td>
-                                <td>example@gmail.com</td>
-                                <td className="fw-bold">Creator</td>
-                                <td>04/04/2023</td>
-                                <td>
-                                  <svg
-                                    id="Component_150_7"
-                                    data-name="Component 150 – 7"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    width="50"
-                                    height="26"
-                                    viewBox="0 0 50 26"
-                                  >
-                                    <rect
-                                      id="Rectangle_6304"
-                                      data-name="Rectangle 6304"
-                                      width="50"
-                                      height="26"
-                                      rx="2"
-                                      fill="#e2e2e2"
-                                    />
-                                    <g
-                                      id="Group_14953"
-                                      data-name="Group 14953"
-                                      transform="translate(-1500 -438)"
-                                    >
-                                      <rect
-                                        id="Rectangle_6305"
-                                        data-name="Rectangle 6305"
-                                        width="18"
-                                        height="18"
-                                        rx="2"
-                                        transform="translate(1527 442)"
-                                        fill="#fff"
-                                      />
-                                      <g
-                                        id="Group_14952"
-                                        data-name="Group 14952"
-                                        transform="translate(1531.918 447)"
-                                      >
-                                        <line
-                                          id="Line_1364"
-                                          data-name="Line 1364"
-                                          y2="9"
-                                          transform="translate(0.082)"
-                                          fill="none"
-                                          stroke="#e8e8e8"
-                                        />
-                                        <line
-                                          id="Line_1365"
-                                          data-name="Line 1365"
-                                          y2="9"
-                                          transform="translate(4.082)"
-                                          fill="none"
-                                          stroke="#e8e8e8"
-                                        />
-                                        <line
-                                          id="Line_1366"
-                                          data-name="Line 1366"
-                                          y2="9"
-                                          transform="translate(8.082)"
-                                          fill="none"
-                                          stroke="#e8e8e8"
-                                        />
-                                      </g>
-                                    </g>
-                                    <g
-                                      id="Group_14954"
-                                      data-name="Group 14954"
-                                      transform="translate(9.5 0.5)"
-                                    >
-                                      <line
-                                        id="Line_1368"
-                                        data-name="Line 1368"
-                                        x1="8"
-                                        y2="10"
-                                        transform="translate(0 7.5)"
-                                        fill="none"
-                                        stroke="#b9b9b9"
-                                      />
-                                      <line
-                                        id="Line_1369"
-                                        data-name="Line 1369"
-                                        x2="8"
-                                        y2="10"
-                                        transform="translate(0 7.5)"
-                                        fill="none"
-                                        stroke="#b9b9b9"
-                                      />
-                                    </g>
-                                  </svg>
-                                </td>
-                                <td>
-                                  <NavLink
-                                    to="/user-profile"
-                                    className="btn btn-sm waves-effect waves-light btnView"
-                                  >
-                                    View More
-                                  </NavLink>
-                                </td>
-                              </tr> */}
                             {loading ? (
                               <tr>
                                 <td colSpan={6}>
@@ -383,8 +288,8 @@ const LeaveNotify = () => {
                               </tr>
                             ) : (
                               <>
-                                {leaveData && listingData?.length ? (
-                                  leaveData?.map((ele, index) => {
+                                {filteredData && filteredData?.length ? (
+                                  filteredData?.map((ele, index) => {
                                     return (
                                       <tr key={index}>
                                         <td className="fw-bold">
@@ -411,7 +316,9 @@ const LeaveNotify = () => {
                                           <button
                                             // to={`../${AdminRoute?.UserManagement?.MyTeam?.UserProfile}`}
                                             className="btn btn-sm waves-effect waves-light btnViewOrange text-white"
-                                            onClick={() => {}}
+                                            onClick={() => {
+                                              handleApprove(ele?._id);
+                                            }}
                                           >
                                             Approved
                                           </button>
@@ -420,7 +327,9 @@ const LeaveNotify = () => {
                                           <button
                                             // to={`../${AdminRoute?.UserManagement?.MyTeam?.UserProfile}`}
                                             className="btn btn-sm waves-effect waves-light btnViewOrange text-white"
-                                            onClick={() => {}}
+                                            onClick={() => {
+                                              handleReject(ele?._id);
+                                            }}
                                           >
                                             Rejected
                                           </button>
@@ -458,11 +367,11 @@ const LeaveNotify = () => {
                           <thead>
                             <tr>
                               <th>Name</th>
-                              <th>Mobile</th>
-                              <th className="w-30">Email</th>
-                              <th>Role</th>
-                              <th>Created Date</th>
-                              <th>Status</th>
+                              <th>Leave Code</th>
+                              <th className="w-20">Leave Reason</th>
+                              <th>Start Date</th>
+                              <th>End Date</th>
+
                               <th></th>
                             </tr>
                           </thead>
@@ -559,11 +468,11 @@ const LeaveNotify = () => {
                           <thead>
                             <tr>
                               <th>Name</th>
-                              <th>Mobile</th>
-                              <th className="w-30">Email</th>
-                              <th>Role</th>
-                              <th>Created Date</th>
-                              <th>Status</th>
+                              <th>Leave Code</th>
+                              <th className="w-20">Leave Reason</th>
+                              <th>Start Date</th>
+                              <th>End Date</th>
+
                               <th></th>
                             </tr>
                           </thead>
