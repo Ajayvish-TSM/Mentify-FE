@@ -1161,6 +1161,9 @@ const Moderator = () => {
     if (!values.assigned_leaves) {
       errors.assigned_leaves = "Please type numbers of leave to be provide.";
     }
+    if (!values.leaveType) {
+      errors.leaveType = "Please select leave mode.";
+    }
     console.log("Errors", errors);
     return errors;
   };
@@ -1170,6 +1173,7 @@ const Moderator = () => {
       leave_code: "",
       assigned_leaves: "",
       //assigned_date: "",
+      leaveType: "",
       assigned_by: admin_id._id,
     },
     onSubmit: (values, { setSubmitting }) => {
@@ -1253,6 +1257,7 @@ const Moderator = () => {
           user_id: formik.values._id,
           assigned_leaves: formik.values.assigned_leaves,
           assigned_by: formik.values.assigned_by,
+          leaveType: formik.values.leaveType,
         },
         agent: "leave_credit",
       }).then((response) => {
@@ -1391,40 +1396,72 @@ const Moderator = () => {
                             Select
                           </option>
                           {EmployeeList &&
-                            EmployeeList?.map((ele, index) => {
-                              return (
-                                <option
-                                  selected=""
-                                  value={ele?._id}
-                                  key={index}
-                                  checked={formik.values._id.includes(ele)}
-                                  onChange={(e) => {
-                                    const isChecked = e.target.checked;
-                                    if (isChecked) {
-                                      formik.setFieldValue(
-                                        "_id",
-                                        [...formik.values._id, ele],
-                                        true
-                                      );
-                                    } else {
-                                      formik.setFieldValue(
-                                        "_id",
-                                        formik.values._id.filter(
-                                          (selectedOption) =>
-                                            selectedOption !== ele
-                                        ),
-                                        true
-                                      );
-                                    }
-                                  }}
-                                >
-                                  {ele?.first_name}
-                                </option>
-                              );
-                            })}
+                            EmployeeList?.filter((ele) => ele?.is_active).map(
+                              (ele, index) => {
+                                return (
+                                  <option
+                                    selected=""
+                                    value={ele?._id}
+                                    key={index}
+                                    checked={formik.values._id.includes(ele)}
+                                    onChange={(e) => {
+                                      const isChecked = e.target.checked;
+                                      if (isChecked) {
+                                        formik.setFieldValue(
+                                          "_id",
+                                          [...formik.values._id, ele],
+                                          true
+                                        );
+                                      } else {
+                                        formik.setFieldValue(
+                                          "_id",
+                                          formik.values._id.filter(
+                                            (selectedOption) =>
+                                              selectedOption !== ele
+                                          ),
+                                          true
+                                        );
+                                      }
+                                    }}
+                                  >
+                                    {ele?.first_name}
+                                  </option>
+                                );
+                              }
+                            )}
                         </select>
                       </div>
-
+                      <div className="col-4">
+                        <label className="form-label">Leave Mode</label>
+                        <div>
+                          <label className="me-3">
+                            <input
+                              type="radio"
+                              name="leaveType"
+                              value="credit"
+                              checked={formik.values.leaveType === "credit"}
+                              onChange={() =>
+                                formik.setFieldValue("leaveType", "credit")
+                              }
+                              disabled={!CheckAccess}
+                            />
+                            <span className="ms-1">Credit</span>
+                          </label>
+                          <label>
+                            <input
+                              type="radio"
+                              name="leaveType"
+                              value="debit"
+                              checked={formik.values.leaveType === "debit"}
+                              onChange={() =>
+                                formik.setFieldValue("leaveType", "debit")
+                              }
+                              disabled={!CheckAccess}
+                            />
+                            <span className="ms-1">Debit</span>
+                          </label>
+                        </div>
+                      </div>
                       <div className="col-8">
                         <label className="form-label">
                           <span className="mandatory-star me-1">*</span>
@@ -1448,6 +1485,7 @@ const Moderator = () => {
                             ))}
                         </datalist>*/}
                       </div>
+
                       {/* {formik.errors.category && formik.touched.category ? (
                         <div className="text-danger">
                           {formik.errors.category}
@@ -1483,11 +1521,11 @@ const Moderator = () => {
               <table className="table mb-0 tablesWrap">
                 <thead>
                   <tr>
-                    <th>S.No</th>
+                    <th>S.no.</th>
                     <th className="">Leave Code</th>
                     <th>Employee Name</th>
-                    <th>Leave Balance</th>
-                    <th>Credited On</th>
+                    <th>No. of leaves</th>
+                    <th>Created On</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -1514,7 +1552,10 @@ const Moderator = () => {
                                   (emp) => emp?._id === ele?.user_id
                                 )?.first_name || "NA"}
                               </td>
-                              <td>{ele?.assigned_leaves}</td>
+                              <td>
+                                {ele?.assigned_leaves}{" "}
+                                {ele?.leaveType ? `(${ele.leaveType})` : ""}
+                              </td>
                               <td>
                                 {new Date(ele?.assigned_date).toLocaleString(
                                   "en-US",

@@ -15,7 +15,7 @@ const SubscriptionPlans = () => {
   const TajurbaAdmin_priviledge_data = JSON.parse(
     localStorage.getItem("TajurbaAdmin_priviledge_data")
   );
-
+  const UserObject = JSON.parse(localStorage.getItem("TajurbaAdminUser"));
   const [formErrors, setFormErrors] = useState({});
   const [currentTab, setCurrentTab] = useState(
     state?.moderator_previousTab
@@ -26,7 +26,13 @@ const SubscriptionPlans = () => {
   const CheckAccess =
     TajurbaAdmin_priviledge_data &&
     TajurbaAdmin_priviledge_data.some(
-      (ele) => ele.title === "Apply Leave" && ele.is_active === true
+      (ele) =>
+        ele.title === "Leave" &&
+        ele.is_active === true &&
+        ele?.submenu &&
+        ele?.submenu.some(
+          (sub) => sub.title === "Apply Leave" && sub.is_active === true
+        )
     );
 
   const [errorMessage, setErrorMessage] = useState("");
@@ -91,6 +97,12 @@ const SubscriptionPlans = () => {
       console.log(error);
     }
   }, []);
+  function calculateLeaveDays(from_date, to_date) {
+    const startDate = new Date(from_date);
+    const endDate = new Date(to_date);
+    const timeDifference = endDate - startDate;
+    return Math.ceil(timeDifference / (1000 * 60 * 60 * 24)) || 0;
+  }
 
   useEffect(() => {
     try {
@@ -101,7 +113,12 @@ const SubscriptionPlans = () => {
       }).then((response) => {
         console.log("leave", response);
         if (response?.data?.data?.status === 200) {
-          setLeaveData(response.data.data.data);
+          const updatedData = response.data.data.data.map((ele) => ({
+            ...ele,
+            leaveDays: calculateLeaveDays(ele.from_date, ele.to_date),
+          }));
+
+          setLeaveData(updatedData);
         }
       });
     } catch (error) {
@@ -126,7 +143,7 @@ const SubscriptionPlans = () => {
     try {
       API?.CommanApiCall({
         data: {
-          user_id: "657170a49741e13095d51ebc",
+          user_id: UserObject._id,
           from_date: formik.values.from_date,
           to_date: formik.values.to_date,
           leave_code: formik.values.leave_code,
@@ -246,7 +263,7 @@ const SubscriptionPlans = () => {
                                     }
                                   }}
                                 >
-                                  {ele?.leave_code}
+                                  {ele?.leave_code} ({ele?.leave_name} )
                                 </option>
                               );
                             })}
@@ -330,6 +347,7 @@ const SubscriptionPlans = () => {
                     <th className="">Leave Code</th>
                     <th>Start Date</th>
                     <th>End Date</th>
+                    <th>No. of leaves</th>
                     <th>Status</th>
                     <th>Reason</th>
                   </tr>
@@ -373,6 +391,7 @@ const SubscriptionPlans = () => {
                                   }
                                 )}
                               </td>
+                              <td>{ele?.leaveDays}</td>
                               <td>{ele?.status}</td>
                               <td>
                                 <Tooltip

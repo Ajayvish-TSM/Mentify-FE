@@ -1,3 +1,5 @@
+import { notification } from "antd";
+
 const RouteName = {
   Auth: {
     Login: "/",
@@ -36,6 +38,9 @@ const RouteName = {
       ModeratorRejected: "moderator/moderator-rejected/:id",
       ModeratorApproved: "moderator/moderator-approved/:id",
     },
+  },
+  leave: {
+    notification: "notification",
   },
   UserManagement: {
     Consumers: {
