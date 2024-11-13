@@ -72,6 +72,9 @@ const CreateUser = () => {
     } else if (!values?.reporting_to) {
       errors.employee_type = "Please select Reporting To";
     }
+    if (!values?.reporting_to) {
+      errors.reporting_to = "Please select Reporting to";
+    }
     // else if (
     //   values?.firstName?.length < 3 ||
     //   values?.firstName?.length > 10
@@ -409,49 +412,45 @@ const CreateUser = () => {
                             </div>
                           </div>
                         </div>
-                      </div>
-
-                      <div className="row ps-0 ps-md-4 mt-4">
-                        <div className="col-12">
-                          <h4 className="fw-bold mb-3">Roles</h4>
-                        </div>
-                        <hr className="borderHr" />
-                        <div className="col-4 mb-3">
-                          <select
-                            className="form-select bg-white"
-                            aria-label="Default select example"
-                            name="roles"
-                            onChange={(e) => handleChange(e)}
-                            value={formValues?.roles}
-                          >
-                            <option value="">Select</option>
-                            {roleListing?.map((ele, index) => {
-                              // if (ele?.is_active)
-                              return (
-                                <option key={index} value={ele?.role_id}>
-                                  {ele?.name}
-                                </option>
-                              );
-                            })}
-                          </select>
-                          <p className="text-danger">{formErrors?.roles}</p>
-                        </div>
-                      </div>
-                      <div className="row ps-0 ps-md-4 mt-4">
-                        <div className="col-12">
-                          <h4 className="fw-bold mb-3">Reporting To</h4>
-                        </div>
-                        <hr className="borderHr" />
-                        <div className="col-4 mb-3">
-                          <select
-                            className="form-select bg-white"
-                            aria-label="Default select example"
-                            name="reporting_to"
-                            onChange={(e) => handleChange(e)}
-                            value={formValues?.reporting_to}
-                          >
-                            <option value="">Select</option>
-                            {/* {employeeType?.map((ele, index) => {
+                        <div className="col-12 mb-3">
+                          <div className="row">
+                            <div className="col-4">
+                              <label className="form-label">Roles</label>
+                              <div>
+                                <select
+                                  className="form-select bg-white"
+                                  aria-label="Default select example"
+                                  name="roles"
+                                  onChange={(e) => handleChange(e)}
+                                  value={formValues?.roles}
+                                >
+                                  <option value="">Select</option>
+                                  {roleListing?.map((ele, index) => {
+                                    // if (ele?.is_active)
+                                    return (
+                                      <option key={index} value={ele?.role_id}>
+                                        {ele?.name}
+                                      </option>
+                                    );
+                                  })}
+                                </select>
+                                <p className="text-danger">
+                                  {formErrors?.roles}
+                                </p>
+                              </div>
+                            </div>
+                            <div className="col-4">
+                              <label className="form-label">Reporting To</label>
+                              <div>
+                                <select
+                                  className="form-select bg-white"
+                                  aria-label="Default select example"
+                                  name="reporting_to"
+                                  onChange={(e) => handleChange(e)}
+                                  value={formValues?.reporting_to}
+                                >
+                                  <option value="">Select</option>
+                                  {/* {employeeType?.map((ele, index) => {
                               // if (ele?.is_active)
                               return (
                                 <option key={index} value={ele}>
@@ -459,22 +458,52 @@ const CreateUser = () => {
                                 </option>
                               );
                             })} */}
-                            {EmployeeList &&
-                              EmployeeList?.map((ele, index) => {
-                                return (
-                                  <option
-                                    selected=""
-                                    value={ele?._id}
-                                    key={index}
-                                  >
-                                    {ele?.first_name}
-                                  </option>
-                                );
-                              })}
-                          </select>
-                          <p className="text-danger">
-                            {formErrors?.employee_type}
-                          </p>
+                                  {EmployeeList &&
+                                    EmployeeList?.map((ele, index) => {
+                                      return (
+                                        <option
+                                          selected=""
+                                          value={ele?._id}
+                                          key={index}
+                                        >
+                                          {ele?.first_name}
+                                        </option>
+                                      );
+                                    })}
+                                </select>
+                                <p className="text-danger">
+                                  {formErrors?.reporting_to}
+                                </p>
+                              </div>
+                            </div>
+                            {/* <div className="col-4">
+                              <label className="form-label">
+                                Employee Type
+                              </label>
+                              <div>
+                                <select
+                                  className="form-select bg-white"
+                                  aria-label="Default select example"
+                                  name="reporting_to"
+                                  onChange={(e) => handleChange(e)}
+                                  value={formValues?.reporting_to}
+                                >
+                                  <option value="">Select</option>
+                                  {employeeType?.map((ele, index) => {
+                                    // if (ele?.is_active)
+                                    return (
+                                      <option key={index} value={ele}>
+                                        {ele}
+                                      </option>
+                                    );
+                                  })}
+                                </select>
+                                <p className="text-danger">
+                                  {formErrors?.employee_type}
+                                </p>
+                              </div>
+                            </div> */}
+                          </div>
                         </div>
                       </div>
 
