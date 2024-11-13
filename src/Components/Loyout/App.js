@@ -464,7 +464,6 @@ const AppLayout = (props) => {
         ).map((ele, index) => ({
           key: "4",
           icon: <AppstoreOutlined />,
-<<<<<<< Updated upstream
           className: "navLi",
           label: "Leave",
           style: { paddingLeft: "0px" },
@@ -532,11 +531,6 @@ const AppLayout = (props) => {
             //       }))
             //   : []),
           ],
-=======
-           //label: "Subscription Plans",
-          path: "/leave-apply",
-          label: <NavLink to={"/leave-apply"}>Leave</NavLink>,
->>>>>>> Stashed changes
         }))
       : []),
 

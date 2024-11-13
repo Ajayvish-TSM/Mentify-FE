@@ -177,7 +177,7 @@ const SubscriptionPlans = () => {
       <div className="main-content">
         <div className="page-content">
           <DateAndTimeLayout />
-          <div className="row mt-5">
+          <div className="row  ">
             <div className="col-6">
               <div className="row position-relative mb-3">
                 <div>
