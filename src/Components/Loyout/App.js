@@ -1,6 +1,12 @@
 /* eslint-disable */
 import React, { useEffect, useState } from "react";
-import { NavLink, Outlet, useLocation, useNavigate } from "react-router-dom";
+import {
+  NavLink,
+  Outlet,
+  useLocation,
+  useNavigate,
+  useNavigation,
+} from "react-router-dom";
 import AdminRoute from "./../../Route/RouteDetails";
 // import logo from "./../../assets/images/logo.png";
 import profilePhoto from "../../assets/images/profile.png";
@@ -11,7 +17,13 @@ import logo from "./../../assets/images/icons/logo.svg";
 import profileImg from "./../../assets/images/profileu.png";
 import Dropdown from "react-bootstrap/Dropdown";
 import MenuNavbar from "./Navbar/MenuNavbar";
-import { AppstoreOutlined } from "@ant-design/icons";
+import {
+  AppstoreOutlined,
+  CalculatorOutlined,
+  CalendarOutlined,
+  IdcardOutlined,
+  ScheduleOutlined,
+} from "@ant-design/icons";
 import { Menu } from "antd";
 
 // import notificationImg from "../../assets/images/Notific.png";
@@ -229,7 +241,7 @@ const AppLayout = (props) => {
           (ele) => ele?.title === "Dashboard" && ele?.is_active
         ).map((ele, index) => ({
           key: "1",
-          icon: <AppstoreOutlined />,
+          icon: <AppstoreOutlined style={{ fontSize: "20px" }} />,
           path: "/dashboard",
           label: <NavLink to={"/dashboard"}>Dashboard</NavLink>,
         }))
@@ -241,7 +253,7 @@ const AppLayout = (props) => {
         ).map((ele, index) => ({
           key: "2",
           className: "navLi",
-          icon: <AppstoreOutlined />,
+          icon: <CalendarOutlined style={{ fontSize: "20px" }} />,
           label: "Leave Management",
           style: { paddingLeft: "0px" },
           children: [
@@ -393,7 +405,7 @@ const AppLayout = (props) => {
           (ele) => ele?.title === "Community" && ele?.is_active
         ).map((ele, index) => ({
           key: "3",
-          icon: <AppstoreOutlined />,
+          icon: <AppstoreOutlined style={{ fontSize: "20px" }} />,
           label: "Community",
 
           className: "navLi",
@@ -463,7 +475,7 @@ const AppLayout = (props) => {
           (ele) => ele?.title === "Leave" && ele?.is_active
         ).map((ele, index) => ({
           key: "4",
-          icon: <AppstoreOutlined />,
+          icon: <ScheduleOutlined style={{ fontSize: "20px" }} />,
           className: "navLi",
           label: "Leave",
           style: { paddingLeft: "0px" },
@@ -539,7 +551,7 @@ const AppLayout = (props) => {
           (ele) => ele?.title === "User Management" && ele?.is_active
         ).map((ele, index) => ({
           key: "5",
-          icon: <AppstoreOutlined />,
+          icon: <IdcardOutlined style={{ fontSize: "20px" }} />,
           className: "navLi",
           label: "User Management",
           style: { paddingLeft: "0px" },
@@ -610,7 +622,7 @@ const AppLayout = (props) => {
           (ele) => ele?.title === "Holiday" && ele?.is_active
         ).map((ele, index) => ({
           key: "6",
-          icon: <AppstoreOutlined />,
+          icon: <CalculatorOutlined style={{ fontSize: "20px" }} />,
           className: "navLi",
           label: "Holiday",
           style: { paddingLeft: "0px" },
@@ -915,6 +927,10 @@ const AppLayout = (props) => {
       ></Menu>
     );
   };
+  const closeDropdown = () => {
+    // Simulate a click on the toggle to close the dropdown
+    document.getElementById("dropdown-basic").click();
+  };
 
   return (
     <>
@@ -1103,10 +1119,13 @@ const AppLayout = (props) => {
                                 ":id",
                                 adminObject?.user_id
                               )}`}
+                              onClick={closeDropdown}
                               className="btn profileBtn rounded-pill mt-4 font-size-12"
-                              style={{ display: "flex",
+                              style={{
+                                display: "flex",
                                 backgroundColor: "#62a6dc",
-                                borderRadius: "20px",}}
+                                borderRadius: "20px",
+                              }}
                             >
                               View Profile
                             </NavLink>

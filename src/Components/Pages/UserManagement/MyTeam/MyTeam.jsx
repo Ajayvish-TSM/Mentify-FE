@@ -231,6 +231,7 @@ const MyTeam = () => {
           setListingData(response?.data?.data?.data);
           setTotalPage(response?.data?.data?.total_pages);
           setTotalItems(response?.data?.data?.total_data);
+
           setLoading(false);
         }
       });
@@ -270,7 +271,7 @@ const MyTeam = () => {
                     <div className="row mb-4" id="consumers">
                       <div className="col-xl-5 mb-4 mb-xl-0">
                         <ul
-                          className="nav nav-tabs nav-tabs-custom mt-5 mt-xl-0"
+                          className="nav   nav-tabs-custom mt-5 mt-xl-0"
                           role="tablist"
                         >
                           <li
@@ -281,6 +282,7 @@ const MyTeam = () => {
                                 state: {},
                               });
                             }}
+                            style={{ color: "#252525" }}
                           >
                             <a
                               className={
@@ -291,6 +293,7 @@ const MyTeam = () => {
                               data-bs-toggle="tab"
                               href="#to-Be-Reviewed"
                               role="tab"
+                              style={{ color: "#252525" }}
                             >
                               <span>All</span>
                             </a>
@@ -368,7 +371,8 @@ const MyTeam = () => {
                             className="btn text-white px-4 float-end ms-3"
                             style={{
                               backgroundColor: "#62a6dc",
-                              borderRadius: "20px"}}
+                              borderRadius: "20px",
+                            }}
                           >
                             <i className="fa-regular fa-plus"></i>
                             <span className="ms-2">Create User</span>
@@ -549,7 +553,8 @@ const MyTeam = () => {
                                             // to={`../${AdminRoute?.UserManagement?.MyTeam?.UserProfile}`}
                                             style={{
                                               backgroundColor: "#62a6dc",
-                                              borderRadius: "20px",}}
+                                              borderRadius: "20px",
+                                            }}
                                             className="btn btn-sm waves-effect waves-light btnViewOrange text-white"
                                             to={`../${AdminRoute?.UserManagement?.MyTeam?.UserProfile?.replace(
                                               ":status",

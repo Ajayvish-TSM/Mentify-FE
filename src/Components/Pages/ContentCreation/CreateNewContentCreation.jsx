@@ -12,6 +12,7 @@ import { ToastContainer, toast } from "react-toastify";
 import FilterSearch from "../../Common/FilterSearch";
 import { EditFilled } from "@ant-design/icons";
 import { isEditable } from "@testing-library/user-event/dist/utils";
+import Pagination from "../../Common/Pagination";
 
 const CreateNewContentCreation = () => {
   const adminObject = JSON.parse(localStorage.getItem("TajurbaAdminToken"));
@@ -19,6 +20,11 @@ const CreateNewContentCreation = () => {
   const [formErrors, setFormErrors] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
   const [listingData, setListingData] = useState([]);
+  const [totalPagess, setTotalPage] = useState();
+  const [totalItems, setTotalItems] = useState();
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(10);
+  const [goToPage, setGoToPage] = useState(1);
   const TajurbaAdmin_priviledge_data = JSON.parse(
     localStorage.getItem("TajurbaAdmin_priviledge_data")
   );
@@ -96,24 +102,47 @@ const CreateNewContentCreation = () => {
   //   },
   //   validate,
   // });
-
-  useEffect(() => {
+  const CreatedLeave = () => {
     setLoadingData(true);
     try {
       API?.CommanApiCall({
-        data: {},
+        data: { page_no: currentPage, limit: itemsPerPage },
         agent: "leave_create_list",
       }).then((response) => {
         console.log(response);
         if (response?.data?.data?.status === 200) {
-          setLoadingData(false);
           setListingData(response.data.data.data);
+          setTotalPage(response?.data?.data?.total_pages);
+          setTotalItems(response?.data?.data?.total_records);
+          setLoadingData(false);
         }
       });
     } catch (error) {
       console.log(error);
     }
-  }, []);
+  };
+  console.log("nlldodod", itemsPerPage);
+  // useEffect(() => {
+  //   setLoadingData(true);
+  //   try {
+  //     API?.CommanApiCall({
+  //       data: {},
+  //       agent: "leave_create_list",
+  //     }).then((response) => {
+  //       console.log(response);
+  //       if (response?.data?.data?.status === 200) {
+  //         setLoadingData(false);
+  //         setListingData(response.data.data.data);
+  //       }
+  //     });
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }, []);
+
+  useEffect(() => {
+    CreatedLeave();
+  }, [currentPage, itemsPerPage]);
   useEffect(() => {
     if (Object.keys(formErrors).length === 0 && isSubmit) {
       setLoading(true);
@@ -188,7 +217,10 @@ const CreateNewContentCreation = () => {
           </div>
 
           <div className="row" id="createContent">
-            <div className="row justify-content-between main-card p-4" style={{marginLeft: "12px"}}>
+            <div
+              className="row justify-content-between main-card p-4"
+              style={{ marginLeft: "12px" }}
+            >
               {errorMessage ? (
                 <span className="text-danger text-end">{errorMessage}</span>
               ) : null}
@@ -327,7 +359,6 @@ const CreateNewContentCreation = () => {
               <table className="table mb-0 tablesWrap">
                 <thead>
                   <tr>
-                    <th>S.No</th>
                     <th className="">Leave Code</th>
                     <th>Leave Name</th>
 
@@ -352,7 +383,6 @@ const CreateNewContentCreation = () => {
                         listingData?.map((ele, index) => {
                           return (
                             <tr key={index}>
-                              <td>{index + 1}.</td>
                               <td>{ele?.leave_code}</td>
                               <td>{ele?.leave_name}</td>
                               <td>
@@ -396,6 +426,16 @@ const CreateNewContentCreation = () => {
               </table>
             </div>
           </div>
+          <Pagination
+            totalPagess={totalPagess}
+            setTotalPage={setTotalPage}
+            totalItems={totalItems}
+            setTotalItems={setTotalItems}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+            itemsPerPage={itemsPerPage}
+            setItemsPerPage={setItemsPerPage}
+          />
         </div>
       </div>
     </>

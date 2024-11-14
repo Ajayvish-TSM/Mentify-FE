@@ -204,6 +204,7 @@ import API from "../../../Api/Api";
 import { ToastContainer, toast } from "react-toastify";
 import FilterSearch from "../../Common/FilterSearch";
 import { EditFilled } from "@ant-design/icons";
+import Pagination from "../../Common/Pagination";
 
 const Feed = () => {
   const adminObject = JSON.parse(localStorage.getItem("TajurbaAdminToken"));
@@ -242,6 +243,11 @@ const Feed = () => {
 
   const [errorMessage, SetErrorMessage] = useState("");
   const [loading, setLoading] = useState(false);
+  const [totalPagess, setTotalPage] = useState();
+  const [totalItems, setTotalItems] = useState();
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(10);
+  const [goToPage, setGoToPage] = useState(1);
   const navigate = useNavigate();
   const [selectedItem, setSelectedItem] = useState(null);
   const [isEditMode, setIsEditMode] = useState(false);
@@ -283,23 +289,27 @@ const Feed = () => {
     validate,
   });
 
-  useEffect(() => {
+  const GetHolidayList = () => {
     try {
       API?.CommanApiCall({
-        data: {},
+        data: { page_no: currentPage, limit: itemsPerPage },
         agent: "holiday_create",
         function: "get_holiday_list",
       }).then((response) => {
-        //console.log(response);
+        console.log(response);
         if (response?.data?.data?.status === 200) {
           setListingData(response.data.data.data);
+          setTotalPage(response?.data?.data?.total_pages);
+          setTotalItems(response?.data?.data?.total_records);
         }
       });
     } catch (error) {
       console.log(error);
     }
-  }, []);
-
+  };
+  useEffect(() => {
+    GetHolidayList();
+  }, [currentPage, itemsPerPage]);
   const handleSave = () => {
     SetErrorMessage("");
     setLoading(true);
@@ -377,7 +387,10 @@ const Feed = () => {
 
           <div className="row" id="createContent">
             <form onSubmit={formik.handleSubmit}>
-              <div className="row justify-content-between main-card p-4" style={{marginLeft: "2px"}}>
+              <div
+                className="row justify-content-between main-card p-4"
+                style={{ marginLeft: "2px" }}
+              >
                 {errorMessage ? (
                   <span className="text-danger text-end">{errorMessage}</span>
                 ) : null}
@@ -461,7 +474,10 @@ const Feed = () => {
                       ) : null}
                       <div>
                         {CheckAccess ? (
-                          <div className="saveBtn" style={{marginTop: "30px"}}>
+                          <div
+                            className="saveBtn"
+                            style={{ marginTop: "30px" }}
+                          >
                             <button
                               className="btn profileBtn text-white px-4 float-end"
                               onClick={formik.handleSubmit}
@@ -607,6 +623,16 @@ const Feed = () => {
               </table>
             </div>
           </div>
+          <Pagination
+            totalPagess={totalPagess}
+            setTotalPage={setTotalPage}
+            totalItems={totalItems}
+            setTotalItems={setTotalItems}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+            itemsPerPage={itemsPerPage}
+            setItemsPerPage={setItemsPerPage}
+          />
         </div>
       </div>
       {/* </AppLayout> */}

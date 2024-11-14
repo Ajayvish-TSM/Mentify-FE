@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useAttendance } from "./AttendanceContext";
 import API from "./Api/Api";
 import { Tooltip } from "antd";
-import { message } from 'antd';
+import { message } from "antd";
 
 const AttendanceButton = () => {
   // const { attendanceStatus, toggleAttendance, userLocation } = useAttendance();
@@ -15,8 +15,8 @@ const AttendanceButton = () => {
 
   // Static office coordinates for testing
   const officeCoordinates = {
-    latitude: 18.5824375,
-    longitude: 73.7263487,
+    latitude: 18.582499725047473,
+    longitude: 73.72627792404252,
   };
 
   // Calculate distance between user and office
@@ -56,7 +56,6 @@ const AttendanceButton = () => {
   //   )
   // );
 
-
   const handleAttendance = async () => {
     if (!isWithinRadius) {
       message.error("You are not within the office radius."); // Use message.error for errors
@@ -89,7 +88,6 @@ const AttendanceButton = () => {
       message.error("An error occurred while updating attendance."); // Show error message on catch
     }
   };
-
 
   return (
     <div style={{ paddingRight: "20px" }}>

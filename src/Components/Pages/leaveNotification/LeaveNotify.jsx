@@ -10,6 +10,7 @@ import moment from "moment";
 import AdminRoute from "../../../Route/RouteDetails";
 import TooltipCustom from "../../Common/TooltipCustom";
 import AttendanceButton from "../../../AttendanceButton";
+import { Tooltip } from "antd";
 
 const LeaveNotify = () => {
   const navigate = useNavigate();
@@ -132,6 +133,24 @@ const LeaveNotify = () => {
           first_name: employee ? employee.first_name : null, // Add the employee's name if found
         };
       });
+  const LengthBasedTooltip = ({ text, maxLength = 20 }) => {
+    const shouldShowTooltip = text.length > maxLength;
+    const displayText = shouldShowTooltip
+      ? `${text.slice(0, maxLength)}...`
+      : text;
+
+    return (
+      <td>
+        {shouldShowTooltip ? (
+          <Tooltip title={text}>
+            <span>{displayText}</span>
+          </Tooltip>
+        ) : (
+          <span>{text}</span>
+        )}
+      </td>
+    );
+  };
   console.log("eplist", filteredData);
   return (
     <>
@@ -160,7 +179,7 @@ const LeaveNotify = () => {
                     <div className="row mb-4" id="consumers">
                       <div className="col-xl-5 mb-4 mb-xl-0">
                         <ul
-                          className="nav nav-tabs nav-tabs-custom mt-5 mt-xl-0"
+                          className="nav   nav-tabs-custom mt-5 mt-xl-0"
                           role="tablist"
                         >
                           <li
@@ -274,7 +293,10 @@ const LeaveNotify = () => {
                                         </td>
                                         <td>{ele?.leave_code}</td>
                                         <td>
-                                          {TooltipCustom(ele?.leave_reason)}
+                                          <LengthBasedTooltip
+                                            text={ele?.leave_reason}
+                                            maxLength={20}
+                                          />
                                         </td>
                                         {/* <td>{ele?.roles[0]?.name}</td> */}
                                         <td>
@@ -364,7 +386,7 @@ const LeaveNotify = () => {
                             <tr>
                               <th>Name</th>
                               <th>Leave Code</th>
-                              <th className="w-20">Leave Reason</th>
+                              <th className="">Leave Reason</th>
                               <th>Start Date</th>
                               <th>End Date</th>
 
@@ -398,9 +420,10 @@ const LeaveNotify = () => {
                                           {ele?.first_name}
                                         </td>
                                         <td>{ele?.leave_code}</td>
-                                        <td>
-                                          {TooltipCustom(ele?.leave_reason)}
-                                        </td>
+                                        <LengthBasedTooltip
+                                          text={ele?.leave_reason}
+                                          maxLength={20}
+                                        />
                                         {/* <td>{ele?.roles[0]?.name}</td> */}
                                         <td>
                                           {moment(ele?.from_date).format(
@@ -480,9 +503,11 @@ const LeaveNotify = () => {
                                           {ele?.first_name}
                                         </td>
                                         <td>{ele?.leave_code}</td>
-                                        <td>
-                                          {TooltipCustom(ele?.leave_reason)}
-                                        </td>
+
+                                        <LengthBasedTooltip
+                                          text={ele?.leave_reason}
+                                          maxLength={20}
+                                        />
                                         {/* <td>{ele?.roles[0]?.name}</td> */}
                                         <td>
                                           {moment(ele?.from_date).format(
