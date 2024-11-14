@@ -190,8 +190,6 @@ const CreateUser = () => {
             }, 1500);
             setLoading(false);
           } else if (response?.data?.data?.status === 201) {
-            console.log("3");
-            console.log("201111", response?.data?.data?.message);
             setLoading(false);
             // dispatch(userdata(response?.data));
             // dispatch(errorData(response?.data?.message));
@@ -381,8 +379,9 @@ const CreateUser = () => {
                         </div>
                         <div className="col-6 mb-3">
                           <label className="form-label">
-                          <span className="mandatory-star me-1">*</span>
-                            Name</label>
+                            <span className="mandatory-star me-1">*</span>
+                            Name
+                          </label>
                           <input
                             type="text"
                             className="form-control bg-white"
@@ -395,8 +394,9 @@ const CreateUser = () => {
                         </div>
                         <div className="col-6">
                           <label className="form-label">
-                          <span className="mandatory-star me-1">*</span>
-                            Mobile No.</label>
+                            <span className="mandatory-star me-1">*</span>
+                            Mobile No.
+                          </label>
                           <input
                             type="number"
                             name="mobile"
@@ -405,17 +405,16 @@ const CreateUser = () => {
                             onChange={(e) => handleChange(e)}
                             value={formValues?.mobile}
                           />
-                          <p className="text-danger">
-                            {formErrors?.mobile}
-                          </p>
+                          <p className="text-danger">{formErrors?.mobile}</p>
                         </div>
 
                         <div className="col-12 mb-3">
                           <div className="row">
                             <div className="col-6">
                               <label className="form-label">
-                              <span className="mandatory-star me-1">*</span>
-                                Email</label>
+                                <span className="mandatory-star me-1">*</span>
+                                Email
+                              </label>
                               <input
                                 type="email"
                                 name="email"
@@ -428,8 +427,9 @@ const CreateUser = () => {
                             </div>
                             <div className="col-6">
                               <label className="form-label">
-                              <span className="mandatory-star me-1">*</span>
-                                Roles</label>
+                                <span className="mandatory-star me-1">*</span>
+                                Roles
+                              </label>
                               <div>
                                 <select
                                   className="form-select bg-white"
@@ -459,8 +459,9 @@ const CreateUser = () => {
                           <div className="row">
                             <div className="col-6">
                               <label className="form-label">
-                              <span className="mandatory-star me-1">*</span>
-                                Reporting To</label>
+                                <span className="mandatory-star me-1">*</span>
+                                Reporting To
+                              </label>
                               <div>
                                 <select
                                   className="form-select bg-white"

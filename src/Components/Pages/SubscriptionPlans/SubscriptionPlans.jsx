@@ -5,7 +5,7 @@ import DateAndTimeLayout from "../../Common/DateAndTimeLayout";
 import { useFormik } from "formik";
 import API from "../../../Api/Api";
 import { ToastContainer, toast } from "react-toastify";
-import { Tooltip } from "antd";
+import { message, Tooltip } from "antd";
 import Pagination from "../../Common/Pagination";
 
 const SubscriptionPlans = () => {
@@ -15,14 +15,23 @@ const SubscriptionPlans = () => {
   const [leaveData, setLeaveData] = useState([]);
   const [totalPagess, setTotalPage] = useState();
   const [totalItems, setTotalItems] = useState();
+  const [isSubmit, setIsSubmit] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
   const [goToPage, setGoToPage] = useState(1);
+  const initialValues = {
+    leave_code: "",
+    from_date: "",
+    to_date: "",
+    leave_reason: "",
+    status: "pending",
+  };
   const TajurbaAdmin_priviledge_data = JSON.parse(
     localStorage.getItem("TajurbaAdmin_priviledge_data")
   );
   const UserObject = JSON.parse(localStorage.getItem("TajurbaAdminUser"));
   const [formErrors, setFormErrors] = useState({});
+  const [formValues, setFormValues] = useState(initialValues);
   const [currentTab, setCurrentTab] = useState(
     state?.moderator_previousTab
       ? state?.moderator_previousTab
@@ -46,7 +55,10 @@ const SubscriptionPlans = () => {
   const [editItemId, setEditItemId] = useState(null);
 
   const navigate = useNavigate();
-
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormValues({ ...formValues, [name]: value });
+  };
   const validate = (values) => {
     console.log(values, "value");
     const errors = {};
@@ -65,28 +77,28 @@ const SubscriptionPlans = () => {
     console.log("Errors", errors);
     return errors;
   };
-  const formik = useFormik({
-    initialValues: {
-      leave_code: "",
-      from_date: "",
-      to_date: "",
-      leave_reason: "",
-      status: "pending",
-    },
-    onSubmit: (values, { setSubmitting }) => {
-      console.log("ssssssssssssssssssssssssss");
-      const errors = validate(values);
+  // const formik = useFormik({
+  //   initialValues: {
+  //     leave_code: "",
+  //     from_date: "",
+  //     to_date: "",
+  //     leave_reason: "",
+  //     status: "pending",
+  //   },
+  //   onSubmit: (values, { setSubmitting }) => {
+  //     console.log("ssssssssssssssssssssssssss");
+  //     const errors = validate(values);
 
-      if (Object.keys(errors).length === 0) {
-        console.log("hhhhhhhhhhhhhhhhh");
-        handleSave();
-      } else {
-        console.log("Validation errors:", errors);
-      }
-      setSubmitting(false);
-    },
-    validate,
-  });
+  //     if (Object.keys(errors).length === 0) {
+  //       console.log("hhhhhhhhhhhhhhhhh");
+  //       handleSave();
+  //     } else {
+  //       console.log("Validation errors:", errors);
+  //     }
+  //     setSubmitting(false);
+  //   },
+  //   validate,
+  // });
 
   useEffect(() => {
     try {
@@ -109,6 +121,11 @@ const SubscriptionPlans = () => {
     const timeDifference = endDate - startDate;
     return Math.ceil(timeDifference / (1000 * 60 * 60 * 24)) || 0;
   }
+  const handleSave = (e) => {
+    e.preventDefault();
+    setFormErrors(validate(formValues));
+    setIsSubmit(true);
+  };
 
   const GetLeaveApplication = () => {
     try {
@@ -136,7 +153,7 @@ const SubscriptionPlans = () => {
 
   useEffect(() => {
     GetLeaveApplication();
-  }, [currentPage, itemsPerPage]);
+  }, [currentPage, itemsPerPage, loading]);
 
   // const handleEdit = (item) => {
   //   setEditItemId(item._id);
@@ -148,39 +165,76 @@ const SubscriptionPlans = () => {
   //     status: item.status,
   //   });
   // };
-
-  const handleSave = () => {
-    setErrorMessage("");
-    setLoading(true);
-    try {
-      API?.CommanApiCall({
-        data: {
-          user_id: UserObject._id,
-          from_date: formik.values.from_date,
-          to_date: formik.values.to_date,
-          leave_code: formik.values.leave_code,
-          leave_reason: formik.values.leave_reason,
-          status: formik.values.status,
-        },
-        agent: "leave_application",
-        id: editItemId,
-      }).then((response) => {
-        console.log(response);
-        if (response?.data?.data?.status === 200) {
-          setLoading(false);
-          setEditItemId(null);
-          navigate(0);
-        } else if (response?.data?.data?.status === 201) {
-          setErrorMessage(response?.data?.data?.message);
-          setTimeout(() => {
-            setErrorMessage("");
-          }, 5000);
-        }
-      });
-    } catch (error) {
-      console.log(error);
+  useEffect(() => {
+    if (Object.keys(formErrors).length === 0 && isSubmit) {
+      console.log("formValues", formValues);
+      setLoading(true);
+      try {
+        API?.CommanApiCall({
+          data: {
+            user_id: UserObject._id,
+            from_date: formValues?.from_date,
+            to_date: formValues?.to_date,
+            leave_code: formValues?.leave_code,
+            leave_reason: formValues?.leave_reason,
+            status: formValues?.status,
+          },
+          agent: "leave_application",
+          id: editItemId,
+        }).then((response) => {
+          console.log(response);
+          if (response?.data?.data?.status === 200) {
+            setLoading(false);
+            setEditItemId(null);
+            message.success("Submitted Successfully");
+            setFormValues(initialValues);
+          } else if (response?.data?.data?.status === 201) {
+            setErrorMessage(response?.data?.data?.message);
+            setTimeout(() => {
+              setErrorMessage("");
+            }, 5000);
+            setLoading(false);
+            setFormValues(initialValues);
+          }
+        });
+      } catch (error) {
+        console.log(error);
+      }
     }
-  };
+  }, [formErrors]);
+
+  // const handleSave = () => {
+  //   setErrorMessage("");
+  //   setLoading(true);
+  //   try {
+  //     API?.CommanApiCall({
+  //       data: {
+  //         user_id: UserObject._id,
+  //         from_date: formik.values.from_date,
+  //         to_date: formik.values.to_date,
+  //         leave_code: formik.values.leave_code,
+  //         leave_reason: formik.values.leave_reason,
+  //         status: formik.values.status,
+  //       },
+  //       agent: "leave_application",
+  //       id: editItemId,
+  //     }).then((response) => {
+  //       console.log(response);
+  //       if (response?.data?.data?.status === 200) {
+  //         setLoading(false);
+  //         setEditItemId(null);
+  //         navigate(0);
+  //       } else if (response?.data?.data?.status === 201) {
+  //         setErrorMessage(response?.data?.data?.message);
+  //         setTimeout(() => {
+  //           setErrorMessage("");
+  //         }, 5000);
+  //       }
+  //     });
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
   // console.log("listing data", listingData);
 
   return (
@@ -200,145 +254,126 @@ const SubscriptionPlans = () => {
           </div>
 
           <div className="row" id="createContent">
-            <form onSubmit={formik.handleSubmit}>
-              <div
-                className="row justify-content-between main-card p-4"
-                style={{ marginLeft: "2px" }}
-              >
-                {errorMessage ? (
-                  <span className="text-danger text-end">{errorMessage}</span>
-                ) : null}
-                <div className="col-xl-6 col-lg-6">
-                  <div className="me-xl-5">
-                    {/* content title */}
-                    <div className="d-flex mb-3">
-                      <div className="col-8">
-                        <label className="form-label">
-                          <span className="mandatory-star me-1">*</span>
-                          Leave Code
-                        </label>
-                        <select
-                          className="form-select w-80 border-radius-2"
-                          aria-label="Default select example"
-                          name="leave_code"
-                          disabled={!CheckAccess}
-                          onChange={formik.handleChange}
-                        >
-                          <option selected="" value="">
-                            Select
-                          </option>
-                          {listingData &&
-                            listingData?.map((ele, index) => {
-                              return (
-                                <option
-                                  selected=""
-                                  value={ele?.leave_code}
-                                  key={index}
-                                  checked={formik.values.leave_code.includes(
-                                    ele
-                                  )}
-                                  onChange={(e) => {
-                                    const isChecked = e.target.checked;
-                                    if (isChecked) {
-                                      formik.setFieldValue(
-                                        "leave_code",
-                                        [...formik.values.leave_code, ele],
-                                        true
-                                      );
-                                    } else {
-                                      formik.setFieldValue(
-                                        "leave_code",
-                                        formik.values.leave_code.filter(
-                                          (selectedOption) =>
-                                            selectedOption !== ele
-                                        ),
-                                        true
-                                      );
-                                    }
-                                  }}
-                                >
-                                  {ele?.leave_code} ({ele?.leave_name} )
-                                </option>
-                              );
-                            })}
-                        </select>
-                      </div>
-
-                      <div className="col-8 mb-3">
-                        <label className="form-label">
-                          <span className="mandatory-star me-1">*</span>
-                          Start Date
-                        </label>
-                        <input
-                          type="date"
-                          className="form-control w-80 border-radius-2"
-                          name="from_date"
-                          disabled={!CheckAccess}
-                          onChange={formik.handleChange}
-                          value={formik.values.from_date}
-                        />
-                      </div>
-
-                      <div className="col-8 mb-3">
-                        <label className="form-label">
-                          <span className="mandatory-star me-1">*</span>
-                          End Date
-                        </label>
-                        <input
-                          type="date"
-                          className="form-control w-80 border-radius-2"
-                          name="to_date"
-                          disabled={!CheckAccess}
-                          onChange={formik.handleChange}
-                          value={formik.values.to_date}
-                        />
-                      </div>
-                    </div>
-                    <div className="col-10 mb-3">
+            <div
+              className="row justify-content-between main-card p-4"
+              style={{ marginLeft: "2px" }}
+            >
+              {errorMessage ? (
+                <span className="text-danger text-end">{errorMessage}</span>
+              ) : null}
+              <div className="col-xl-6 col-lg-6">
+                <div className="me-xl-5">
+                  {/* content title */}
+                  <div className="d-flex mb-3">
+                    <div className="col-8">
                       <label className="form-label">
                         <span className="mandatory-star me-1">*</span>
-                        Reason
+                        Leave Code
                       </label>
-                      <textarea
-                        className="form-control w-80 border-radius-2"
-                        name="leave_reason"
-                        aria-label="Leave Reason"
+                      <select
+                        className="form-select w-80 border-radius-2"
+                        aria-label="Default select example"
+                        name="leave_code"
                         disabled={!CheckAccess}
-                        onChange={formik.handleChange}
-                        value={formik.values.leave_reason}
-                        rows="3"
+                        onChange={(e) => handleChange(e)}
+                        value={formValues?.leave_code}
+                      >
+                        <option selected="" value="">
+                          Select
+                        </option>
+                        {listingData &&
+                          listingData?.map((ele, index) => {
+                            return (
+                              <option
+                                selected=""
+                                value={ele?.leave_code}
+                                key={index}
+                              >
+                                {ele?.leave_code} ({ele?.leave_name})
+                              </option>
+                            );
+                          })}
+                      </select>
+                      <p className="text-danger">{formErrors?.leave_code}</p>
+                    </div>
+
+                    <div className="col-8 mb-3">
+                      <label className="form-label">
+                        <span className="mandatory-star me-1">*</span>
+                        Start Date
+                      </label>
+                      <input
+                        type="date"
+                        className="form-control w-80 border-radius-2"
+                        name="from_date"
+                        disabled={!CheckAccess}
+                        onChange={(e) => handleChange(e)}
+                        value={formValues?.from_date}
                       />
+                      <p className="text-danger">{formErrors?.from_date}</p>
                     </div>
-                    <div>
-                      {CheckAccess ? (
-                        <div className="saveBtn" style={{ marginTop: "-50px" }}>
-                          <button
-                            className="btn profileBtn text-white px-4 float-end"
-                            onClick={formik.handleSubmit}
-                            type="submit"
-                            style={{
-                              display: "flex",
-                              backgroundColor: "#62a6dc",
-                              borderRadius: "20px",
-                            }}
-                            disabled={loading}
-                          >
-                            {loading && (
-                              <span
-                                className="spinner-border spinner-border-sm me-2"
-                                role="status"
-                                aria-hidden="true"
-                              ></span>
-                            )}
-                            Apply
-                          </button>
-                        </div>
-                      ) : null}
+
+                    <div className="col-8 mb-3">
+                      <label className="form-label">
+                        <span className="mandatory-star me-1">*</span>
+                        End Date
+                      </label>
+                      <input
+                        type="date"
+                        className="form-control w-80 border-radius-2"
+                        name="to_date"
+                        disabled={!CheckAccess}
+                        onChange={(e) => handleChange(e)}
+                        value={formValues?.to_date}
+                      />
+                      <p className="text-danger">{formErrors?.to_date}</p>
                     </div>
+                  </div>
+                  <div className="col-10 mb-3">
+                    <label className="form-label">
+                      <span className="mandatory-star me-1">*</span>
+                      Reason
+                    </label>
+                    <textarea
+                      className="form-control w-80 border-radius-2"
+                      name="leave_reason"
+                      aria-label="Leave Reason"
+                      disabled={!CheckAccess}
+                      onChange={(e) => handleChange(e)}
+                      value={formValues?.leave_reason}
+                      rows="3"
+                    />
+                    <p className="text-danger">{formErrors?.leave_reason}</p>
+                  </div>
+                  <div>
+                    {CheckAccess ? (
+                      <div className="saveBtn" style={{ marginTop: "-50px" }}>
+                        <button
+                          className="btn profileBtn text-white px-4 float-end"
+                          onClick={(e) => handleSave(e)}
+                          type="submit"
+                          style={{
+                            display: "flex",
+                            backgroundColor: "#62a6dc",
+                            borderRadius: "20px",
+                          }}
+                          disabled={loading}
+                        >
+                          {loading && (
+                            <span
+                              className="spinner-border spinner-border-sm me-2"
+                              role="status"
+                              aria-hidden="true"
+                            ></span>
+                          )}
+                          Apply
+                        </button>
+                      </div>
+                    ) : null}
                   </div>
                 </div>
               </div>
-            </form>
+            </div>
           </div>
 
           <div className="row mb-2" id="">
@@ -412,10 +447,10 @@ const SubscriptionPlans = () => {
                                     ele?.status === "pending"
                                       ? "#f9b11a"
                                       : ele?.status === "approved"
-                                        ? "green"
-                                        : ele?.status === "rejected"
-                                          ? "red"
-                                          : "black",
+                                      ? "green"
+                                      : ele?.status === "rejected"
+                                      ? "red"
+                                      : "black",
                                 }}
                               >
                                 {ele?.status}

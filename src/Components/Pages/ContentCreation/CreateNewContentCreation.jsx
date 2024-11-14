@@ -122,7 +122,9 @@ const CreateNewContentCreation = () => {
       console.log(error);
     }
   };
-
+  useEffect(() => {
+    CreatedLeave();
+  }, [currentPage, itemsPerPage]);
   useEffect(() => {
     if (Object.keys(formErrors).length === 0 && isSubmit) {
       setLoading(true);
@@ -141,6 +143,7 @@ const CreateNewContentCreation = () => {
           console.log(response);
           if (response?.data?.data?.status === 200) {
             setLoading(false);
+            message.success("Submitted Successfully");
             setEditItemId(null);
             navigate(0);
           } else if (response?.data?.data?.status === 201) {
@@ -208,7 +211,10 @@ const CreateNewContentCreation = () => {
           </div>
 
           <div className="row" id="createContent">
-            <div className="row justify-content-between main-card p-4" style={{ marginLeft: "12px" }}>
+            <div
+              className="row justify-content-between main-card p-4"
+              style={{ marginLeft: "12px" }}
+            >
               {errorMessage ? (
                 <span className="text-danger text-end">{errorMessage}</span>
               ) : null}
@@ -341,7 +347,7 @@ const CreateNewContentCreation = () => {
             }
             id="to-Be-Reviewed"
             role="tabpanel"
-          // style={{ overflowY: "scroll", height: "20rem" }}
+            // style={{ overflowY: "scroll", height: "20rem" }}
           >
             <div className="table-responsive">
               <table className="table mb-0 tablesWrap">
@@ -371,6 +377,7 @@ const CreateNewContentCreation = () => {
                         listingData?.map((ele, index) => {
                           return (
                             <tr key={index}>
+                              <td>{index + 1}</td>
                               <td>{ele?.leave_code}</td>
                               <td>{ele?.leave_name}</td>
                               <td>

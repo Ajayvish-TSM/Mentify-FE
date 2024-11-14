@@ -408,53 +408,53 @@ const AppLayout = (props) => {
           icon: <AppstoreOutlined style={{ fontSize: "20px" }} />,
           label: "Community",
 
-        className: "navLi",
-        style: { paddingLeft: "0px" },
-        children: [
-          ...(ele && ele?.submenu?.length
-            ? ele?.submenu
-              .filter(
-                (submenuItem) =>
-                  submenuItem?.title === "Community" &&
-                  submenuItem?.is_active
-              )
-              .map((submenuItem) => ({
-                key: "31",
-                className: "subUlModerator",
-                path: "/community",
-                label: (
-                  <NavLink style={{ display: "block" }} to={"/community"}>
-                    Community
-                  </NavLink>
-                ),
-                children: [],
-              }))
-            : []),
-          ...(ele && ele?.submenu?.length
-            ? ele?.submenu
-              .filter(
-                (submenuItem) =>
-                  submenuItem?.title === "Activity Management" &&
-                  submenuItem?.is_active
-              )
-              .map((submenuItem) => ({
-                key: "32",
-                // label: "Activity Management",
-                className: "subUlModerator",
-                path: "/activity-management",
-                label: (
-                  <NavLink
-                    style={{ display: "block" }}
-                    to={"/activity-management"}
-                  >
-                    Activity Management
-                  </NavLink>
-                ),
-                children: [],
-              }))
-            : []),
-        ],
-      }))
+          className: "navLi",
+          style: { paddingLeft: "0px" },
+          children: [
+            ...(ele && ele?.submenu?.length
+              ? ele?.submenu
+                  .filter(
+                    (submenuItem) =>
+                      submenuItem?.title === "Community" &&
+                      submenuItem?.is_active
+                  )
+                  .map((submenuItem) => ({
+                    key: "31",
+                    className: "subUlModerator",
+                    path: "/community",
+                    label: (
+                      <NavLink style={{ display: "block" }} to={"/community"}>
+                        Community
+                      </NavLink>
+                    ),
+                    children: [],
+                  }))
+              : []),
+            ...(ele && ele?.submenu?.length
+              ? ele?.submenu
+                  .filter(
+                    (submenuItem) =>
+                      submenuItem?.title === "Activity Management" &&
+                      submenuItem?.is_active
+                  )
+                  .map((submenuItem) => ({
+                    key: "32",
+                    // label: "Activity Management",
+                    className: "subUlModerator",
+                    path: "/activity-management",
+                    label: (
+                      <NavLink
+                        style={{ display: "block" }}
+                        to={"/activity-management"}
+                      >
+                        Activity Management
+                      </NavLink>
+                    ),
+                    children: [],
+                  }))
+              : []),
+          ],
+        }))
       : []),
 
     ///
@@ -693,14 +693,14 @@ const AppLayout = (props) => {
       : []),
     ...(TajurbaAdmin_priviledge_data
       ? TajurbaAdmin_priviledge_data?.filter(
-        (ele) => ele?.title === "Events" && ele?.is_active
-      ).map((ele, index) => ({
-        key: "7",
-        icon: <AppstoreOutlined />,
-        // label: "Events",
-        path: "/events",
-        label: <NavLink to={"/events"}>Events</NavLink>,
-      }))
+          (ele) => ele?.title === "Events" && ele?.is_active
+        ).map((ele, index) => ({
+          key: "7",
+          icon: <AppstoreOutlined />,
+          // label: "Events",
+          path: "/events",
+          label: <NavLink to={"/events"}>Events</NavLink>,
+        }))
       : []),
     // ...(TajurbaAdmin_priviledge_data
     //   ? TajurbaAdmin_priviledge_data?.filter(
@@ -717,14 +717,14 @@ const AppLayout = (props) => {
 
     ...(TajurbaAdmin_priviledge_data
       ? TajurbaAdmin_priviledge_data?.filter(
-        (ele) => ele?.title === "All Transactions" && ele?.is_active
-      ).map((ele, index) => ({
-        key: "8",
-        icon: <AppstoreOutlined />,
-        // label: "All Transactions",
-        path: "/all-transactions",
-        label: <NavLink to={"/all-transactions"}>All Transactions</NavLink>,
-      }))
+          (ele) => ele?.title === "All Transactions" && ele?.is_active
+        ).map((ele, index) => ({
+          key: "8",
+          icon: <AppstoreOutlined />,
+          // label: "All Transactions",
+          path: "/all-transactions",
+          label: <NavLink to={"/all-transactions"}>All Transactions</NavLink>,
+        }))
       : []),
 
     // ...(TajurbaAdmin_priviledge_data
@@ -1169,7 +1169,6 @@ const AppLayout = (props) => {
                                 />
                               </g>
                             </svg>
-
                             Log out
                           </span>
                         </Dropdown.Menu>
@@ -1178,10 +1177,17 @@ const AppLayout = (props) => {
                   </div>
                   <div className="d-flex align-items-center">
                     {/* LOGO */}
-                    <div className="navbar-brand-box me-0" style={{ width: "fit-content" }}>
+                    <div
+                      className="navbar-brand-box me-0"
+                      style={{ width: "fit-content" }}
+                    >
                       <NavLink to="/dashboard" className="logo logo-light">
                         <span className="log">
-                          <img src={logo} style={{ width: "60px" }} alt="Mentify Logo" />
+                          <img
+                            src={logo}
+                            style={{ width: "60px" }}
+                            alt="Mentify Logo"
+                          />
                         </span>
                       </NavLink>
                     </div>
