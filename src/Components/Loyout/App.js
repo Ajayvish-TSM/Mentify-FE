@@ -226,223 +226,223 @@ const AppLayout = (props) => {
   const items = [
     ...(TajurbaAdmin_priviledge_data
       ? TajurbaAdmin_priviledge_data?.filter(
-          (ele) => ele?.title === "Dashboard" && ele?.is_active
-        ).map((ele, index) => ({
-          key: "1",
-          icon: <AppstoreOutlined />,
-          path: "/dashboard",
-          label: <NavLink to={"/dashboard"}>Dashboard</NavLink>,
-        }))
+        (ele) => ele?.title === "Dashboard" && ele?.is_active
+      ).map((ele, index) => ({
+        key: "1",
+        icon: <AppstoreOutlined />,
+        path: "/dashboard",
+        label: <NavLink to={"/dashboard"}>Dashboard</NavLink>,
+      }))
       : []),
 
     ...(TajurbaAdmin_priviledge_data
       ? TajurbaAdmin_priviledge_data?.filter(
-          (ele) => ele?.title === "Leave Management" && ele?.is_active
-        ).map((ele, index) => ({
-          key: "2",
-          className: "navLi",
-          icon: <AppstoreOutlined />,
-          label: "Leave Management",
-          style: { paddingLeft: "0px" },
-          children: [
-            ...(ele && ele?.submenu?.length
-              ? ele?.submenu
-                  .filter(
-                    (submenuItem) =>
-                      submenuItem?.title === "Create Leave" &&
-                      submenuItem?.is_active
-                  )
-                  // .map((submenuItem, submenuItemIndex) => ({
-                  //   key: "21",
-                  //   label: "Creator",
-                  //   className: "subUl",
-                  //   style: { paddingLeft: "0px" },
-                  //   // children: [
-                  //   //   ...(submenuItem &&
-                  //   //   submenuItem?.submenuChild &&
-                  //   //   submenuItem?.submenuChild?.length &&
-                  //   //   submenuItem?.submenuChild[0]?.is_active
-                  //   //     ? {
-                  //   //         key: "211",
-                  //   //         className: "subUlLi",
-                  //   //         path: "/create-new-content-creation",
-                  //   //         label: (
-                  //   //           <NavLink to="/create-new-content-creation">
-                  //   //             Create New
-                  //   //           </NavLink>
-                  //   //         ),
-                  //   //       }
-                  //   //     : []),
-                  //   //   ...(submenuItem &&
-                  //   //   submenuItem?.submenuChild &&
-                  //   //   submenuItem?.submenuChild?.length &&
-                  //   //   submenuItem?.submenuChild[1]?.is_active
-                  //   //     ? {
-                  //   //         key: "212",
-                  //   //         className: "subUlLi",
-                  //   //         path: "/draft",
-                  //   //         label: <NavLink to="/draft">Draft</NavLink>,
-                  //   //       }
-                  //   //     : []),
-                  //   //   ...(submenuItem &&
-                  //   //   submenuItem?.submenuChild &&
-                  //   //   submenuItem?.submenuChild?.length &&
-                  //   //   submenuItem?.submenuChild[2]?.is_active
-                  //   //     ? {
-                  //   //         key: "213",
-                  //   //         className: "subUlLi",
-                  //   //         path: "/submitted",
-                  //   //         label: (
-                  //   //           <NavLink to="/submitted">Submitted</NavLink>
-                  //   //         ),
-                  //   //       }
-                  //   //     : []),
-                  //   // ]
-                  //   children: [
-                  //     ...(submenuItem &&
-                  //     submenuItem?.submenuChild &&
-                  //     submenuItem?.submenuChild?.length &&
-                  //     submenuItem?.submenuChild[0]?.is_active
-                  //       ? [
-                  //           {
-                  //             key: "211",
-                  //             className: "subUlLi",
-                  //             path: "/create-new-content-creation",
-                  //             label: (
-                  //               <NavLink to="/create-new-content-creation">
-                  //                 Create New
-                  //               </NavLink>
-                  //             ),
-                  //           },
-                  //         ]
-                  //       : []),
-                  //     ...(submenuItem &&
-                  //     submenuItem?.submenuChild &&
-                  //     submenuItem?.submenuChild?.length &&
-                  //     submenuItem?.submenuChild[1]?.is_active
-                  //       ? [
-                  //           {
-                  //             key: "212",
-                  //             className: "subUlLi",
-                  //             path: "/draft",
-                  //             label: <NavLink to="/draft">Draft</NavLink>,
-                  //           },
-                  //         ]
-                  //       : []),
-                  //     ...(submenuItem &&
-                  //     submenuItem?.submenuChild &&
-                  //     submenuItem?.submenuChild?.length &&
-                  //     submenuItem?.submenuChild[2]?.is_active
-                  //       ? [
-                  //           {
-                  //             key: "213",
-                  //             className: "subUlLi",
-                  //             path: "/submitted",
-                  //             label: (
-                  //               <NavLink to="/submitted">Submitted</NavLink>
-                  //             ),
-                  //           },
-                  //         ]
-                  //       : []),
-                  //   ],
-                  // }))
-                  .map((submenuItem) => ({
-                    key: "21",
-                    // label: "Moderator",
-                    className: "subUlModerator",
-                    path: "/create-leave",
-                    label: (
-                      <NavLink style={{ display: "block" }} to="/create-leave">
-                        Create Leave
-                      </NavLink>
-                    ),
-                    children: [],
-                  }))
-              : []),
-            ...(ele && ele?.submenu?.length
-              ? ele?.submenu
-                  .filter(
-                    (submenuItem) =>
-                      submenuItem?.title === "Leave Credits" &&
-                      submenuItem?.is_active
-                  )
-                  .map((submenuItem) => ({
-                    key: "22",
-                    // label: "Moderator",
-                    className: "subUlModerator",
-                    path: "/leave-credit-create",
-                    label: (
-                      <NavLink
-                        style={{ display: "block" }}
-                        to={"/leave-credit-create"}
-                      >
-                        Leave Credits
-                      </NavLink>
-                    ),
-                    children: [],
-                  }))
-              : []),
-          ],
-        }))
+        (ele) => ele?.title === "Leave Management" && ele?.is_active
+      ).map((ele, index) => ({
+        key: "2",
+        className: "navLi",
+        icon: <AppstoreOutlined />,
+        label: "Leave Management",
+        style: { paddingLeft: "0px" },
+        children: [
+          ...(ele && ele?.submenu?.length
+            ? ele?.submenu
+              .filter(
+                (submenuItem) =>
+                  submenuItem?.title === "Create Leave" &&
+                  submenuItem?.is_active
+              )
+              // .map((submenuItem, submenuItemIndex) => ({
+              //   key: "21",
+              //   label: "Creator",
+              //   className: "subUl",
+              //   style: { paddingLeft: "0px" },
+              //   // children: [
+              //   //   ...(submenuItem &&
+              //   //   submenuItem?.submenuChild &&
+              //   //   submenuItem?.submenuChild?.length &&
+              //   //   submenuItem?.submenuChild[0]?.is_active
+              //   //     ? {
+              //   //         key: "211",
+              //   //         className: "subUlLi",
+              //   //         path: "/create-new-content-creation",
+              //   //         label: (
+              //   //           <NavLink to="/create-new-content-creation">
+              //   //             Create New
+              //   //           </NavLink>
+              //   //         ),
+              //   //       }
+              //   //     : []),
+              //   //   ...(submenuItem &&
+              //   //   submenuItem?.submenuChild &&
+              //   //   submenuItem?.submenuChild?.length &&
+              //   //   submenuItem?.submenuChild[1]?.is_active
+              //   //     ? {
+              //   //         key: "212",
+              //   //         className: "subUlLi",
+              //   //         path: "/draft",
+              //   //         label: <NavLink to="/draft">Draft</NavLink>,
+              //   //       }
+              //   //     : []),
+              //   //   ...(submenuItem &&
+              //   //   submenuItem?.submenuChild &&
+              //   //   submenuItem?.submenuChild?.length &&
+              //   //   submenuItem?.submenuChild[2]?.is_active
+              //   //     ? {
+              //   //         key: "213",
+              //   //         className: "subUlLi",
+              //   //         path: "/submitted",
+              //   //         label: (
+              //   //           <NavLink to="/submitted">Submitted</NavLink>
+              //   //         ),
+              //   //       }
+              //   //     : []),
+              //   // ]
+              //   children: [
+              //     ...(submenuItem &&
+              //     submenuItem?.submenuChild &&
+              //     submenuItem?.submenuChild?.length &&
+              //     submenuItem?.submenuChild[0]?.is_active
+              //       ? [
+              //           {
+              //             key: "211",
+              //             className: "subUlLi",
+              //             path: "/create-new-content-creation",
+              //             label: (
+              //               <NavLink to="/create-new-content-creation">
+              //                 Create New
+              //               </NavLink>
+              //             ),
+              //           },
+              //         ]
+              //       : []),
+              //     ...(submenuItem &&
+              //     submenuItem?.submenuChild &&
+              //     submenuItem?.submenuChild?.length &&
+              //     submenuItem?.submenuChild[1]?.is_active
+              //       ? [
+              //           {
+              //             key: "212",
+              //             className: "subUlLi",
+              //             path: "/draft",
+              //             label: <NavLink to="/draft">Draft</NavLink>,
+              //           },
+              //         ]
+              //       : []),
+              //     ...(submenuItem &&
+              //     submenuItem?.submenuChild &&
+              //     submenuItem?.submenuChild?.length &&
+              //     submenuItem?.submenuChild[2]?.is_active
+              //       ? [
+              //           {
+              //             key: "213",
+              //             className: "subUlLi",
+              //             path: "/submitted",
+              //             label: (
+              //               <NavLink to="/submitted">Submitted</NavLink>
+              //             ),
+              //           },
+              //         ]
+              //       : []),
+              //   ],
+              // }))
+              .map((submenuItem) => ({
+                key: "21",
+                // label: "Moderator",
+                className: "subUlModerator",
+                path: "/create-leave",
+                label: (
+                  <NavLink style={{ display: "block" }} to="/create-leave">
+                    Create Leave
+                  </NavLink>
+                ),
+                children: [],
+              }))
+            : []),
+          ...(ele && ele?.submenu?.length
+            ? ele?.submenu
+              .filter(
+                (submenuItem) =>
+                  submenuItem?.title === "Leave Credits" &&
+                  submenuItem?.is_active
+              )
+              .map((submenuItem) => ({
+                key: "22",
+                // label: "Moderator",
+                className: "subUlModerator",
+                path: "/leave-credit-create",
+                label: (
+                  <NavLink
+                    style={{ display: "block" }}
+                    to={"/leave-credit-create"}
+                  >
+                    Leave Credits
+                  </NavLink>
+                ),
+                children: [],
+              }))
+            : []),
+        ],
+      }))
       : []),
 
     ////
 
     ...(TajurbaAdmin_priviledge_data
       ? TajurbaAdmin_priviledge_data?.filter(
-          (ele) => ele?.title === "Community" && ele?.is_active
-        ).map((ele, index) => ({
-          key: "3",
-          icon: <AppstoreOutlined />,
-          label: "Community",
+        (ele) => ele?.title === "Community" && ele?.is_active
+      ).map((ele, index) => ({
+        key: "3",
+        icon: <AppstoreOutlined />,
+        label: "Community",
 
-          className: "navLi",
-          style: { paddingLeft: "0px" },
-          children: [
-            ...(ele && ele?.submenu?.length
-              ? ele?.submenu
-                  .filter(
-                    (submenuItem) =>
-                      submenuItem?.title === "Community" &&
-                      submenuItem?.is_active
-                  )
-                  .map((submenuItem) => ({
-                    key: "31",
-                    className: "subUlModerator",
-                    path: "/community",
-                    label: (
-                      <NavLink style={{ display: "block" }} to={"/community"}>
-                        Community
-                      </NavLink>
-                    ),
-                    children: [],
-                  }))
-              : []),
-            ...(ele && ele?.submenu?.length
-              ? ele?.submenu
-                  .filter(
-                    (submenuItem) =>
-                      submenuItem?.title === "Activity Management" &&
-                      submenuItem?.is_active
-                  )
-                  .map((submenuItem) => ({
-                    key: "32",
-                    // label: "Activity Management",
-                    className: "subUlModerator",
-                    path: "/activity-management",
-                    label: (
-                      <NavLink
-                        style={{ display: "block" }}
-                        to={"/activity-management"}
-                      >
-                        Activity Management
-                      </NavLink>
-                    ),
-                    children: [],
-                  }))
-              : []),
-          ],
-        }))
+        className: "navLi",
+        style: { paddingLeft: "0px" },
+        children: [
+          ...(ele && ele?.submenu?.length
+            ? ele?.submenu
+              .filter(
+                (submenuItem) =>
+                  submenuItem?.title === "Community" &&
+                  submenuItem?.is_active
+              )
+              .map((submenuItem) => ({
+                key: "31",
+                className: "subUlModerator",
+                path: "/community",
+                label: (
+                  <NavLink style={{ display: "block" }} to={"/community"}>
+                    Community
+                  </NavLink>
+                ),
+                children: [],
+              }))
+            : []),
+          ...(ele && ele?.submenu?.length
+            ? ele?.submenu
+              .filter(
+                (submenuItem) =>
+                  submenuItem?.title === "Activity Management" &&
+                  submenuItem?.is_active
+              )
+              .map((submenuItem) => ({
+                key: "32",
+                // label: "Activity Management",
+                className: "subUlModerator",
+                path: "/activity-management",
+                label: (
+                  <NavLink
+                    style={{ display: "block" }}
+                    to={"/activity-management"}
+                  >
+                    Activity Management
+                  </NavLink>
+                ),
+                children: [],
+              }))
+            : []),
+        ],
+      }))
       : []),
 
     ///
@@ -460,235 +460,235 @@ const AppLayout = (props) => {
     //   : []),
     ...(TajurbaAdmin_priviledge_data
       ? TajurbaAdmin_priviledge_data?.filter(
-          (ele) => ele?.title === "Leave" && ele?.is_active
-        ).map((ele, index) => ({
-          key: "4",
-          icon: <AppstoreOutlined />,
-          className: "navLi",
-          label: "Leave",
-          style: { paddingLeft: "0px" },
-          children: [
-            ...(ele && ele?.submenu?.length
-              ? ele?.submenu
-                  .filter(
-                    (submenuItem) =>
-                      submenuItem?.title === "Apply Leave" &&
-                      submenuItem?.is_active
-                  )
-                  .map((submenuItem) => ({
-                    key: "41",
-                    // label: "Consumer",
-                    className: "subUlModerator",
-                    path: "/leave-apply",
-                    label: (
-                      <NavLink style={{ display: "block" }} to={"/leave-apply"}>
-                        Apply Leave
-                      </NavLink>
-                    ),
-                    children: [],
-                  }))
-              : []),
-            ...(ele && ele?.submenu?.length
-              ? ele?.submenu
-                  .filter(
-                    (submenuItem) =>
-                      submenuItem?.title === "Notification" &&
-                      submenuItem?.is_active
-                  )
-                  .map((submenuItem) => ({
-                    key: "42",
-                    // label: "My Team",
-                    path: "/notification",
-                    className: "subUlModerator",
-                    label: (
-                      <NavLink
-                        style={{ display: "block" }}
-                        to={"/notification"}
-                      >
-                        Notification
-                      </NavLink>
-                    ),
-                    children: [],
-                  }))
-              : []),
-            // ...(ele && ele?.submenu?.length
-            //   ? ele?.submenu
-            //       .filter(
-            //         (submenuItem) =>
-            //           submenuItem?.title === "Roles" && submenuItem?.is_active
-            //       )
-            //       .map((submenuItem) => ({
-            //         key: "53",
-            //         // label: "Roles",
-            //         path: "/roles",
-            //         className: "subUlModerator",
-            //         label: (
-            //           <NavLink style={{ display: "block" }} to={"/roles"}>
-            //             Roles
-            //           </NavLink>
-            //         ),
-            //         children: [],
-            //       }))
-            //   : []),
-          ],
-        }))
+        (ele) => ele?.title === "Leave" && ele?.is_active
+      ).map((ele, index) => ({
+        key: "4",
+        icon: <AppstoreOutlined />,
+        className: "navLi",
+        label: "Leave",
+        style: { paddingLeft: "0px" },
+        children: [
+          ...(ele && ele?.submenu?.length
+            ? ele?.submenu
+              .filter(
+                (submenuItem) =>
+                  submenuItem?.title === "Apply Leave" &&
+                  submenuItem?.is_active
+              )
+              .map((submenuItem) => ({
+                key: "41",
+                // label: "Consumer",
+                className: "subUlModerator",
+                path: "/leave-apply",
+                label: (
+                  <NavLink style={{ display: "block" }} to={"/leave-apply"}>
+                    Apply Leave
+                  </NavLink>
+                ),
+                children: [],
+              }))
+            : []),
+          ...(ele && ele?.submenu?.length
+            ? ele?.submenu
+              .filter(
+                (submenuItem) =>
+                  submenuItem?.title === "Notification" &&
+                  submenuItem?.is_active
+              )
+              .map((submenuItem) => ({
+                key: "42",
+                // label: "My Team",
+                path: "/notification",
+                className: "subUlModerator",
+                label: (
+                  <NavLink
+                    style={{ display: "block" }}
+                    to={"/notification"}
+                  >
+                    Notification
+                  </NavLink>
+                ),
+                children: [],
+              }))
+            : []),
+          // ...(ele && ele?.submenu?.length
+          //   ? ele?.submenu
+          //       .filter(
+          //         (submenuItem) =>
+          //           submenuItem?.title === "Roles" && submenuItem?.is_active
+          //       )
+          //       .map((submenuItem) => ({
+          //         key: "53",
+          //         // label: "Roles",
+          //         path: "/roles",
+          //         className: "subUlModerator",
+          //         label: (
+          //           <NavLink style={{ display: "block" }} to={"/roles"}>
+          //             Roles
+          //           </NavLink>
+          //         ),
+          //         children: [],
+          //       }))
+          //   : []),
+        ],
+      }))
       : []),
 
     ...(TajurbaAdmin_priviledge_data
       ? TajurbaAdmin_priviledge_data?.filter(
-          (ele) => ele?.title === "User Management" && ele?.is_active
-        ).map((ele, index) => ({
-          key: "5",
-          icon: <AppstoreOutlined />,
-          className: "navLi",
-          label: "User Management",
-          style: { paddingLeft: "0px" },
-          children: [
-            ...(ele && ele?.submenu?.length
-              ? ele?.submenu
-                  .filter(
-                    (submenuItem) =>
-                      submenuItem?.title === "Consumer" &&
-                      submenuItem?.is_active
-                  )
-                  .map((submenuItem) => ({
-                    key: "51",
-                    // label: "Consumer",
-                    className: "subUlModerator",
-                    path: "/consumers",
-                    label: (
-                      <NavLink style={{ display: "block" }} to={"/consumers"}>
-                        Consumer
-                      </NavLink>
-                    ),
-                    children: [],
-                  }))
-              : []),
-            ...(ele && ele?.submenu?.length
-              ? ele?.submenu
-                  .filter(
-                    (submenuItem) =>
-                      submenuItem?.title === "My Team" && submenuItem?.is_active
-                  )
-                  .map((submenuItem) => ({
-                    key: "52",
-                    // label: "My Team",
-                    path: "/my-team",
-                    className: "subUlModerator",
-                    label: (
-                      <NavLink style={{ display: "block" }} to={"/my-team"}>
-                        Create User
-                      </NavLink>
-                    ),
-                    children: [],
-                  }))
-              : []),
-            ...(ele && ele?.submenu?.length
-              ? ele?.submenu
-                  .filter(
-                    (submenuItem) =>
-                      submenuItem?.title === "Roles" && submenuItem?.is_active
-                  )
-                  .map((submenuItem) => ({
-                    key: "53",
-                    // label: "Roles",
-                    path: "/roles",
-                    className: "subUlModerator",
-                    label: (
-                      <NavLink style={{ display: "block" }} to={"/roles"}>
-                        Roles
-                      </NavLink>
-                    ),
-                    children: [],
-                  }))
-              : []),
-          ],
-        }))
+        (ele) => ele?.title === "User Management" && ele?.is_active
+      ).map((ele, index) => ({
+        key: "5",
+        icon: <AppstoreOutlined />,
+        className: "navLi",
+        label: "User Management",
+        style: { paddingLeft: "0px" },
+        children: [
+          ...(ele && ele?.submenu?.length
+            ? ele?.submenu
+              .filter(
+                (submenuItem) =>
+                  submenuItem?.title === "Consumer" &&
+                  submenuItem?.is_active
+              )
+              .map((submenuItem) => ({
+                key: "51",
+                // label: "Consumer",
+                className: "subUlModerator",
+                path: "/consumers",
+                label: (
+                  <NavLink style={{ display: "block" }} to={"/consumers"}>
+                    Consumer
+                  </NavLink>
+                ),
+                children: [],
+              }))
+            : []),
+          ...(ele && ele?.submenu?.length
+            ? ele?.submenu
+              .filter(
+                (submenuItem) =>
+                  submenuItem?.title === "My Team" && submenuItem?.is_active
+              )
+              .map((submenuItem) => ({
+                key: "52",
+                // label: "My Team",
+                path: "/my-team",
+                className: "subUlModerator",
+                label: (
+                  <NavLink style={{ display: "block" }} to={"/my-team"}>
+                    Create User
+                  </NavLink>
+                ),
+                children: [],
+              }))
+            : []),
+          ...(ele && ele?.submenu?.length
+            ? ele?.submenu
+              .filter(
+                (submenuItem) =>
+                  submenuItem?.title === "Roles" && submenuItem?.is_active
+              )
+              .map((submenuItem) => ({
+                key: "53",
+                // label: "Roles",
+                path: "/roles",
+                className: "subUlModerator",
+                label: (
+                  <NavLink style={{ display: "block" }} to={"/roles"}>
+                    Roles
+                  </NavLink>
+                ),
+                children: [],
+              }))
+            : []),
+        ],
+      }))
       : []),
     ...(TajurbaAdmin_priviledge_data
       ? TajurbaAdmin_priviledge_data?.filter(
-          (ele) => ele?.title === "Holiday" && ele?.is_active
-        ).map((ele, index) => ({
-          key: "6",
-          icon: <AppstoreOutlined />,
-          className: "navLi",
-          label: "Holiday",
-          style: { paddingLeft: "0px" },
-          children: [
-            ...(ele && ele?.submenu?.length
-              ? ele?.submenu
-                  .filter(
-                    (submenuItem) =>
-                      submenuItem?.title === "Create Holiday" &&
-                      submenuItem?.is_active
-                  )
-                  .map((submenuItem) => ({
-                    key: "60",
-                    // label: "Consumer",
-                    className: "subUlModerator",
-                    path: "/create-holiday",
-                    label: (
-                      <NavLink
-                        style={{ display: "block" }}
-                        to={"/create-holiday"}
-                      >
-                        Create Holiday
-                      </NavLink>
-                    ),
-                    children: [],
-                  }))
-              : []),
-            // ...(ele && ele?.submenu?.length
-            //   ? ele?.submenu
-            //       .filter(
-            //         (submenuItem) =>
-            //           submenuItem?.title === "My Team" && submenuItem?.is_active
-            //       )
-            //       .map((submenuItem) => ({
-            //         key: "52",
-            //         // label: "My Team",
-            //         path: "/my-team",
-            //         className: "subUlModerator",
-            //         label: (
-            //           <NavLink style={{ display: "block" }} to={"/my-team"}>
-            //             Create User
-            //           </NavLink>
-            //         ),
-            //         children: [],
-            //       }))
-            //   : []),
-            // ...(ele && ele?.submenu?.length
-            //   ? ele?.submenu
-            //       .filter(
-            //         (submenuItem) =>
-            //           submenuItem?.title === "Roles" && submenuItem?.is_active
-            //       )
-            //       .map((submenuItem) => ({
-            //         key: "53",
-            //         // label: "Roles",
-            //         path: "/roles",
-            //         className: "subUlModerator",
-            //         label: (
-            //           <NavLink style={{ display: "block" }} to={"/roles"}>
-            //             Roles
-            //           </NavLink>
-            //         ),
-            //         children: [],
-            //       }))
-            //   : []),
-          ],
-        }))
+        (ele) => ele?.title === "Holiday" && ele?.is_active
+      ).map((ele, index) => ({
+        key: "6",
+        icon: <AppstoreOutlined />,
+        className: "navLi",
+        label: "Holiday",
+        style: { paddingLeft: "0px" },
+        children: [
+          ...(ele && ele?.submenu?.length
+            ? ele?.submenu
+              .filter(
+                (submenuItem) =>
+                  submenuItem?.title === "Create Holiday" &&
+                  submenuItem?.is_active
+              )
+              .map((submenuItem) => ({
+                key: "60",
+                // label: "Consumer",
+                className: "subUlModerator",
+                path: "/create-holiday",
+                label: (
+                  <NavLink
+                    style={{ display: "block" }}
+                    to={"/create-holiday"}
+                  >
+                    Create Holiday
+                  </NavLink>
+                ),
+                children: [],
+              }))
+            : []),
+          // ...(ele && ele?.submenu?.length
+          //   ? ele?.submenu
+          //       .filter(
+          //         (submenuItem) =>
+          //           submenuItem?.title === "My Team" && submenuItem?.is_active
+          //       )
+          //       .map((submenuItem) => ({
+          //         key: "52",
+          //         // label: "My Team",
+          //         path: "/my-team",
+          //         className: "subUlModerator",
+          //         label: (
+          //           <NavLink style={{ display: "block" }} to={"/my-team"}>
+          //             Create User
+          //           </NavLink>
+          //         ),
+          //         children: [],
+          //       }))
+          //   : []),
+          // ...(ele && ele?.submenu?.length
+          //   ? ele?.submenu
+          //       .filter(
+          //         (submenuItem) =>
+          //           submenuItem?.title === "Roles" && submenuItem?.is_active
+          //       )
+          //       .map((submenuItem) => ({
+          //         key: "53",
+          //         // label: "Roles",
+          //         path: "/roles",
+          //         className: "subUlModerator",
+          //         label: (
+          //           <NavLink style={{ display: "block" }} to={"/roles"}>
+          //             Roles
+          //           </NavLink>
+          //         ),
+          //         children: [],
+          //       }))
+          //   : []),
+        ],
+      }))
       : []),
     ...(TajurbaAdmin_priviledge_data
       ? TajurbaAdmin_priviledge_data?.filter(
-          (ele) => ele?.title === "Events" && ele?.is_active
-        ).map((ele, index) => ({
-          key: "7",
-          icon: <AppstoreOutlined />,
-          // label: "Events",
-          path: "/events",
-          label: <NavLink to={"/events"}>Events</NavLink>,
-        }))
+        (ele) => ele?.title === "Events" && ele?.is_active
+      ).map((ele, index) => ({
+        key: "7",
+        icon: <AppstoreOutlined />,
+        // label: "Events",
+        path: "/events",
+        label: <NavLink to={"/events"}>Events</NavLink>,
+      }))
       : []),
     // ...(TajurbaAdmin_priviledge_data
     //   ? TajurbaAdmin_priviledge_data?.filter(
@@ -705,14 +705,14 @@ const AppLayout = (props) => {
 
     ...(TajurbaAdmin_priviledge_data
       ? TajurbaAdmin_priviledge_data?.filter(
-          (ele) => ele?.title === "All Transactions" && ele?.is_active
-        ).map((ele, index) => ({
-          key: "8",
-          icon: <AppstoreOutlined />,
-          // label: "All Transactions",
-          path: "/all-transactions",
-          label: <NavLink to={"/all-transactions"}>All Transactions</NavLink>,
-        }))
+        (ele) => ele?.title === "All Transactions" && ele?.is_active
+      ).map((ele, index) => ({
+        key: "8",
+        icon: <AppstoreOutlined />,
+        // label: "All Transactions",
+        path: "/all-transactions",
+        label: <NavLink to={"/all-transactions"}>All Transactions</NavLink>,
+      }))
       : []),
 
     // ...(TajurbaAdmin_priviledge_data
@@ -969,7 +969,7 @@ const AppLayout = (props) => {
                           id="dropdown-basic"
                           className="btn header-item noti-icon me-2"
                         >
-                          <i className="fa fa-solid fa-bell notificationBellIcon"></i>
+                          {/* <i className="fa fa-solid fa-bell notificationBellIcon"></i> */}
                         </Dropdown.Toggle>
                         {/* <Dropdown.Menu>
                                        <div className="p-3 orangrBg">
@@ -1093,9 +1093,9 @@ const AppLayout = (props) => {
                             <h5 className="mb-0 mt-4 textBlack fw-bold">
                               {adminObject?.first_name}
                             </h5>
-                            <small className="greyLight">
+                            {/* <small className="greyLight">
                               {adminObject?.role_details?.name}
-                            </small>
+                            </small> */}
                             <br />
                             <NavLink
                               // to="/my-profile"
@@ -1103,10 +1103,12 @@ const AppLayout = (props) => {
                                 ":id",
                                 adminObject?.user_id
                               )}`}
-                              className="btn profileBtn rounded-pill mt-4 font-size-12"
-                              style={{ display: "flex",
+                              className="btn profileBtn rounded-pill font-size-12"
+                              style={{
+                                display: "flex",
                                 backgroundColor: "#62a6dc",
-                                borderRadius: "20px",}}
+                                borderRadius: "20px",
+                              }}
                             >
                               View Profile
                             </NavLink>
@@ -1115,7 +1117,13 @@ const AppLayout = (props) => {
                             onClick={() => {
                               handleClickLogout();
                             }}
-                            className="dropdown-item mt-3 text-center defaultGrey"
+                            className="mt-3 text-center text-white p-2"
+                            style={{
+                              display: "flex",
+                              justifyContent: "center",
+                              backgroundColor: "#62a6dc",
+                              borderRadius: "20px",
+                            }}
                           >
                             <svg
                               width="15.534"
@@ -1133,17 +1141,18 @@ const AppLayout = (props) => {
                                   data-name="Path 10393"
                                   d="M0,1.672C.024,1.581.047,1.49.073,1.4A1.907,1.907,0,0,1,1.859.008C3.815,0,5.771,0,7.727,0a.628.628,0,0,1,.655.616.637.637,0,0,1-.6.666,2.009,2.009,0,0,1-.212.008q-2.744,0-5.489,0a1.259,1.259,0,0,0-.343.038.6.6,0,0,0-.433.559c0,.055,0,.111,0,.167q0,5.679,0,11.357a1.091,1.091,0,0,0,.036.328.586.586,0,0,0,.531.428,2.133,2.133,0,0,0,.227.009H7.581a1.519,1.519,0,0,1,.316.024.643.643,0,0,1-.11,1.264c-.025,0-.05,0-.076,0-1.956,0-3.912,0-5.868-.007A1.913,1.913,0,0,1,.032,13.9.689.689,0,0,0,0,13.8V1.672"
                                   transform="translate(-7637.795 13948)"
-                                  fill="#acaeaf"
+                                  fill="white"
                                 />
                                 <path
                                   id="Path_10394"
                                   data-name="Path 10394"
                                   d="M143.908,88.675a1,1,0,0,1-.136-.1q-1.3-1.276-2.591-2.555a.666.666,0,0,1-.22-.7.643.643,0,0,1,.975-.358,1.352,1.352,0,0,1,.183.158l3.755,3.707a.666.666,0,0,1-.005,1.085c-1.248,1.232-2.5,2.459-3.741,3.7a.662.662,0,1,1-.912-.933c.866-.835,1.715-1.687,2.571-2.532.035-.034.067-.071.127-.135h-7.351a1.359,1.359,0,0,1-.3-.02.646.646,0,0,1-.484-.681.639.639,0,0,1,.6-.582c.075-.005.151-.006.227-.006h7.274l.034-.056"
                                   transform="translate(-7768.412 13866.363)"
-                                  fill="#acaeaf"
+                                  fill="white"
                                 />
                               </g>
                             </svg>
+
                             Log out
                           </span>
                         </Dropdown.Menu>
@@ -1152,24 +1161,14 @@ const AppLayout = (props) => {
                   </div>
                   <div className="d-flex align-items-center">
                     {/* LOGO */}
-                    <div
-                      className="navbar-brand-box me-0"
-                      style={{ width: "fit-content" }}
-                    >
-                      <a href="index.html" className="logo logo-light">
+                    <div className="navbar-brand-box me-0" style={{ width: "fit-content" }}>
+                      <NavLink to="/dashboard" className="logo logo-light">
                         <span className="log">
-                          <img src={logo} style={{ width: "60px" }} />
+                          <img src={logo} style={{ width: "60px" }} alt="Mentify Logo" />
                         </span>
-                      </a>
+                      </NavLink>
                     </div>
                     <h4 className="text-white mb-0">Mentify</h4>
-                    <button
-                      type="button"
-                      className="btn btn-sm px-3 font-size-16 header-item toggle-btn waves-effect"
-                      id="vertical-menu-btn"
-                    >
-                      <i className="fa fa-fw fa-bars" />
-                    </button>
                   </div>
                 </div>
               </div>

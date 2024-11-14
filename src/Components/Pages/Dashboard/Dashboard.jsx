@@ -38,7 +38,7 @@ const Dashboard = () => {
   const [userProfileDetails, setUserProfileDetails] = useState("");
   const [edit, setEdit] = useState(false);
   const adminObject = JSON.parse(localStorage.getItem("TajurbaAdminUser"));
-  console.log(adminObject, "fjasdfjsdfljj");
+  console.log("admin",adminObject);
   const [EmployeeList, setEmployeeList] = useState([]);
 
 
@@ -763,9 +763,9 @@ const Dashboard = () => {
               <div
                 style={{
                   backgroundColor: "white",
-                  borderRadius: "20px",
-                  height: "255px",
-                  padding: "25px",
+                  borderRadius: "7px",
+                  height: "240px",
+                  padding: "15px",
                   display: "flex",
                   alignItems: "center",
                   marginBottom: "16px",
@@ -794,7 +794,7 @@ const Dashboard = () => {
                     {adminObject && adminObject?.last_name}
                   </h3>
                   <div style={{ display: "flex", gap: "2rem" }}>
-                    <div>
+                    {/* <div>
                       <p style={{ color: "#A9A9A9" }}>
                         Role:{" "}
                         <span
@@ -808,7 +808,7 @@ const Dashboard = () => {
                           {adminObject.role_details.name}
                         </span>
                       </p>
-                    </div>
+                    </div> */}
                     <div>
                       <p style={{ color: "#A9A9A9" }}>
                         Position:{" "}
@@ -855,15 +855,15 @@ const Dashboard = () => {
                       </span>
                     </p>
                   </div>
-                  <LinkedinFilled style={{ fontSize: "1.5rem", color: "#1877F2" }} />
+                  {/* <LinkedinFilled style={{ fontSize: "1.5rem", color: "#1877F2" }} /> */}
                 </div>
               </div>
 
               <div
                 className="main-card bg-white p-4"
-                style={{ borderRadius: "25px" }}
+                style={{ borderRadius: "7px" }}
               >
-                <h3 className="fw-bold">Holidays</h3>
+                <h3 className="fw-bold">Holiday Schedule</h3>
 
                 {/* <img src={contentConsumtionImg} className="img-fluid w-70" /> */}
                 <div className="row mt-3">
@@ -874,10 +874,10 @@ const Dashboard = () => {
                     >
                       <thead>
                         <tr>
-                          <th scope="col" className="lightGrey">
+                          <th scope="col" className="lightGrey" style={{fontWeight: "600"}}>
                             Holiday Name
                           </th>
-                          <th scope="col" className="lightGrey">
+                          <th scope="col" className="lightGrey" style={{fontWeight: "600"}}>
                             Date
                           </th>
                         </tr>
@@ -938,7 +938,7 @@ const Dashboard = () => {
               </div>
              
               <div className="main-card bg-white p-4" style={{
-                borderRadius: "25px",
+                borderRadius: "7px",
                 width: "100%",
               }}>
                 <h3 className="fw-bold">My Team</h3>
@@ -963,7 +963,7 @@ const Dashboard = () => {
                           EmployeeList.map((employee, index) => (
                             <div
                               key={index}
-                              className="employee-card d-flex align-items-center mb-3"
+                              className="team-card d-flex align-items-center mb-3"
                               style={{
                                 backgroundColor: "white",
                                 borderRadius: "15px",
@@ -1085,7 +1085,7 @@ const Dashboard = () => {
             <div className="col-xl-6">
               <div
                 className="main-card bg-white p-4"
-                style={{ borderRadius: "25px" }}
+                style={{ borderRadius: "7px" }}
               >
                 <h3 className="fw-bold">Attendance</h3>
                 <div>

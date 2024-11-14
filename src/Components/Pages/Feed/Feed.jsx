@@ -204,6 +204,7 @@ import API from "../../../Api/Api";
 import { ToastContainer, toast } from "react-toastify";
 import FilterSearch from "../../Common/FilterSearch";
 import { EditFilled } from "@ant-design/icons";
+import { Tooltip } from "antd";
 
 const Feed = () => {
   const adminObject = JSON.parse(localStorage.getItem("TajurbaAdminToken"));
@@ -423,7 +424,10 @@ const Feed = () => {
                       </div>
 
                       <div className="col-8">
-                        <label className="form-label">Holiday Type</label>
+                        <label className="form-label">
+                        <span className="mandatory-star me-1">*</span>
+                          Holiday Type
+                        </label>
                         <div>
                           <label className="me-3">
                             <input
@@ -449,7 +453,7 @@ const Feed = () => {
                               }
                               disabled={!CheckAccess}
                             />
-                            <span className="ms-1">Optional</span>
+                            <span className="ms-1 mb-5">Optional</span>
                           </label>
                         </div>
                       </div>
@@ -515,11 +519,12 @@ const Feed = () => {
               <table className="table mb-0 tablesWrap">
                 <thead>
                   <tr>
-                    <th>S.No.</th>
-                    <th className="">Holiday Name</th>
-                    <th>Holiday Type</th>
-                    <th>Holiday Date</th>
-                    <th>Created On</th>
+                    <th style={{ fontWeight: "700" }}>S.No.</th>
+                    <th style={{ fontWeight: "700" }}>Holiday Name</th>
+                    <th style={{ fontWeight: "700" }}>Holiday Type</th>
+                    <th style={{ fontWeight: "700" }}>Holiday Date</th>
+                    <th style={{ fontWeight: "700" }}>Created On</th>
+                    <th style={{ fontWeight: "700" }}>Action</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -564,19 +569,20 @@ const Feed = () => {
                                   }
                                 )}
                               </td>
-
                               <td>
-                                <button
-                                  className="btn btn-sm  "
-                                  onClick={() => handleEdit(ele)}
-                                >
-                                  <EditFilled
-                                    style={{
-                                      fontSize: "20px",
-                                      color: "#1EB9F3",
-                                    }}
-                                  />
-                                </button>
+                                <Tooltip title="Edit">
+                                  <button
+                                    className="btn btn-sm"
+                                    onClick={() => handleEdit(ele)}
+                                  >
+                                    <EditFilled
+                                      style={{
+                                        fontSize: "20px",
+                                        color: "#1EB9F3",
+                                      }}
+                                    />
+                                  </button>
+                                </Tooltip>
                               </td>
                               {/* <td>
                                 <NavLink

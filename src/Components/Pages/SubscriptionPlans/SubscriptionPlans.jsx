@@ -181,7 +181,7 @@ const SubscriptionPlans = () => {
             <div className="col-6">
               <div className="row position-relative mb-3">
                 <div>
-                  <h3 className="headText mt-2 mb-2 fw-bold">Leave </h3>
+                  <h3 className="headText mt-2 mb-2 fw-bold">Leave Request</h3>
                 </div>
               </div>
             </div>
@@ -189,7 +189,7 @@ const SubscriptionPlans = () => {
 
           <div className="row" id="createContent">
             <form onSubmit={formik.handleSubmit}>
-              <div className="row justify-content-between main-card p-4" style={{marginLeft: "2px"}}>
+              <div className="row justify-content-between main-card p-4" style={{ marginLeft: "2px" }}>
                 {errorMessage ? (
                   <span className="text-danger text-end">{errorMessage}</span>
                 ) : null}
@@ -197,7 +197,7 @@ const SubscriptionPlans = () => {
                   <div className="me-xl-5">
                     {/* content title */}
                     <div className="d-flex mb-3">
-                      <div className="col-6">
+                      <div className="col-8">
                         <label className="form-label">
                           <span className="mandatory-star me-1">*</span>
                           Leave Code
@@ -249,7 +249,7 @@ const SubscriptionPlans = () => {
                         </select>
                       </div>
 
-                      <div className="col-6 mb-3">
+                      <div className="col-8 mb-3">
                         <label className="form-label">
                           <span className="mandatory-star me-1">*</span>
                           Start Date
@@ -264,7 +264,7 @@ const SubscriptionPlans = () => {
                         />
                       </div>
 
-                      <div className="col-6 mb-3">
+                      <div className="col-8 mb-3">
                         <label className="form-label">
                           <span className="mandatory-star me-1">*</span>
                           End Date
@@ -278,54 +278,48 @@ const SubscriptionPlans = () => {
                           value={formik.values.to_date}
                         />
                       </div>
-                      <div className="col-10 mb-3">
-                        <label className="form-label">
-                          <span className="mandatory-star me-1">*</span>
-                          Reason
-                        </label>
-                        <textarea
-                          className="form-control w-80 border-radius-2"
-                          name="leave_reason"
-                          aria-label="Leave Reason"
-                          disabled={!CheckAccess}
-                          onChange={formik.handleChange}
-                          value={formik.values.leave_reason}
-                          rows="3"
-                        />
-                      </div>
-
-                      {formik.errors.category && formik.touched.category ? (
-                        <div className="text-danger">
-                          {formik.errors.category}
+                    </div>
+                    <div className="col-10 mb-3">
+                      <label className="form-label">
+                        <span className="mandatory-star me-1">*</span>
+                        Reason
+                      </label>
+                      <textarea
+                        className="form-control w-80 border-radius-2"
+                        name="leave_reason"
+                        aria-label="Leave Reason"
+                        disabled={!CheckAccess}
+                        onChange={formik.handleChange}
+                        value={formik.values.leave_reason}
+                        rows="3"
+                      />
+                    </div>
+                    <div>
+                      {CheckAccess ? (
+                        <div className="saveBtn" style={{ marginTop: "-50px" }}>
+                          <button
+                            className="btn profileBtn text-white px-4 float-end"
+                            onClick={formik.handleSubmit}
+                            type="submit"
+                            style={{
+                              display: "flex",
+                              backgroundColor: "#62a6dc",
+                              borderRadius: "20px",
+                            }}
+                            disabled={loading}
+                          >
+                            {loading && (
+                              <span
+                                className="spinner-border spinner-border-sm me-2"
+                                role="status"
+                                aria-hidden="true"
+                              ></span>
+                            )}
+                            Apply
+                          </button>
                         </div>
                       ) : null}
                     </div>
-                  </div>
-                  <div>
-                    {CheckAccess ? (
-                      <div className="saveBtn" style={{marginLeft: "1013px"}}>
-                        <button
-                          className="btn profileBtn text-white px-4 float-end"
-                          onClick={formik.handleSubmit}
-                          type="submit"
-                          style={{
-                            display: "flex",
-                            backgroundColor: "#62a6dc",
-                            borderRadius: "20px",
-                          }}
-                          disabled={loading}
-                        >
-                          {loading && (
-                            <span
-                              className="spinner-border spinner-border-sm me-2"
-                              role="status"
-                              aria-hidden="true"
-                            ></span>
-                          )}
-                          Apply
-                        </button>
-                      </div>
-                    ) : null}
                   </div>
                 </div>
               </div>
@@ -348,13 +342,13 @@ const SubscriptionPlans = () => {
               <table className="table mb-0 tablesWrap">
                 <thead>
                   <tr>
-                    <th>S.No</th>
-                    <th className="">Leave Code</th>
-                    <th>Start Date</th>
-                    <th>End Date</th>
-                    <th>No. of leaves</th>
-                    <th>Status</th>
-                    <th>Reason</th>
+                    <th style={{ fontWeight: "700" }}>S.No</th>
+                    <th style={{ fontWeight: "700" }}>Leave Code</th>
+                    <th style={{ fontWeight: "700" }}>Start Date</th>
+                    <th style={{ fontWeight: "700" }}>End Date</th>
+                    <th style={{ fontWeight: "700" }}>No. of leaves</th>
+                    <th style={{ fontWeight: "700" }}>Status</th>
+                    <th style={{ fontWeight: "700" }}>Reason</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -397,7 +391,20 @@ const SubscriptionPlans = () => {
                                 )}
                               </td>
                               <td>{ele?.leaveDays}</td>
-                              <td>{ele?.status}</td>
+                              <td
+                                style={{
+                                  color:
+                                    ele?.status === "pending"
+                                      ? "#f9b11a"
+                                      : ele?.status === "approved"
+                                        ? "green"
+                                        : ele?.status === "rejected"
+                                          ? "red"
+                                          : "black",
+                                }}
+                              >
+                                {ele?.status}
+                              </td>
                               <td>
                                 <Tooltip
                                   title={

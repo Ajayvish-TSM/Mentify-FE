@@ -1301,7 +1301,7 @@ const Moderator = () => {
 
           <div className="row" id="createContent">
             <form onSubmit={formik.handleSubmit}>
-              <div className="row justify-content-between main-card p-3" style={{marginLeft: "1px"}}>
+              <div className="row justify-content-between main-card p-3" style={{ marginLeft: "1px" }}>
                 {errorMessage ? (
                   <span className="text-danger text-end">{errorMessage}</span>
                 ) : null}
@@ -1412,6 +1412,7 @@ const Moderator = () => {
                         </select>
                       </div>
                       <div className="col-4">
+                        <span className="mandatory-star me-1">*</span>
                         <label className="form-label">Leave Mode</label>
                         <div>
                           <label className="me-3">
@@ -1454,16 +1455,8 @@ const Moderator = () => {
                           aria-label="Leave balance input"
                           name="assigned_leaves"
                           onChange={formik.handleChange}
-                          value={formik.values.assigned_leaves} // Ensure 'leaveBalance' is defined in Formik initial values
+                          value={formik.values.assigned_leaves}
                         />
-                        {/* <datalist id="categoryOptions">
-                          {CategoryList &&
-                            CategoryList.map((ele, index) => (
-                              <option key={index} value={ele?.category_name}>
-                                {ele?.category_name}
-                              </option>
-                            ))}
-                        </datalist>*/}
                       </div>
 
                       {/* {formik.errors.category && formik.touched.category ? (
@@ -1471,33 +1464,33 @@ const Moderator = () => {
                           {formik.errors.category}
                         </div>
                       ) : null} */}
-                      <div>
-                        {CheckAccess ? (
-                          <div className="saveBtn" style={{ marginTop: "50px" }}>
-                            <button
-                              className="btn profileBtn text-white px-4 float-end"
-                              style={{
-                                display: "flex",
-                                backgroundColor: "#62a6dc",
-                                borderRadius: "20px",
-                              }}
-                              onClick={formik.handleSubmit}
-                              type="submit"
-                              disabled={loading}
-                            >
-                              {loading && (
-                                <span
-                                  className="spinner-border spinner-border-sm me-2"
-                                  role="status"
-                                  aria-hidden="true"
-                                ></span>
-                              )}
-                              Submit
-                            </button>
-                          </div>
-                        ) : null}
-                      </div>
                     </div>
+                  </div>
+                  <div>
+                    {CheckAccess ? (
+                      <div className="saveBtn" style={{ marginLeft: "1060px" }}>
+                        <button
+                          className="btn profileBtn text-white px-4 float-end"
+                          style={{
+                            display: "flex",
+                            backgroundColor: "#62a6dc",
+                            borderRadius: "20px",
+                          }}
+                          onClick={formik.handleSubmit}
+                          type="submit"
+                          disabled={loading}
+                        >
+                          {loading && (
+                            <span
+                              className="spinner-border spinner-border-sm me-2"
+                              role="status"
+                              aria-hidden="true"
+                            ></span>
+                          )}
+                          Submit
+                        </button>
+                      </div>
+                    ) : null}
                   </div>
                 </div>
               </div>
@@ -1527,11 +1520,11 @@ const Moderator = () => {
               <table className="table mb-0 tablesWrap">
                 <thead>
                   <tr>
-                    <th>S.no.</th>
-                    <th className="">Leave Code</th>
-                    <th>Employee Name</th>
-                    <th>No. of leaves</th>
-                    <th>Created On</th>
+                    <th style={{ fontWeight: "700" }}>S.no.</th>
+                    <th style={{ fontWeight: "700" }} className="">Leave Code</th>
+                    <th style={{ fontWeight: "700" }}>Employee Name</th>
+                    <th style={{ fontWeight: "700" }}>No. of leaves</th>
+                    <th style={{ fontWeight: "700" }}>Created On</th>
                   </tr>
                 </thead>
                 <tbody>

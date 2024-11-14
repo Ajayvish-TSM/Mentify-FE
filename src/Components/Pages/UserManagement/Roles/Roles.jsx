@@ -338,13 +338,6 @@ const Roles = () => {
                         </ul>
                       </div>
                       <div className="col-xl-7 d-flex align-items-center justify-content-end">
-                        <FilterSearch
-                          FilterOptions={FilterOptions}
-                          search={search}
-                          setSearch={setSearch}
-                          filterselect={filterselect}
-                          setFilterSelect={setFilterSelect}
-                        />
 
                         {TajurbaAdmin_priviledge_data &&
                           TajurbaAdmin_priviledge_data.some(
@@ -364,7 +357,8 @@ const Roles = () => {
                             className="btn text-white px-4 float-end ms-3"
                             style={{
                               backgroundColor: "#62a6dc",
-                              borderRadius: "20px"}}
+                              borderRadius: "20px"
+                            }}
                           >
                             <i className="fa-regular fa-plus"></i>
                             <span className="ms-2">Create Role</span>
@@ -386,11 +380,9 @@ const Roles = () => {
                         <table className="table mb-0 tablesWrap">
                           <thead>
                             <tr>
-                              <th>Roles</th>
-                              <th>Created Date</th>
-
-                              <th>Status</th>
-                              <th></th>
+                              <th style={{ fontWeight: "700" }}>Roles</th>
+                              <th style={{ fontWeight: "700" }}>Created On</th>
+                              <th style={{ fontWeight: "700" }}>Status</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -419,15 +411,23 @@ const Roles = () => {
                                           {TooltipCustom(ele?.name)}
                                         </td>
                                         <td>
-                                          {moment(ele?.createdAt).format(
-                                            "DD-MM-YYYY"
+                                          {new Date(ele?.createdAt).toLocaleString(
+                                            "en-US",
+                                            {
+                                              year: "numeric",
+                                              month: "long",
+                                              day: "numeric",
+                                            }
                                           )}
                                         </td>
 
-                                        <td>
-                                          {ele?.status === true
-                                            ? ActiveStatusSvg
-                                            : InActiveStatusSvg}
+                                        <td
+                                          style={{
+                                            color: ele?.status ? "green" : "grey",
+                                            fontWeight: "600"
+                                          }}
+                                        >
+                                          {ele?.status ? "Active" : "Inactive"}
                                         </td>
 
                                         <td>
@@ -510,20 +510,32 @@ const Roles = () => {
                                           {TooltipCustom(ele?.name)}
                                         </td>
                                         <td>
-                                          {moment(ele?.createdAt).format(
-                                            "DD-MM-YYYY"
+                                          {new Date(ele?.createdAt).toLocaleString(
+                                            "en-US",
+                                            {
+                                              year: "numeric",
+                                              month: "long",
+                                              day: "numeric",
+                                            }
                                           )}
                                         </td>
 
-                                        <td>
-                                          {ele?.status === true
-                                            ? ActiveStatusSvg
-                                            : InActiveStatusSvg}
+                                        <td
+                                          style={{
+                                            color: ele?.status ? "green" : "grey",
+                                            fontWeight: "600"
+                                          }}
+                                        >
+                                          {ele?.status ? "Active" : "Inactive"}
                                         </td>
 
                                         <td>
                                           <NavLink
                                             className="btn btn-sm waves-effect waves-light btnViewOrange"
+                                            style={{
+                                              backgroundColor: "#62a6dc",
+                                              borderRadius: "20px",
+                                            }}
                                             to={`../${AdminRoute?.UserManagement?.Roles?.RoleDetails?.replace(
                                               ":status",
                                               currentTab
@@ -597,20 +609,32 @@ const Roles = () => {
                                           {TooltipCustom(ele?.name)}
                                         </td>
                                         <td>
-                                          {moment(ele?.createdAt).format(
-                                            "DD-MM-YYYY"
+                                          {new Date(ele?.createdAt).toLocaleString(
+                                            "en-US",
+                                            {
+                                              year: "numeric",
+                                              month: "long",
+                                              day: "numeric",
+                                            }
                                           )}
                                         </td>
 
-                                        <td>
-                                          {ele?.status === true
-                                            ? ActiveStatusSvg
-                                            : InActiveStatusSvg}
+                                        <td
+                                          style={{
+                                            color: ele?.status ? "green" : "grey",
+                                            fontWeight: "600"
+                                          }}
+                                        >
+                                          {ele?.status ? "Active" : "Inactive"}
                                         </td>
 
                                         <td>
                                           <NavLink
                                             className="btn btn-sm waves-effect waves-light btnViewOrange"
+                                            style={{
+                                              backgroundColor: "#62a6dc",
+                                              borderRadius: "20px",
+                                            }}
                                             to={`../${AdminRoute?.UserManagement?.Roles?.RoleDetails?.replace(
                                               ":status",
                                               currentTab

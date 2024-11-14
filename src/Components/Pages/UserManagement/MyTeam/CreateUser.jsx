@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import baseApi from "../../../../Api/config";
 import { ToastContainer, toast } from "react-toastify";
 import API from "../../../../Api/Api";
+import { Tooltip } from "antd";
 
 const CreateUser = () => {
   const initialValues = {
@@ -287,6 +288,12 @@ const CreateUser = () => {
                   <button
                     onClick={handleReset}
                     className="btn btn-reject me-3 px-4"
+                    style={{
+                      display: "flex",
+                      backgroundColor: "#fff",
+                      borderRadius: "20px",
+                      fontWeight: "600",
+                    }}
                   >
                     <span className="">Reset</span>
                   </button>
@@ -295,7 +302,13 @@ const CreateUser = () => {
                   <button
                     disabled={loading}
                     onClick={(e) => handleSave(e)}
-                    className="btn bgBlack text-white border-radius-2 px-4 float-end"
+                    className="btn text-white px-4 float-end"
+                    style={{
+                      display: "flex",
+                      backgroundColor: "#62a6dc",
+                      borderRadius: "20px",
+                      fontWeight: "600",
+                    }}
                   >
                     <span className="">
                       {loading && (
@@ -324,31 +337,29 @@ const CreateUser = () => {
                   <div className="mb-3 col-12">
                     <div className="col-md-4 col-sm-12 col-12 float-start">
                       <div className="col-12 float-start mt-2 mb-4">
-                        <p className="addUserPic mx-auto mt-1 mb-1 ">
-                          {/* <span className="addPicIcon">
-                              <i className="fas fa-pen" />
-                            </span> */}
-                          <input
-                            type="file"
-                            ref={fileInputRef}
-                            className="custom-file-input"
-                            id="customFile"
-                            name="filename"
-                            multiple="multiple"
-                            accept="image/*"
-                            onChange={handleFileChange}
-                          />
-                          <img
-                            // crossorigin="anonymous"
-                            src={profileImg}
-                            className="rounded-circle img-fluid"
-                            style={{ height: "196px", width: "193px" }}
-                          />
-                          <label
-                            className="custom-file-label mb-0"
-                            htmlFor="customFile"
-                          />
-                        </p>
+                        <Tooltip title="Upload Profile Picture">
+                          <p className="addUserPic mx-auto mt-1 mb-1">
+                            <input
+                              type="file"
+                              ref={fileInputRef}
+                              className="custom-file-input cursor-pointer"
+                              id="customFile"
+                              name="filename"
+                              multiple="multiple"
+                              accept="image/*"
+                              onChange={handleFileChange}
+                            />
+                            <img
+                              src={profileImg}
+                              className="rounded-circle img-fluid"
+                              style={{ height: "196px", width: "193px" }}
+                            />
+                            <label
+                              className="custom-file-label mb-0"
+                              htmlFor="customFile"
+                            />
+                          </p>
+                        </Tooltip>
                         <div className="mx-auto text-center">
                           <button
                             className="btn btn-main btn-main-orange btn-sm mt-3"
@@ -368,24 +379,43 @@ const CreateUser = () => {
                         <div className="col-12">
                           <h4 className="fw-bold mb-3">Personal Information</h4>
                         </div>
-                        <hr className="borderHr" />
-                        <div className="col-12 mb-3">
-                          <label className="form-label">Name</label>
+                        <div className="col-6 mb-3">
+                          <label className="form-label">
+                          <span className="mandatory-star me-1">*</span>
+                            Name</label>
                           <input
                             type="text"
                             className="form-control bg-white"
-                            placeholder=" Enter Full Name"
+                            placeholder="Enter Full Name"
                             name="firstName"
                             onChange={(e) => handleChange(e)}
                             value={formValues?.firstName}
                           />
                           <p className="text-danger">{formErrors?.firstName}</p>
                         </div>
+                        <div className="col-6">
+                          <label className="form-label">
+                          <span className="mandatory-star me-1">*</span>
+                            Mobile No.</label>
+                          <input
+                            type="number"
+                            name="mobile"
+                            className="form-control bg-white"
+                            placeholder="Enter Mobile No."
+                            onChange={(e) => handleChange(e)}
+                            value={formValues?.mobile}
+                          />
+                          <p className="text-danger">
+                            {formErrors?.mobile}
+                          </p>
+                        </div>
 
                         <div className="col-12 mb-3">
                           <div className="row">
-                            <div className="col-4">
-                              <label className="form-label">Email</label>
+                            <div className="col-6">
+                              <label className="form-label">
+                              <span className="mandatory-star me-1">*</span>
+                                Email</label>
                               <input
                                 type="email"
                                 name="email"
@@ -396,26 +426,10 @@ const CreateUser = () => {
                               />{" "}
                               <p className="text-danger">{formErrors?.email}</p>
                             </div>
-                            <div className="col-4">
-                              <label className="form-label">Mobile No.</label>
-                              <input
-                                type="number"
-                                name="mobile"
-                                className="form-control bg-white"
-                                placeholder="Enter Mobile No."
-                                onChange={(e) => handleChange(e)}
-                                value={formValues?.mobile}
-                              />
-                              <p className="text-danger">
-                                {formErrors?.mobile}
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="col-12 mb-3">
-                          <div className="row">
-                            <div className="col-4">
-                              <label className="form-label">Roles</label>
+                            <div className="col-6">
+                              <label className="form-label">
+                              <span className="mandatory-star me-1">*</span>
+                                Roles</label>
                               <div>
                                 <select
                                   className="form-select bg-white"
@@ -439,8 +453,14 @@ const CreateUser = () => {
                                 </p>
                               </div>
                             </div>
-                            <div className="col-4">
-                              <label className="form-label">Reporting To</label>
+                          </div>
+                        </div>
+                        <div className="col-12 mb-3">
+                          <div className="row">
+                            <div className="col-6">
+                              <label className="form-label">
+                              <span className="mandatory-star me-1">*</span>
+                                Reporting To</label>
                               <div>
                                 <select
                                   className="form-select bg-white"
@@ -507,38 +527,22 @@ const CreateUser = () => {
                         </div>
                       </div>
 
-                      <div className="row ps-0 ps-md-4 mt-4">
-                        <div className="col-12">
-                          <h4 className="fw-bold mb-3">Status</h4>
-                        </div>
-                        <hr className="borderHr" />
-                        <div className="col-4 mb-3">
-                          <div className="d-flex">
-                            <div
-                              className="button b2 me-xxl-3 me-2"
-                              id="button-13"
-                            >
-                              <input
-                                type="checkbox"
-                                disabled
-                                checked={!profileStatus}
-                                className="checkbox"
-                                onChange={(e) => {
-                                  setProfileStatus(
-                                    e.target.checked === true ? false : true
-                                  );
+                      <div className="row ps-0 ps-md-4">
+                        <div className="col-12 d-flex">
+                          <h4 className="fw-bold mb-3">Status:</h4>
+                          <div className="col-4 mb-3">
+                            <div className="d-flex">
+                              <p
+                                style={{
+                                  color: profileStatus ? "green" : "red",
+                                  fontSize: "16px",
+                                  marginLeft: "10px",
+                                  marginTop: "-2px",
                                 }}
-                              />
-
-                              <div className="knobs">
-                                <span>|||</span>
-                              </div>
-                              <div className="layer"></div>
+                              >
+                                {profileStatus ? "Active" : "Inactive"}
+                              </p>
                             </div>
-
-                            {/* <p className="mt-1">
-                              {profileStatus === false ? "Inactive" : "Active"}
-                            </p> */}
                           </div>
                         </div>
                       </div>

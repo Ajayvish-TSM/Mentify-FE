@@ -261,11 +261,11 @@ const LeaveNotify = () => {
                         <table className="table mb-0 tablesWrap">
                           <thead>
                             <tr>
-                              <th>Name</th>
-                              <th>Leave Code</th>
-                              <th className="w-20">Leave Reason</th>
-                              <th>Start Date</th>
-                              <th>End Date</th>
+                              <th style={{fontWeight: "600"}}>Name</th>
+                              <th style={{fontWeight: "600"}}>Leave Code</th>
+                              <th className="w-20" style={{fontWeight: "600"}}>Leave Reason</th>
+                              <th style={{fontWeight: "600"}}>Start Date</th>
+                              <th style={{fontWeight: "600"}}>End Date</th>
 
                               <th></th>
                             </tr>
@@ -302,20 +302,35 @@ const LeaveNotify = () => {
                                         </td>
                                         {/* <td>{ele?.roles[0]?.name}</td> */}
                                         <td>
-                                          {moment(ele?.from_date).format(
-                                            "DD-MM-YYYY"
+                                          {new Date(ele?.from_date).toLocaleString(
+                                            "en-US",
+                                            {
+                                              year: "numeric",
+                                              month: "long",
+                                              day: "numeric",
+                                            }
                                           )}
                                         </td>
                                         <td>
-                                          {moment(ele?.to_date).format(
-                                            "DD-MM-YYYY"
+                                          {new Date(ele?.to_date).toLocaleString(
+                                            "en-US",
+                                            {
+                                              year: "numeric",
+                                              month: "long",
+                                              day: "numeric",
+                                            }
                                           )}
                                         </td>
 
                                         <td>
                                           <button
                                             // to={`../${AdminRoute?.UserManagement?.MyTeam?.UserProfile}`}
-                                            className="btn btn-sm waves-effect waves-light btnViewOrange text-white"
+                                            className="btn waves-effect waves-light btnViewOrange text-white"
+                                            style={{
+                                              display: "flex",
+                                              backgroundColor: "#62a6dc",
+                                              borderRadius: "20px",
+                                            }}
                                             onClick={() => {
                                               handleApprove(ele?._id);
                                             }}
@@ -326,7 +341,12 @@ const LeaveNotify = () => {
                                         <td>
                                           <button
                                             // to={`../${AdminRoute?.UserManagement?.MyTeam?.UserProfile}`}
-                                            className="btn btn-sm waves-effect waves-light btnViewOrange text-white"
+                                            className="btn waves-effect waves-light btnViewOrange text-white"
+                                            style={{
+                                              display: "flex",
+                                              backgroundColor: "#62a6dc",
+                                              borderRadius: "20px",
+                                            }}
                                             onClick={() => {
                                               handleReject(ele?._id);
                                             }}
@@ -366,11 +386,11 @@ const LeaveNotify = () => {
                         <table className="table mb-0 tablesWrap">
                           <thead>
                             <tr>
-                              <th>Name</th>
-                              <th>Leave Code</th>
-                              <th className="w-20">Leave Reason</th>
-                              <th>Start Date</th>
-                              <th>End Date</th>
+                              <th style={{fontWeight: "600"}}>Name</th>
+                              <th style={{fontWeight: "600"}}>Leave Code</th>
+                              <th className="w-20" style={{fontWeight: "600"}}>Leave Reason</th>
+                              <th style={{fontWeight: "600"}}>Start Date</th>
+                              <th style={{fontWeight: "600"}}>End Date</th>
 
                               <th></th>
                             </tr>
@@ -400,33 +420,39 @@ const LeaveNotify = () => {
                                         <td className="fw-bold">
                                           {TooltipCustom(ele?.first_name)}
                                         </td>
-                                        <td>{ele?.mobile_no}</td>
+                                        <td>{ele?.leave_code}</td>
                                         <td style={{ wordBreak: "break-all" }}>
-                                          {ele?.email}
+                                          {ele?.leave_reason}
                                         </td>
-                                        <td>{ele?.roles[0]?.name}</td>
                                         <td>
-                                          {moment(ele?.createdAt).format(
-                                            "DD-MM-YYYY"
+                                          {new Date(ele?.from_date).toLocaleString(
+                                            "en-US",
+                                            {
+                                              year: "numeric",
+                                              month: "long",
+                                              day: "numeric",
+                                            }
                                           )}
                                         </td>
-
                                         <td>
-                                          <button
-                                            className="btn btn-sm waves-effect waves-light bgBlack text-white"
-                                            to={`../${AdminRoute?.UserManagement?.MyTeam?.UserProfile?.replace(
-                                              ":status",
-                                              currentTab
-                                            ).replace(":id", ele?.user_id)}`}
-                                          >
-                                            View More
-                                          </button>
+                                          {new Date(ele?.to_date).toLocaleString(
+                                            "en-US",
+                                            {
+                                              year: "numeric",
+                                              month: "long",
+                                              day: "numeric",
+                                            }
+                                          )}
                                         </td>
-
                                         <td>
                                           <button
                                             // to={`../${AdminRoute?.UserManagement?.MyTeam?.UserProfile}`}
-                                            className="btn btn-sm waves-effect waves-light bgBlack text-white"
+                                            className="btn waves-effect waves-light text-white"
+                                            style={{
+                                              display: "flex",
+                                              backgroundColor: "#62a6dc",
+                                              borderRadius: "20px",
+                                            }}
                                             to={`../${AdminRoute?.UserManagement?.MyTeam?.UserProfile?.replace(
                                               ":status",
                                               currentTab
@@ -467,11 +493,11 @@ const LeaveNotify = () => {
                         <table className="table mb-0 tablesWrap">
                           <thead>
                             <tr>
-                              <th>Name</th>
-                              <th>Leave Code</th>
-                              <th className="w-20">Leave Reason</th>
-                              <th>Start Date</th>
-                              <th>End Date</th>
+                              <th style={{fontWeight: "600"}}>Name</th>
+                              <th style={{fontWeight: "600"}}>Leave Code</th>
+                              <th className="w-20" style={{fontWeight: "600"}}>Leave Reason</th>
+                              <th style={{fontWeight: "600"}}>Start Date</th>
+                              <th style={{fontWeight: "600"}}>End Date</th>
 
                               <th></th>
                             </tr>
@@ -501,28 +527,46 @@ const LeaveNotify = () => {
                                         <td className="fw-bold">
                                           {TooltipCustom(ele?.first_name)}
                                         </td>
-                                        <td>{ele?.mobile_no}</td>
+                                        <td>{ele?.leave_code}</td>
                                         <td style={{ wordBreak: "break-all" }}>
-                                          {ele?.email}
+                                          {ele?.leave_reason}
                                         </td>
-                                        <td>{ele?.roles[0]?.name}</td>
                                         <td>
-                                          {moment(ele?.createdAt).format(
-                                            "DD-MM-YYYY"
+                                          {new Date(ele?.from_date).toLocaleString(
+                                            "en-US",
+                                            {
+                                              year: "numeric",
+                                              month: "long",
+                                              day: "numeric",
+                                            }
                                           )}
                                         </td>
-
                                         <td>
-                                          <NavLink
+                                          {new Date(ele?.to_date).toLocaleString(
+                                            "en-US",
+                                            {
+                                              year: "numeric",
+                                              month: "long",
+                                              day: "numeric",
+                                            }
+                                          )}
+                                        </td>
+                                        <td>
+                                          <button
                                             // to={`../${AdminRoute?.UserManagement?.MyTeam?.UserProfile}`}
-                                            className="btn btn-sm waves-effect waves-light btnViewOrange"
+                                            className="btn waves-effect waves-light text-white"
+                                            style={{
+                                              display: "flex",
+                                              backgroundColor: "#62a6dc",
+                                              borderRadius: "20px",
+                                            }}
                                             to={`../${AdminRoute?.UserManagement?.MyTeam?.UserProfile?.replace(
                                               ":status",
                                               currentTab
                                             ).replace(":id", ele?.user_id)}`}
                                           >
                                             View More
-                                          </NavLink>
+                                          </button>
                                         </td>
                                       </tr>
                                     );

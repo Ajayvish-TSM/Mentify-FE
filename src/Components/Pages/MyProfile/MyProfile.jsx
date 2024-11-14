@@ -36,7 +36,7 @@ const MyProfile = () => {
   const [profileImg, setProfileImg] = useState("");
   const [roleListing, setRoleisting] = useState([]);
   const errorMessageData = useSelector((state) => state.counter.errorData);
-  const [rolePreviledgeData, setrolePreviledgeData] = useState([]);
+  const [rolePreviledgeData, setRolePreviledgeData] = useState([]);
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const [edit, setEdit] = useState(false);
@@ -46,7 +46,7 @@ const MyProfile = () => {
   // Get User Details
   useEffect(() => {
     GetDetails();
-  }, [id]);
+  }, [id, rolePreviledgeData]);
 
   const GetDetails = () => {
     try {
@@ -75,7 +75,7 @@ const MyProfile = () => {
           });
           setProfileStatus(response?.data?.data?.data[0]?.is_active);
           setProfileImg(response?.data?.data?.data[0]?.image);
-          setrolePreviledgeData(
+          setRolePreviledgeData(
             response?.data?.data?.data[0]?.result?.priviledge_data
           );
           setRoleName(response?.data?.data?.data[0]?.result?.name);
@@ -86,7 +86,7 @@ const MyProfile = () => {
     }
   };
 
-  // console.log("rolePreviledgeData in My Profile", rolePreviledgeData);
+  console.log("rolePreviledgeData in My Profile", rolePreviledgeData);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -363,7 +363,7 @@ const MyProfile = () => {
                         borderRadius: "20px",
                       }}
                     >
-                      <i className="fa fa-regular fa-pen-to-square" style={{marginTop: "2px"}}></i>{" "}
+                      <i className="fa fa-regular fa-pen-to-square" style={{ marginTop: "2px" }}></i>{" "}
                       <span className="">Edit</span>
                     </NavLink>
                   </div>
@@ -378,6 +378,11 @@ const MyProfile = () => {
                             GetDetails();
                           }}
                           className="btn btn-reject me-3 px-4"
+                          style={{
+                            display: "flex",
+                            backgroundColor: "#ffffff",
+                            borderRadius: "20px",
+                          }}
                         >
                           <span className="">Close</span>
                         </NavLink>
@@ -386,7 +391,12 @@ const MyProfile = () => {
                         <NavLink
                           disabled={loading}
                           onClick={(e) => handleSave(e)}
-                          className="btn bgBlack text-white border-radius-2 px-4 float-end"
+                          className="btn text-white px-4 float-end"
+                          style={{
+                            display: "flex",
+                            backgroundColor: "#62a6dc",
+                            borderRadius: "20px",
+                          }}
                         >
                           <span className="">
                             {loading && (
@@ -423,7 +433,7 @@ const MyProfile = () => {
                                 userProfileDetails && userProfileDetails?.image
                               }
                               alt="Profile"
-                              className="rounded-0 profile"
+                              className="rounded-50 profile"
                               id="profile-picture-custome"
                             />
                             <div className="consumerProfileText ms-3">
@@ -437,7 +447,7 @@ const MyProfile = () => {
                           </div>
                         </div>
                         <div className="col-4 d-flex justify-content-end">
-                          <div className="button b2" id="button-13">
+                          {/* <div className="button b2" id="button-13">
                             <input
                               type="checkbox"
                               className="checkbox"
@@ -450,13 +460,13 @@ const MyProfile = () => {
                               <span>|||</span>
                             </div>
                             <div className="layer"></div>
-                          </div>
+                          </div> */}
 
-                          <p className="mt-1 ms-3 ">
+                          {/* <p className="mt-1 ms-3 ">
                             {adminObject?.is_active == true
                               ? "Active"
                               : "Inactive"}
-                          </p>
+                          </p> */}
                         </div>
                       </div>
                     </div>
@@ -474,12 +484,23 @@ const MyProfile = () => {
                               {userProfileDetails && userProfileDetails?.email}
                             </h5>
                           </div>
-                          <div className="mt-5">
-                            <p>Role</p>
-                            <h5 className="fw-bold">
-                              {userProfileDetails &&
-                                userProfileDetails?.result?.name}
-                            </h5>
+                          <div className="col-12 d-flex" style={{ marginTop: "50px" }}>
+                            <p className="fw-bold" style={{}}>Status:</p>
+                            <div className="col-4 mb-3">
+                              <div className="d-flex">
+                                <p
+                                  style={{
+                                    color: profileStatus ? "green" : "red",
+                                    fontSize: "14px",
+                                    marginLeft: "10px",
+                                    marginTop: "-2px",
+                                    fontWeight: "600",
+                                  }}
+                                >
+                                  {profileStatus ? "Active" : "Inactive"}
+                                </p>
+                              </div>
+                            </div>
                           </div>
                         </div>
                         <div className="col-6">
@@ -500,15 +521,15 @@ const MyProfile = () => {
                                   High Street, NY, 123456
                                 </h5>
                               </div> */}
-                               <div className="mt-5">
-                            <p>Registration Date</p>
-                            <h5 className="fw-bold">
-                              {moment(
-                                userProfileDetails &&
-                                  userProfileDetails?.createdAt
-                              ).format("DD-MM-YYYY")}
-                            </h5>
-                          </div>
+                              <div className="mt-5">
+                                <p>Registration Date</p>
+                                <h5 className="fw-bold">
+                                  {moment(
+                                    userProfileDetails &&
+                                    userProfileDetails?.createdAt
+                                  ).format("DD-MM-YYYY")}
+                                </h5>
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -517,7 +538,7 @@ const MyProfile = () => {
                   </div>
                 </div>
               </div>
-              <div className="col-xl-5">
+              {/* <div className="col-xl-5">
                 <div className="main-card p-3">
                   <div className="table-responsive">
                     <h6 className="h6 fw-bold">Access</h6>
@@ -528,9 +549,9 @@ const MyProfile = () => {
                           <th className=""></th>
                           <th className=""></th>
                           <th className="">Read</th>
-                          {/* <th className="">Add</th> */}
+                          {/* <th className="">Add</th> 
                           <th className="">Write</th>
-                          {/* <th className="">Delete</th> */}
+                          {/* <th className="">Delete</th> 
                         </tr>
                       </thead>
                       <tbody>
@@ -623,7 +644,7 @@ const MyProfile = () => {
                     </table>
                   </div>
                 </div>
-              </div>
+              </div> */}
             </div>
           ) : (
             <div className="row">
@@ -636,10 +657,10 @@ const MyProfile = () => {
                         <div className="col-8">
                           <div className="d-flex align-items-center">
                             <img
-                              //  crossOrigin="Anonymous"
+                              //crossOrigin="Anonymous"
                               src={profileImg}
                               alt=""
-                              className="rounded-0 profile"
+                              className="rounded-50 profile"
                               id="profile-picture-custome"
                               name="filename"
                               accept="image/*"
@@ -682,29 +703,6 @@ const MyProfile = () => {
                                           />
                                           <span className="slider round"></span>
                                        </label> */}
-                          <label className="button b2 me-2" id="button-13">
-                            <input
-                              type="checkbox"
-                              className="ms-3"
-                              disabled
-                              checked={profileStatus}
-                              onChange={handleToggle}
-                            />
-                            <span className="slider round">
-                              <div class="knobs">{/* <span>|||</span> */}</div>
-                            </span>
-                            <div
-                              style={{ backgroundColor: "transparent" }}
-                              class="layer"
-                            ></div>
-                          </label>
-                          <span
-                            className={
-                              profileStatus ? "activelabel" : "inactivelabel"
-                            }
-                          >
-                            {profileStatus ? "Active" : "Inactive"}
-                          </span>
                         </div>
                       </div>
                     </div>

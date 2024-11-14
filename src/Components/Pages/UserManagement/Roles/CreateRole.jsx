@@ -218,7 +218,13 @@ const CreateRole = () => {
                     onClick={() => {
                       navigate(-1);
                     }}
-                    className="btn btn-reject me-3 px-4"
+                    className="btn btn-reject me-3 px-4 text-white"
+                    style={{
+                      display: "flex",
+                      backgroundColor: "#fff",
+                      borderRadius: "20px",
+                      fontWeight: "bold",
+                    }}
                   >
                     <span className="">Close</span>
                   </button>
@@ -226,7 +232,13 @@ const CreateRole = () => {
                 <div className="saveBtn">
                   <button
                     onClick={(e) => handleSave(e)}
-                    className="btn bgBlack text-white border-radius-2 px-4 float-end"
+                    className="btn text-white px-4 float-end"
+                    style={{
+                      display: "flex",
+                      backgroundColor: "#62a6dc",
+                      borderRadius: "20px",
+                      fontWeight: "bold",
+                    }}
                   >
                     <span className="">Save</span>
                   </button>
@@ -293,7 +305,7 @@ const CreateRole = () => {
                       <table className="table" id="tableRoles">
                         <thead>
                           <tr>
-                            <th>Sr. No.</th>
+                            <th>S.No</th>
                             <th>Features</th>
                             <th>Access</th>
                           </tr>

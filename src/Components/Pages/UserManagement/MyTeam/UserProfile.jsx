@@ -351,7 +351,12 @@ const UserProfile = () => {
                         onClick={() => {
                           setEdit(true);
                         }}
-                        className="btn bgBlack text-white border-radius-2 px-4 float-end"
+                        className="btn text-white px-4 float-end"
+                        style={{
+                          display: "flex",
+                          backgroundColor: "#62a6dc",
+                          borderRadius: "20px",
+                        }}
                       >
                         <span className="">Edit</span>
                       </NavLink>
@@ -611,112 +616,6 @@ const UserProfile = () => {
                         </div>
                       </div>
                     </div>
-                  </div>
-                </div>
-              </div>
-              <div className="col-xl-6">
-                <div className="main-card p-3">
-                  <div className="table-responsive">
-                    <p className="border-bottom-custom pb-3">Access</p>
-                    <table className="table" id="tableRoles">
-                      <thead>
-                        <tr>
-                          <th className=""></th>
-                          <th className=""></th>
-                          <th className="">Read</th>
-                          {/* <th className="">Add</th> */}
-                          <th className="">Write</th>
-                          {/* <th className="">Delete</th> */}
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {rolePreviledgeData &&
-                          rolePreviledgeData?.map((menu, menuIndex) => {
-                            // let currentIndex = menuIndex  + 1;
-
-                            currentIndex =
-                              currentIndex === 0
-                                ? menuIndex + 1
-                                : currentIndex + 1;
-                            return (
-                              <React.Fragment key={menu._id}>
-                                <tr>
-                                  <td>{currentIndex}.</td>
-                                  <td>
-                                    <div className="form-check">
-                                      <input
-                                        className="form-check-input"
-                                        type="checkbox"
-                                        disabled
-                                        value=""
-                                        checked={menu.is_active}
-                                      />
-                                      <label className="form-check-label">
-                                        {menu.title}
-                                      </label>
-                                    </div>
-                                  </td>
-                                  {renderCheckboxCells(menu)}
-                                </tr>
-                                {menu?.submenu?.map((submenu, submenuIndex) => {
-                                  currentIndex++;
-                                  return (
-                                    <React.Fragment key={submenu._id}>
-                                      <tr>
-                                        <td>{currentIndex}</td>
-                                        <td>
-                                          <div className="form-check ps-5">
-                                            <input
-                                              className="form-check-input"
-                                              type="checkbox"
-                                              value=""
-                                              disabled
-                                              checked={submenu.is_active}
-                                            />
-                                            <label className="form-check-label">
-                                              {submenu.title}
-                                            </label>
-                                          </div>
-                                        </td>
-                                        {renderCheckboxCells(submenu)}
-                                      </tr>
-                                      {submenu.submenuChild.map(
-                                        (submenuChild) => {
-                                          currentIndex++;
-                                          return (
-                                            <tr key={submenuChild._id}>
-                                              <td>{currentIndex}</td>
-                                              <td>
-                                                <div className="form-check ps-5 ms-5">
-                                                  <input
-                                                    className="form-check-input"
-                                                    type="checkbox"
-                                                    value=""
-                                                    disabled
-                                                    checked={
-                                                      submenuChild.is_active
-                                                    }
-                                                  />
-                                                  <label className="form-check-label">
-                                                    {submenuChild.title}
-                                                  </label>
-                                                </div>
-                                              </td>
-                                              {renderCheckboxCells(
-                                                submenuChild
-                                              )}
-                                            </tr>
-                                          );
-                                        }
-                                      )}
-                                    </React.Fragment>
-                                  );
-                                })}
-                              </React.Fragment>
-                            );
-                          })}
-                      </tbody>
-                    </table>
                   </div>
                 </div>
               </div>

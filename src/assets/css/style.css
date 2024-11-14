@@ -1683,8 +1683,8 @@ a {
   color: #ac1617 !important;
 }
 .contentBg {
-  background: #232332;
-  border-radius: 2px;
+  background: #62a6dc;
+  border-radius: 50px;
   width: 32px;
   height: 32px;
   display: flex;
@@ -3546,4 +3546,11 @@ li.ant-menu-item.ant-menu-item-only-child.subUlLi {
 
 .text-description.auto-height {
   height: auto; /* Change to auto height */
+}
+.team-card{
+  transition: transform 0.3s ease;
+}
+.team-card:hover {
+  transform: scale(1.05);
+  cursor: pointer;
 }

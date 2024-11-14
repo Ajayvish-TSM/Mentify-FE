@@ -12,6 +12,7 @@ import { ToastContainer, toast } from "react-toastify";
 import FilterSearch from "../../Common/FilterSearch";
 import { EditFilled } from "@ant-design/icons";
 import { isEditable } from "@testing-library/user-event/dist/utils";
+import { Tooltip, message } from "antd";
 
 const CreateNewContentCreation = () => {
   const adminObject = JSON.parse(localStorage.getItem("TajurbaAdminToken"));
@@ -58,10 +59,10 @@ const CreateNewContentCreation = () => {
     const errors = {};
 
     if (!values.leave_name) {
-      errors.leave_name = "Please type leave name";
+      errors.leave_name = "Please enter leave name";
     }
     if (!values.leave_code) {
-      errors.leave_code = "Please type leave code";
+      errors.leave_code = "Please enter leave code";
     } else if (values.leave_code.length < 2) {
       errors.leave_code = "Please enter more than 1 character";
     } else if (values.leave_code.trim() === "") {
@@ -114,6 +115,7 @@ const CreateNewContentCreation = () => {
       console.log(error);
     }
   }, []);
+
   useEffect(() => {
     if (Object.keys(formErrors).length === 0 && isSubmit) {
       setLoading(true);
@@ -166,6 +168,17 @@ const CreateNewContentCreation = () => {
     setFormErrors(validate(formValues));
     setIsSubmit(true);
   };
+
+  // const handleSave = (e) => {
+  //   e.preventDefault();
+  //   setFormErrors(validate(formValues));
+  //   setIsSubmit(true);
+
+  //   if (Object.keys(validate(formValues)).length === 0) {
+  //     message.success("Form submitted successfully!");
+  //   }
+  // };
+
   console.log("listing data", listingData);
 
   return (
@@ -188,7 +201,7 @@ const CreateNewContentCreation = () => {
           </div>
 
           <div className="row" id="createContent">
-            <div className="row justify-content-between main-card p-4" style={{marginLeft: "12px"}}>
+            <div className="row justify-content-between main-card p-4" style={{ marginLeft: "12px" }}>
               {errorMessage ? (
                 <span className="text-danger text-end">{errorMessage}</span>
               ) : null}
@@ -321,18 +334,18 @@ const CreateNewContentCreation = () => {
             }
             id="to-Be-Reviewed"
             role="tabpanel"
-            // style={{ overflowY: "scroll", height: "20rem" }}
+          // style={{ overflowY: "scroll", height: "20rem" }}
           >
             <div className="table-responsive">
               <table className="table mb-0 tablesWrap">
                 <thead>
                   <tr>
-                    <th>S.No</th>
-                    <th className="">Leave Code</th>
-                    <th>Leave Name</th>
+                    <th style={{ fontWeight: "700" }}>S.No</th>
+                    <th style={{ fontWeight: "700" }}>Leave Code</th>
+                    <th style={{ fontWeight: "700" }}>Leave Name</th>
 
-                    <th>Created On</th>
-                    <th>Action</th>
+                    <th style={{ fontWeight: "700" }}>Created On</th>
+                    <th style={{ fontWeight: "700" }}>Action</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -366,17 +379,19 @@ const CreateNewContentCreation = () => {
                                 )}
                               </td>
                               <td>
-                                <button
-                                  className="btn btn-sm  "
-                                  onClick={() => handleEdit(ele)}
-                                >
-                                  <EditFilled
-                                    style={{
-                                      fontSize: "20px",
-                                      color: "#1EB9F3",
-                                    }}
-                                  />
-                                </button>
+                                <Tooltip title="Edit">
+                                  <button
+                                    className="btn btn-sm"
+                                    onClick={() => handleEdit(ele)}
+                                  >
+                                    <EditFilled
+                                      style={{
+                                        fontSize: "20px",
+                                        color: "#1EB9F3",
+                                      }}
+                                    />
+                                  </button>
+                                </Tooltip>
                               </td>
                             </tr>
                           );

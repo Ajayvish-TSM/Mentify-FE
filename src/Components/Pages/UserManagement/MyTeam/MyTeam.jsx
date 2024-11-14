@@ -342,33 +342,34 @@ const MyTeam = () => {
                         </ul>
                       </div>
                       <div className="col-xl-7 d-flex align-items-center justify-content-end">
-                        <FilterSearch
+                        {/* <FilterSearch
                           FilterOptions={FilterOptions}
                           search={search}
                           setSearch={setSearch}
                           filterselect={filterselect}
                           setFilterSelect={setFilterSelect}
-                        />
+                        /> */}
 
                         {TajurbaAdmin_priviledge_data &&
-                        TajurbaAdmin_priviledge_data.some(
-                          (ele) =>
-                            ele.title === "User Management" &&
-                            ele.is_active === true &&
-                            ele?.submenu &&
-                            ele?.submenu.some(
-                              (sub) =>
-                                sub.title === "My Team" &&
-                                sub.is_active === true &&
-                                sub.is_edit === true
-                            )
-                        ) ? (
+                          TajurbaAdmin_priviledge_data.some(
+                            (ele) =>
+                              ele.title === "User Management" &&
+                              ele.is_active === true &&
+                              ele?.submenu &&
+                              ele?.submenu.some(
+                                (sub) =>
+                                  sub.title === "My Team" &&
+                                  sub.is_active === true &&
+                                  sub.is_edit === true
+                              )
+                          ) ? (
                           <NavLink
                             to="/my-team/create-user"
                             className="btn text-white px-4 float-end ms-3"
                             style={{
                               backgroundColor: "#62a6dc",
-                              borderRadius: "20px"}}
+                              borderRadius: "20px"
+                            }}
                           >
                             <i className="fa-regular fa-plus"></i>
                             <span className="ms-2">Create User</span>
@@ -390,13 +391,13 @@ const MyTeam = () => {
                         <table className="table mb-0 tablesWrap">
                           <thead>
                             <tr>
-                              <th>Name</th>
-                              <th>Mobile</th>
-                              <th className="w-30">Email</th>
-                              <th>Role</th>
-                              <th>Created On</th>
-                              <th>Status</th>
-                              <th></th>
+                              <th style={{ fontWeight: "700" }}>Name</th>
+                              <th style={{ fontWeight: "700" }}>Mobile</th>
+                              <th className="w-25" style={{ fontWeight: "700" }}>Email</th>
+                              <th style={{ fontWeight: "700" }}>Role</th>
+                              <th style={{ fontWeight: "700" }}>Created On</th>
+                              <th style={{ fontWeight: "700" }}>Status</th>
+                              <th style={{ fontWeight: "700" }}></th>
                             </tr>
                           </thead>
                           <tbody>
@@ -533,15 +534,23 @@ const MyTeam = () => {
                                         </td>
                                         <td>{ele?.roles[0]?.name}</td>
                                         <td>
-                                          {moment(ele?.createdAt).format(
-                                            "DD-MM-YYYY"
+                                          {new Date(ele?.createdAt).toLocaleString(
+                                            "en-US",
+                                            {
+                                              year: "numeric",
+                                              month: "long",
+                                              day: "numeric",
+                                            }
                                           )}
                                         </td>
 
-                                        <td>
-                                          {ele?.is_active === true
-                                            ? ActiveStatusSvg
-                                            : InActiveStatusSvg}
+                                        <td
+                                          style={{
+                                            color: ele?.is_active ? "green" : "grey",
+                                            fontWeight: "600"
+                                          }}
+                                        >
+                                          {ele?.is_active ? "Active" : "Inactive"}
                                         </td>
 
                                         <td>
@@ -549,7 +558,8 @@ const MyTeam = () => {
                                             // to={`../${AdminRoute?.UserManagement?.MyTeam?.UserProfile}`}
                                             style={{
                                               backgroundColor: "#62a6dc",
-                                              borderRadius: "20px",}}
+                                              borderRadius: "20px",
+                                            }}
                                             className="btn btn-sm waves-effect waves-light btnViewOrange text-white"
                                             to={`../${AdminRoute?.UserManagement?.MyTeam?.UserProfile?.replace(
                                               ":status",
@@ -591,12 +601,12 @@ const MyTeam = () => {
                         <table className="table mb-0 tablesWrap">
                           <thead>
                             <tr>
-                              <th>Name</th>
-                              <th>Mobile</th>
-                              <th className="w-30">Email</th>
-                              <th>Role</th>
-                              <th>Created Date</th>
-                              <th>Status</th>
+                              <th style={{ fontWeight: "700" }}>Name</th>
+                              <th style={{ fontWeight: "700" }}>Mobile</th>
+                              <th className="w-30" style={{ fontWeight: "700" }}>Email</th>
+                              <th style={{ fontWeight: "700" }}>Role</th>
+                              <th style={{ fontWeight: "700" }}>Created On</th>
+                              <th style={{ fontWeight: "700" }}>Status</th>
                               <th></th>
                             </tr>
                           </thead>
@@ -631,21 +641,33 @@ const MyTeam = () => {
                                         </td>
                                         <td>{ele?.roles[0]?.name}</td>
                                         <td>
-                                          {moment(ele?.createdAt).format(
-                                            "DD-MM-YYYY"
+                                          {new Date(ele?.createdAt).toLocaleString(
+                                            "en-US",
+                                            {
+                                              year: "numeric",
+                                              month: "long",
+                                              day: "numeric",
+                                            }
                                           )}
                                         </td>
 
-                                        <td>
-                                          {ele?.is_active === true
-                                            ? ActiveStatusSvg
-                                            : InActiveStatusSvg}
+                                        <td
+                                          style={{
+                                            color: ele?.is_active ? "green" : "grey",
+                                            fontWeight: "600"
+                                          }}
+                                        >
+                                          {ele?.is_active ? "Active" : "Inactive"}
                                         </td>
 
                                         <td>
                                           <NavLink
                                             // to={`../${AdminRoute?.UserManagement?.MyTeam?.UserProfile}`}
-                                            className="btn btn-sm waves-effect waves-light bgBlack text-white"
+                                            className="btn waves-effect waves-light text-white"
+                                            style={{
+                                              backgroundColor: "#62a6dc",
+                                              borderRadius: "20px",
+                                            }}
                                             to={`../${AdminRoute?.UserManagement?.MyTeam?.UserProfile?.replace(
                                               ":status",
                                               currentTab
@@ -686,12 +708,12 @@ const MyTeam = () => {
                         <table className="table mb-0 tablesWrap">
                           <thead>
                             <tr>
-                              <th>Name</th>
-                              <th>Mobile</th>
-                              <th className="w-30">Email</th>
-                              <th>Role</th>
-                              <th>Created Date</th>
-                              <th>Status</th>
+                              <th style={{ fontWeight: "700" }}>Name</th>
+                              <th style={{ fontWeight: "700" }}>Mobile</th>
+                              <th className="w-30" style={{ fontWeight: "700" }}>Email</th>
+                              <th style={{ fontWeight: "700" }}>Role</th>
+                              <th style={{ fontWeight: "700" }}>Created On</th>
+                              <th style={{ fontWeight: "700" }}>Status</th>
                               <th></th>
                             </tr>
                           </thead>
@@ -726,21 +748,33 @@ const MyTeam = () => {
                                         </td>
                                         <td>{ele?.roles[0]?.name}</td>
                                         <td>
-                                          {moment(ele?.createdAt).format(
-                                            "DD-MM-YYYY"
+                                          {new Date(ele?.createdAt).toLocaleString(
+                                            "en-US",
+                                            {
+                                              year: "numeric",
+                                              month: "long",
+                                              day: "numeric",
+                                            }
                                           )}
                                         </td>
 
-                                        <td>
-                                          {ele?.is_active === true
-                                            ? ActiveStatusSvg
-                                            : InActiveStatusSvg}
+                                        <td
+                                          style={{
+                                            color: ele?.is_active ? "green" : "grey",
+                                            fontWeight: "600"
+                                          }}
+                                        >
+                                          {ele?.is_active ? "Active" : "Inactive"}
                                         </td>
 
                                         <td>
                                           <NavLink
                                             // to={`../${AdminRoute?.UserManagement?.MyTeam?.UserProfile}`}
-                                            className="btn btn-sm waves-effect waves-light btnViewOrange"
+                                            className="btn text-white waves-effect waves-light"
+                                            style={{
+                                              backgroundColor: "#62a6dc",
+                                              borderRadius: "20px",
+                                            }}
                                             to={`../${AdminRoute?.UserManagement?.MyTeam?.UserProfile?.replace(
                                               ":status",
                                               currentTab
