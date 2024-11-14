@@ -1,10 +1,7 @@
 /* eslint-disable */
 import React, { useEffect, useState } from "react";
-// import AppLayout from "../../../Loyout/App";
 import { NavLink, useParams } from "react-router-dom";
 import cunsumerProfileImg from "../../../../assets/images/cunsumerProfileImg.png";
-// import API from "../../../../Api/Api";
-// import moment from "moment";
 import DateAndTimeLayout from "../../../Common/DateAndTimeLayout";
 import API from "../../../../Api/Api";
 import moment from "moment";
@@ -57,7 +54,6 @@ const ConsumerProfile = () => {
                user_id: parseInt(id),
             },
          }).then((response) => {
-            //   console.log(response?.data?.data);
             if (response?.data?.data?.status === 200) {
                setLoading(false);
                setConsumptionDetails(response?.data?.data?.data);
@@ -98,19 +94,6 @@ const ConsumerProfile = () => {
                <div className="row">
                   <div className="col-12">
                      <div className="main-card p-0">
-                        {/* <div className="custum-orange-bgboxC d-flex justify-content-end">
-                    <NavLink
-                      className="w-auto float-start pe-1 d-flex align-items-center text-white me-2"
-                      to={`/${AdminRoute?.Feed?.ConsumerActivityProfile?.replace(
-                        ":id",
-                        id
-                      )}`}
-                    >
-                      <h4 className="headText mt-2 mb-2  w-auto text-white">
-                        View Activities
-                      </h4>
-                    </NavLink>
-                  </div> */}
                         <div className="custum-orange-bgboxC"></div>
                         <div className="px-xxl-5 px-4 pb-5">
                            <div className="pofileInfo">
@@ -167,10 +150,6 @@ const ConsumerProfile = () => {
                                     <div className="border-left-grey h-100">
                                        <div className="ps-4">
                                           {" "}
-                                          {/* <div className="RegistrationDate">
-                                <p>Content Consumption</p>
-                               
-                              </div> */}
                                           <p>Content Consumption</p>
                                           <div className="row ps-1">
                                              <table className="table scrollTable">
@@ -253,35 +232,6 @@ const ConsumerProfile = () => {
                                           </tr>
                                        </thead>
                                        <tbody className="">
-                                          {/* <tr>
-                                <td scope="row" className="darkGrey border-0">
-                                  Sales & Marketing
-                                </td>
-                                <td
-                                  scope="row"
-                                  className="border-0 textGreen fw-bold"
-                                >
-                                  Free
-                                </td>
-
-                                <td className="darkGrey border-0">NA</td>
-                                <td scope="row" className="darkGrey border-0">
-                                  31 Dec 2023
-                                </td>
-                              </tr>
-                              <tr>
-                                <td scope="row" className="darkGrey border-0">
-                                  Sales & Marketing
-                                </td>
-                                <td scope="row" className="border-0 darkGrey">
-                                  Paid
-                                </td>
-
-                                <td className="darkGrey border-0">2500/-</td>
-                                <td scope="row" className="darkGrey border-0">
-                                  31 Dec 2023
-                                </td>
-                              </tr> */}
                                           {loading ? (
                                              <tr>
                                                 <td colSpan={6}>

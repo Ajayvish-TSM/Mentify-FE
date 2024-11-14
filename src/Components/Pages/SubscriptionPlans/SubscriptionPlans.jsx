@@ -138,17 +138,6 @@ const SubscriptionPlans = () => {
     GetLeaveApplication();
   }, [currentPage, itemsPerPage]);
 
-  // const handleEdit = (item) => {
-  //   setEditItemId(item._id);
-  //   formik.setValues({
-  //     from_date: item.from_date,
-  //     to_date: item.to_date,
-  //     leave_code: item.leave_code,
-  //     leave_reason: item.leave_reason,
-  //     status: item.status,
-  //   });
-  // };
-
   const handleSave = () => {
     setErrorMessage("");
     setLoading(true);
@@ -181,7 +170,6 @@ const SubscriptionPlans = () => {
       console.log(error);
     }
   };
-  // console.log("listing data", listingData);
 
   return (
     <>

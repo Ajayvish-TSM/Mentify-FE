@@ -1,9 +1,7 @@
 /* eslint-disable */
 import React, { useEffect, useState } from "react";
-// import AppLayout from "../../Loyout/App";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import DateAndTimeLayout from "../../Common/DateAndTimeLayout";
-import IconGallery from "../../../assets/images/IconGallery.svg";
 import { useFormik } from "formik";
 import API from "../../../Api/Api";
 import AdminRoute from "./../../../Route/RouteDetails";
@@ -82,27 +80,7 @@ const CreateNewContentCreation = () => {
 
     return errors;
   };
-  // const formik = useFormik({
-  //   initialValues: {
-  //     leave_name: "",
-  //     leave_code: "",
-  //   },
-  //   onSubmit: (values, { setSubmitting }) => {
-  //     const errors = validate(values);
-
-  //     if (Object.keys(errors).length === 0) {
-  //       // console.log("Run vaidation function no errors");
-  //       handleSave();
-  //     } else {
-  //       // console.log("Run vaidation function if errors is present ");
-
-  //       console.log("Validation errors:", errors);
-  //     }
-
-  //     setSubmitting(false);
-  //   },
-  //   validate,
-  // });
+  
   const CreatedLeave = () => {
     setLoadingData(true);
     try {
@@ -176,16 +154,6 @@ const CreateNewContentCreation = () => {
     setIsSubmit(true);
   };
 
-  // const handleSave = (e) => {
-  //   e.preventDefault();
-  //   setFormErrors(validate(formValues));
-  //   setIsSubmit(true);
-
-  //   if (Object.keys(validate(formValues)).length === 0) {
-  //     message.success("Form submitted successfully!");
-  //   }
-  // };
-
   console.log("listing data", listingData);
 
   return (
@@ -221,17 +189,6 @@ const CreateNewContentCreation = () => {
                         <span className="mandatory-star me-1">*</span>
                         Leave Code
                       </label>
-                      {/* <input
-                          type="text"
-                          className="form-control w-80 border-radius-2"
-                          aria-label="Leave Code"
-                          name="leave_code"
-                          disabled={!CheckAccess}
-                          onChange={(e) => {
-                            formik.setFieldValue("leave_code", e.target.value);
-                          }}
-                          value={formik.values.leave_code}
-                        /> */}
                       <input
                         type="text"
                         className="form-control w-80 border-radius-2"

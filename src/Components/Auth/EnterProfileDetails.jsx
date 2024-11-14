@@ -19,7 +19,6 @@ const EnterProfileDetails = () => {
                      <div className="login-box">
                         <form>
                            <h4 className="text-color-secondary mb-4">Edit Profile</h4>
-                           {/* <h2 class="text-color-secondary mb-4 gradient-border-bottom-before login-border-gradient">Edit Profile</h2> */}
                            <div className="upload-profile-div mb-3">
                               <div className="hexagon-image-div mb-2" style={{ backgroundImage: 'url("")' }}>
                                  <div

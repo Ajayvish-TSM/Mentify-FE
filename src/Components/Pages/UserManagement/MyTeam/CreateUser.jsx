@@ -1,6 +1,5 @@
 /* eslint-disable */
 import React, { useEffect, useRef, useState } from "react";
-// import AppLayout from "../../../Loyout/App";
 import { NavLink, useNavigate } from "react-router-dom";
 import DateAndTimeLayout from "../../../Common/DateAndTimeLayout";
 import { useDispatch, useSelector } from "react-redux";
@@ -52,8 +51,6 @@ const CreateUser = () => {
     const errors = {};
 
     const emailregex = /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/;
-    // const emailregex =
-    //   /^(?!\.)[a-zA-Z0-9._%+-]{1,10}@([a-zA-Z0-9-]{1,10}\.){1,}[a-zA-Z]{2,}$/;
     const mobileregex = /^(\+\d{1,3}[- ]?)?\d{10}$/;
     const specialCharacter = /^[A-Za-z0-9 ]+$/;
 
@@ -76,13 +73,6 @@ const CreateUser = () => {
     if (!values?.reporting_to) {
       errors.reporting_to = "Please select Reporting to";
     }
-    // else if (
-    //   values?.firstName?.length < 3 ||
-    //   values?.firstName?.length > 10
-    // ) {
-    //   errors.firstName = "Name length should be 3 to 10 characters";
-    // }
-
     if (!values?.mobile) {
       errors.mobile = "Please enter Mobile no";
     } else if (values.mobile.trim() === "") {
@@ -177,11 +167,6 @@ const CreateUser = () => {
         }).then((response) => {
           console.log("start");
           console.log(response);
-          // toast.success("user is created");
-          // setTimeout(() => {
-          //   navigate(-1);
-          // }, 1500);
-          // setLoading(false);
           if (response?.data?.data?.status === 200) {
             console.log("2");
             toast.success(response?.data?.data?.message);
@@ -193,8 +178,6 @@ const CreateUser = () => {
             console.log("3");
             console.log("201111", response?.data?.data?.message);
             setLoading(false);
-            // dispatch(userdata(response?.data));
-            // dispatch(errorData(response?.data?.message));
             SetErrorMessage(response?.data?.data?.message);
 
             setTimeout(() => {
@@ -496,33 +479,7 @@ const CreateUser = () => {
                                 </p>
                               </div>
                             </div>
-                            {/* <div className="col-4">
-                              <label className="form-label">
-                                Employee Type
-                              </label>
-                              <div>
-                                <select
-                                  className="form-select bg-white"
-                                  aria-label="Default select example"
-                                  name="reporting_to"
-                                  onChange={(e) => handleChange(e)}
-                                  value={formValues?.reporting_to}
-                                >
-                                  <option value="">Select</option>
-                                  {employeeType?.map((ele, index) => {
-                                    // if (ele?.is_active)
-                                    return (
-                                      <option key={index} value={ele}>
-                                        {ele}
-                                      </option>
-                                    );
-                                  })}
-                                </select>
-                                <p className="text-danger">
-                                  {formErrors?.employee_type}
-                                </p>
-                              </div>
-                            </div> */}
+                          
                           </div>
                         </div>
                       </div>
