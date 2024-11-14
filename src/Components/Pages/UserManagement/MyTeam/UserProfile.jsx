@@ -332,18 +332,18 @@ const UserProfile = () => {
 
             <div className="col-6">
               {TajurbaAdmin_priviledge_data &&
-              TajurbaAdmin_priviledge_data.some(
-                (ele) =>
-                  ele.title === "User Management" &&
-                  ele.is_active === true &&
-                  ele?.submenu &&
-                  ele?.submenu.some(
-                    (sub) =>
-                      sub.title === "My Team" &&
-                      sub.is_active === true &&
-                      sub.is_edit === true
-                  )
-              ) ? (
+                TajurbaAdmin_priviledge_data.some(
+                  (ele) =>
+                    ele.title === "User Management" &&
+                    ele.is_active === true &&
+                    ele?.submenu &&
+                    ele?.submenu.some(
+                      (sub) =>
+                        sub.title === "My Team" &&
+                        sub.is_active === true &&
+                        sub.is_edit === true
+                    )
+                ) ? (
                 <div className="col-12 d-flex justify-content-end">
                   {!edit ? (
                     <div className="saveBtn">
@@ -372,6 +372,10 @@ const UserProfile = () => {
                               GetDetails();
                             }}
                             className="btn btn-reject me-3 px-4"
+                            style={{
+                              backgroundColor: "#fff",
+                              borderRadius: "20px"
+                            }}
                           >
                             <span className="">Close</span>
                           </NavLink>
@@ -380,7 +384,11 @@ const UserProfile = () => {
                           <NavLink
                             disabled={loading}
                             onClick={(e) => handleSave(e)}
-                            className="btn bgBlack text-white border-radius-2 px-4 float-end"
+                            className="btn text-white px-4 float-end"
+                            style={{
+                              backgroundColor: "#62a6dc",
+                              borderRadius: "20px"
+                            }}
                           >
                             <span className="">
                               {loading && (
@@ -450,168 +458,24 @@ const UserProfile = () => {
                         <div className="col-6">
                           <label className="form-label darkGrey">Status</label>
                           <div className="d-flex">
-                            {profileStatus ? (
-                              <svg
-                                id="Component_150_6"
-                                data-name="Component 150 – 6"
-                                width="50"
-                                height="26"
-                                viewBox="0 0 50 26"
-                              >
-                                <rect
-                                  id="Rectangle_6304"
-                                  data-name="Rectangle 6304"
-                                  width="50"
-                                  height="26"
-                                  rx="2"
-                                  fill="#7cd67b"
-                                />
-                                <path
-                                  id="Path_10465"
-                                  data-name="Path 10465"
-                                  d="M0-.487,3.675,4.1l9.084-7.077"
-                                  transform="translate(30.746 12.477)"
-                                  fill="none"
-                                  stroke="#fff"
-                                />
-                                <g
-                                  id="Group_14953"
-                                  data-name="Group 14953"
-                                  transform="translate(-1522 -438)"
-                                >
-                                  <rect
-                                    id="Rectangle_6305"
-                                    data-name="Rectangle 6305"
-                                    width="18"
-                                    height="18"
-                                    rx="2"
-                                    transform="translate(1527 442)"
-                                    fill="#fff"
-                                  />
-                                  <g
-                                    id="Group_14952"
-                                    data-name="Group 14952"
-                                    transform="translate(1531.918 447)"
+                            <div className="col-12 d-flex" style={{ marginTop: "10px" }}>
+                              <p className="fw-bold" style={{}}>Status:</p>
+                              <div className="col-4 mb-3">
+                                <div className="d-flex">
+                                  <p
+                                    style={{
+                                      color: profileStatus ? "green" : "grey",
+                                      fontSize: "14px",
+                                      marginLeft: "10px",
+                                      marginTop: "-2px",
+                                      fontWeight: "600",
+                                    }}
                                   >
-                                    <line
-                                      id="Line_1364"
-                                      data-name="Line 1364"
-                                      y2="9"
-                                      transform="translate(0.082)"
-                                      fill="none"
-                                      stroke="#e8e8e8"
-                                    />
-                                    <line
-                                      id="Line_1365"
-                                      data-name="Line 1365"
-                                      y2="9"
-                                      transform="translate(4.082)"
-                                      fill="none"
-                                      stroke="#e8e8e8"
-                                    />
-                                    <line
-                                      id="Line_1366"
-                                      data-name="Line 1366"
-                                      y2="9"
-                                      transform="translate(8.082)"
-                                      fill="none"
-                                      stroke="#e8e8e8"
-                                    />
-                                  </g>
-                                </g>
-                              </svg>
-                            ) : (
-                              <svg
-                                id="Component_150_7"
-                                data-name="Component 150 – 7"
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="50"
-                                height="26"
-                                viewBox="0 0 50 26"
-                              >
-                                <rect
-                                  id="Rectangle_6304"
-                                  data-name="Rectangle 6304"
-                                  width="50"
-                                  height="26"
-                                  rx="2"
-                                  fill="#e2e2e2"
-                                />
-                                <g
-                                  id="Group_14953"
-                                  data-name="Group 14953"
-                                  transform="translate(-1500 -438)"
-                                >
-                                  <rect
-                                    id="Rectangle_6305"
-                                    data-name="Rectangle 6305"
-                                    width="18"
-                                    height="18"
-                                    rx="2"
-                                    transform="translate(1527 442)"
-                                    fill="#fff"
-                                  />
-                                  <g
-                                    id="Group_14952"
-                                    data-name="Group 14952"
-                                    transform="translate(1531.918 447)"
-                                  >
-                                    <line
-                                      id="Line_1364"
-                                      data-name="Line 1364"
-                                      y2="9"
-                                      transform="translate(0.082)"
-                                      fill="none"
-                                      stroke="#e8e8e8"
-                                    />
-                                    <line
-                                      id="Line_1365"
-                                      data-name="Line 1365"
-                                      y2="9"
-                                      transform="translate(4.082)"
-                                      fill="none"
-                                      stroke="#e8e8e8"
-                                    />
-                                    <line
-                                      id="Line_1366"
-                                      data-name="Line 1366"
-                                      y2="9"
-                                      transform="translate(8.082)"
-                                      fill="none"
-                                      stroke="#e8e8e8"
-                                    />
-                                  </g>
-                                </g>
-                                <g
-                                  id="Group_14954"
-                                  data-name="Group 14954"
-                                  transform="translate(9.5 0.5)"
-                                >
-                                  <line
-                                    id="Line_1368"
-                                    data-name="Line 1368"
-                                    x1="8"
-                                    y2="10"
-                                    transform="translate(0 7.5)"
-                                    fill="none"
-                                    stroke="#b9b9b9"
-                                  />
-                                  <line
-                                    id="Line_1369"
-                                    data-name="Line 1369"
-                                    x2="8"
-                                    y2="10"
-                                    transform="translate(0 7.5)"
-                                    fill="none"
-                                    stroke="#b9b9b9"
-                                  />
-                                </g>
-                              </svg>
-                            )}
-
-                            <p className="mt-1 ms-2">
-                              {profileStatus ? "Active" : "Inactive"}
-                            </p>
+                                    {profileStatus ? "Active" : "Inactive"}
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -629,9 +493,6 @@ const UserProfile = () => {
                       <div className="col-md-4 col-sm-12 col-12 float-start">
                         <div className="col-12 float-start mt-2 mb-4">
                           <p className="addUserPic mx-auto mt-1 mb-1 ">
-                            {/* <span className="addPicIcon">
-                     <i className="fas fa-pen" />
-                   </span> */}
                             <input
                               type="file"
                               className="custom-file-input"
@@ -760,42 +621,22 @@ const UserProfile = () => {
                           </div>
                         </div>
 
-                        <div className="row ps-0 ps-md-4 mt-4">
-                          <div className="col-12">
-                            <h4 className="fw-bold mb-3">Status</h4>
-                          </div>
-                          <hr className="borderHr" />
-                          <div className="col-4 mb-3 d-flex align-items-center">
-                            <label className="button b2 me-2" id="button-13">
-                              <input
-                                type="checkbox"
-                                className="ms-3"
-                                // disabled={!edit}
-                                checked={profileStatus}
-                                onChange={handleToggle}
-                                // onChange={(e) => {
-                                //   setProfileStatus(
-                                //     e.target.checked === true ? false : true
-                                //   );
-                                // }}
-                              />
-                              <span className="slider round">
-                                <div class="knobs">
-                                  {/* <span>|||</span> */}
-                                </div>
-                              </span>
-                              <div
-                                style={{ backgroundColor: "transparent" }}
-                                class="layer"
-                              ></div>
-                            </label>
-                            <span
-                              className={
-                                profileStatus ? "activelabel" : "inactivelabel"
-                              }
-                            >
-                              {profileStatus ? "Active" : "Inactive"}
-                            </span>
+                        <div className="col-12 d-flex" style={{ marginTop: "10px", marginLeft: "25px" }}>
+                          <p className="fw-bold" style={{fontSize: "16px"}}>Status:</p>
+                          <div className="col-4 mb-3">
+                            <div className="d-flex">
+                              <p
+                                style={{
+                                  color: profileStatus ? "green" : "red",
+                                  fontSize: "14px",
+                                  marginLeft: "10px",
+                                  marginTop: "3px",
+                                  fontWeight: "600",
+                                }}
+                              >
+                                {profileStatus ? "Active" : "Inactive"}
+                              </p>
+                            </div>
                           </div>
                         </div>
                       </div>
