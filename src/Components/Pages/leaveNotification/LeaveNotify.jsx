@@ -324,11 +324,6 @@ const LeaveNotify = () => {
                                           <button
                                             // to={`../${AdminRoute?.UserManagement?.MyTeam?.UserProfile}`}
                                             className="btn waves-effect waves-light btnViewOrange text-white"
-                                            style={{
-                                              display: "flex",
-                                              backgroundColor: "#62a6dc",
-                                              borderRadius: "20px",
-                                            }}
                                             onClick={() => {
                                               handleStatus(
                                                 ele?.user_id,
@@ -350,11 +345,6 @@ const LeaveNotify = () => {
                                           <button
                                             // to={`../${AdminRoute?.UserManagement?.MyTeam?.UserProfile}`}
                                             className="btn waves-effect waves-light btnViewOrange text-white"
-                                            style={{
-                                              display: "flex",
-                                              backgroundColor: "#62a6dc",
-                                              borderRadius: "20px",
-                                            }}
                                             onClick={() => {
                                               handleStatus(
                                                 ele?.user_id,

@@ -594,7 +594,7 @@ const MyProfile = () => {
                                       </label>
                                     </div>
                                   </td>
-                                  {/* {renderCheckboxCells(menu)} */}
+                                  {/* {renderCheckboxCells(menu)}
                                 </tr>
                                 {menu?.submenu?.map((submenu, submenuIndex) => {
                                   currentIndex++;
@@ -617,7 +617,7 @@ const MyProfile = () => {
                                           </div>
                                         </td>
                                         {/* {renderCheckboxCells(submenu)} */}
-                                      </tr>
+                                      {/* </tr> */}
                                       {/* {submenu.submenuChild.map(
                                         (submenuChild) => {
                                           currentIndex++;
@@ -646,7 +646,7 @@ const MyProfile = () => {
                                             </tr>
                                           );
                                         }
-                                      )} */}
+                                      )}
                                     </React.Fragment>
                                   );
                                 })}

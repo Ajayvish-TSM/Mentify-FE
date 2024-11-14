@@ -121,7 +121,7 @@ const CreateNewContentCreation = () => {
     } catch (error) {
       console.log(error);
     }
-  }, []);
+  };
 
   useEffect(() => {
     if (Object.keys(formErrors).length === 0 && isSubmit) {
