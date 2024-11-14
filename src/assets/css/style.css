@@ -2200,11 +2200,6 @@ timeline start */
   border-bottom: 0px solid #252525;
 }
 
-.nav-tabs-custom {
-  border-bottom: 2px solid #fff;
-  width: auto;
-}
-
 .tableCard .nav-tabs-custom .nav-item .nav-link:hover {
   color: #252525;
   background-color: transparent;
@@ -2222,10 +2217,6 @@ timeline start */
   font-size: 12px;
 }
 
-.nav-tabs-custom {
-  border-bottom: 2px solid #fff;
-}
-
 .nav-tabs-custom .nav-item {
   position: relative;
   color: #343a40;
@@ -2233,6 +2224,7 @@ timeline start */
 
 .nav-tabs-custom .nav-item .nav-link {
   border: none;
+  color: #555a5e;
 }
 
 .nav-tabs-custom .nav-item .nav-link::after {

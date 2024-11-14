@@ -41,19 +41,17 @@ export const AttendanceProvider = ({ children }) => {
       },
       (error) => {
         console.error("Error getting user location: ", error);
-        // Clear location in state and localStorage if access is denied
         setUserLocation({ latitude: null, longitude: null });
         localStorage.removeItem("userLocation");
-      }
+      },
+      { enableHighAccuracy: true }
     );
 
-    // Cleanup watcher on unmount
     return () => {
       navigator.geolocation.clearWatch(locationWatcher);
     };
   }, []);
 
-  // Function to update attendance status
   const toggleAttendance = (status) => {
     setAttendanceStatus(status);
   };

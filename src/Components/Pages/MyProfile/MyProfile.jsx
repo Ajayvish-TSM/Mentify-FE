@@ -363,7 +363,10 @@ const MyProfile = () => {
                         borderRadius: "20px",
                       }}
                     >
-                      <i className="fa fa-regular fa-pen-to-square" style={{ marginTop: "2px" }}></i>{" "}
+                      <i
+                        className="fa fa-regular fa-pen-to-square"
+                        style={{ marginTop: "2px" }}
+                      ></i>{" "}
                       <span className="">Edit</span>
                     </NavLink>
                   </div>
@@ -523,12 +526,22 @@ const MyProfile = () => {
                               </div> */}
                               <div className="mt-5">
                                 <p>Registration Date</p>
-                                <h5 className="fw-bold">
+                                {/* <h5 className="fw-bold">
                                   {moment(
                                     userProfileDetails &&
-                                    userProfileDetails?.createdAt
+                                      userProfileDetails?.createdAt
                                   ).format("DD-MM-YYYY")}
-                                </h5>
+                                </h5> */}
+                                <h5 className="fw-bold">
+                                {new Date(userProfileDetails?.createdAt).toLocaleString(
+                                  "en-US",
+                                  {
+                                    year: "numeric",
+                                    month: "long",
+                                    day: "numeric",
+                                  }
+                                )}
+                              </h5>
                               </div>
                             </div>
                           </div>
@@ -581,7 +594,7 @@ const MyProfile = () => {
                                       </label>
                                     </div>
                                   </td>
-                                  {renderCheckboxCells(menu)}
+                                  {/* {renderCheckboxCells(menu)} */}
                                 </tr>
                                 {menu?.submenu?.map((submenu, submenuIndex) => {
                                   currentIndex++;
@@ -603,9 +616,9 @@ const MyProfile = () => {
                                             </label>
                                           </div>
                                         </td>
-                                        {renderCheckboxCells(submenu)}
+                                        {/* {renderCheckboxCells(submenu)} */}
                                       </tr>
-                                      {submenu.submenuChild.map(
+                                      {/* {submenu.submenuChild.map(
                                         (submenuChild) => {
                                           currentIndex++;
                                           return (
@@ -633,7 +646,7 @@ const MyProfile = () => {
                                             </tr>
                                           );
                                         }
-                                      )}
+                                      )} */}
                                     </React.Fragment>
                                   );
                                 })}

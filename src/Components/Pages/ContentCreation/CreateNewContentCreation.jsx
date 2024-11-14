@@ -13,6 +13,7 @@ import FilterSearch from "../../Common/FilterSearch";
 import { EditFilled } from "@ant-design/icons";
 import { isEditable } from "@testing-library/user-event/dist/utils";
 import { Tooltip, message } from "antd";
+import Pagination from "../../Common/Pagination";
 
 const CreateNewContentCreation = () => {
   const adminObject = JSON.parse(localStorage.getItem("TajurbaAdminToken"));
@@ -20,6 +21,11 @@ const CreateNewContentCreation = () => {
   const [formErrors, setFormErrors] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
   const [listingData, setListingData] = useState([]);
+  const [totalPagess, setTotalPage] = useState();
+  const [totalItems, setTotalItems] = useState();
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(10);
+  const [goToPage, setGoToPage] = useState(1);
   const TajurbaAdmin_priviledge_data = JSON.parse(
     localStorage.getItem("TajurbaAdmin_priviledge_data")
   );
@@ -97,18 +103,19 @@ const CreateNewContentCreation = () => {
   //   },
   //   validate,
   // });
-
-  useEffect(() => {
+  const CreatedLeave = () => {
     setLoadingData(true);
     try {
       API?.CommanApiCall({
-        data: {},
+        data: { page_no: currentPage, limit: itemsPerPage },
         agent: "leave_create_list",
       }).then((response) => {
         console.log(response);
         if (response?.data?.data?.status === 200) {
-          setLoadingData(false);
           setListingData(response.data.data.data);
+          setTotalPage(response?.data?.data?.total_pages);
+          setTotalItems(response?.data?.data?.total_records);
+          setLoadingData(false);
         }
       });
     } catch (error) {
@@ -343,7 +350,6 @@ const CreateNewContentCreation = () => {
                     <th style={{ fontWeight: "700" }}>S.No</th>
                     <th style={{ fontWeight: "700" }}>Leave Code</th>
                     <th style={{ fontWeight: "700" }}>Leave Name</th>
-
                     <th style={{ fontWeight: "700" }}>Created On</th>
                     <th style={{ fontWeight: "700" }}>Action</th>
                   </tr>
@@ -365,7 +371,6 @@ const CreateNewContentCreation = () => {
                         listingData?.map((ele, index) => {
                           return (
                             <tr key={index}>
-                              <td>{index + 1}.</td>
                               <td>{ele?.leave_code}</td>
                               <td>{ele?.leave_name}</td>
                               <td>
@@ -411,6 +416,16 @@ const CreateNewContentCreation = () => {
               </table>
             </div>
           </div>
+          <Pagination
+            totalPagess={totalPagess}
+            setTotalPage={setTotalPage}
+            totalItems={totalItems}
+            setTotalItems={setTotalItems}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+            itemsPerPage={itemsPerPage}
+            setItemsPerPage={setItemsPerPage}
+          />
         </div>
       </div>
     </>

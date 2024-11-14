@@ -10,15 +10,13 @@ import moment from "moment";
 import AdminRoute from "../../../Route/RouteDetails";
 import TooltipCustom from "../../Common/TooltipCustom";
 import AttendanceButton from "../../../AttendanceButton";
+import { Tooltip } from "antd";
 
 const LeaveNotify = () => {
-  const { state } = useLocation();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [leaveData, setLeaveData] = useState([]);
-  const [currentTab, setCurrentTab] = useState(
-    state?.myTeam_previousTab ? state?.myTeam_previousTab : "All"
-  );
+  const [currentTab, setCurrentTab] = useState("pending");
 
   const TajurbaAdmin_priviledge_data = JSON.parse(
     localStorage.getItem("TajurbaAdmin_priviledge_data")
@@ -34,15 +32,6 @@ const LeaveNotify = () => {
   const [itemsPerPage, setItemsPerPage] = useState(10);
   const [goToPage, setGoToPage] = useState(1);
 
-  // Functionality for Filter and search
-  const FilterOptions = [
-    { label: "All", value: "all" },
-    { label: "Name", value: "first_name" },
-    { label: "Email", value: "email" },
-    { label: "Status", value: "is_active" },
-    { label: "Role", value: "role" },
-  ];
-
   const [filterselect, setFilterSelect] = useState("all");
   const [search, setSearch] = useState("");
   function calculateLeaveDays(from_date, to_date) {
@@ -54,30 +43,21 @@ const LeaveNotify = () => {
   const admin_id = JSON.parse(localStorage.getItem("TajurbaAdminUser"));
   const MyTeamTabList = (flagForList) => {
     try {
-      var payload = {
-        agent: "admin_user_list",
-        flag: flagForList,
-        page_no: currentPage,
-        limit: itemsPerPage,
-        //filter: {},
-        // createdAt: -1,
-      };
-      if (filterselect === "" || search === "") {
-        payload.filter = {};
-      } else {
-        payload.filter = {
-          [filterselect]: search,
-        };
-      }
-      API?.CommanApiCall(payload).then((response) => {
-        console.log(
-          "Response from My Team listing api ",
-          response?.data?.data?.data
-        );
+      API?.CommanApiCall({
+        data: {
+          status: flagForList,
+        },
+        agent: "leave_application",
+        function: "get_leave_application",
+      }).then((response) => {
+        console.log("leave", response);
         if (response?.data?.data?.status === 200) {
-          setListingData(response?.data?.data?.data);
-          setTotalPage(response?.data?.data?.total_pages);
-          setTotalItems(response?.data?.data?.total_data);
+          // const updatedData = response.data.data.data.map((ele) => ({
+          //   ...ele,
+          //   leaveDays: calculateLeaveDays(ele.from_date, ele.to_date),
+          // }));
+
+          setLeaveData(response.data.data.data);
           setLoading(false);
         }
       });
@@ -85,27 +65,7 @@ const LeaveNotify = () => {
       console.log(error);
     }
   };
-  useEffect(() => {
-    try {
-      API?.CommanApiCall({
-        data: {},
-        agent: "leave_application",
-        function: "get_leave_application",
-      }).then((response) => {
-        console.log("leave", response);
-        if (response?.data?.data?.status === 200) {
-          const updatedData = response.data.data.data.map((ele) => ({
-            ...ele,
-            leaveDays: calculateLeaveDays(ele.from_date, ele.to_date),
-          }));
 
-          setLeaveData(updatedData);
-        }
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  }, []);
   useEffect(() => {
     const fetchEmployeeList = async () => {
       try {
@@ -126,28 +86,72 @@ const LeaveNotify = () => {
 
     fetchEmployeeList();
   }, []);
-  const handleApprove = (leaveId) => {
+  const handleStatus = async (leaveId, applicationId, flagForList) => {
     console.log("Approved leave ID:", leaveId);
-    // Add logic to update leave status to "Approved"
-  };
+    setLoading(true);
+    try {
+      API?.CommanApiCall({
+        data: {
+          user_id: leaveId,
+          application_id: applicationId,
 
-  const handleReject = (leaveId) => {
-    console.log("Rejected leave ID:", leaveId);
-    // Add logic to update leave status to "Rejected"
+          status: flagForList,
+        },
+        agent: "leave_application",
+        function: "update_leave_application",
+      }).then((response) => {
+        console.log("leave", response);
+        if (response?.data?.data?.status === 200) {
+          setLoading(false);
+          navigate(0);
+        }
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
     MyTeamTabList(currentTab);
   }, [currentTab, currentPage, itemsPerPage, filterselect, search]);
 
-  const filteredData = leaveData.filter((leave) => {
-    const employee = EmployeeList.find(
-      (emp) => emp._id == leave.user_id && emp.reporting_to == admin_id._id
+  console.log("lejrlejfljsl ", leaveData);
+  const filteredData =
+    leaveData &&
+    leaveData
+      .filter((leave) => {
+        const employee = EmployeeList.find(
+          (emp) => emp._id == leave.user_id && emp.reporting_to == admin_id._id
+        );
+
+        return employee;
+      })
+      .map((leave) => {
+        const employee = EmployeeList.find((emp) => emp._id == leave.user_id);
+        return {
+          ...leave,
+          first_name: employee ? employee.first_name : null, // Add the employee's name if found
+        };
+      });
+  const LengthBasedTooltip = ({ text, maxLength = 20 }) => {
+    const shouldShowTooltip = text.length > maxLength;
+    const displayText = shouldShowTooltip
+      ? `${text.slice(0, maxLength)}...`
+      : text;
+
+    return (
+      <td>
+        {shouldShowTooltip ? (
+          <Tooltip title={text}>
+            <span>{displayText}</span>
+          </Tooltip>
+        ) : (
+          <span>{text}</span>
+        )}
+      </td>
     );
-    console.log(employee, "employee");
-    return employee;
-  });
-  console.log("eplist", EmployeeList);
+  };
+  console.log("eplist", filteredData);
   return (
     <>
       {/* <AppLayout> */}
@@ -175,21 +179,18 @@ const LeaveNotify = () => {
                     <div className="row mb-4" id="consumers">
                       <div className="col-xl-5 mb-4 mb-xl-0">
                         <ul
-                          className="nav nav-tabs nav-tabs-custom mt-5 mt-xl-0"
+                          className="nav   nav-tabs-custom mt-5 mt-xl-0"
                           role="tablist"
                         >
                           <li
                             className="nav-item"
                             onClick={() => {
                               setCurrentTab("pending");
-                              navigate({
-                                state: {},
-                              });
                             }}
                           >
                             <a
                               className={
-                                currentTab === "All"
+                                currentTab === "pending"
                                   ? "nav-link active"
                                   : "nav-link"
                               }
@@ -204,14 +205,11 @@ const LeaveNotify = () => {
                             className="nav-item"
                             onClick={() => {
                               setCurrentTab("approved");
-                              navigate({
-                                state: {},
-                              });
                             }}
                           >
                             <a
                               className={
-                                currentTab === "Active"
+                                currentTab === "approved"
                                   ? "nav-link active"
                                   : "nav-link"
                               }
@@ -226,14 +224,11 @@ const LeaveNotify = () => {
                             className="nav-item"
                             onClick={() => {
                               setCurrentTab("rejected");
-                              navigate({
-                                state: {},
-                              });
                             }}
                           >
                             <a
                               className={
-                                currentTab === "Inactive"
+                                currentTab === "rejected"
                                   ? "nav-link active"
                                   : "nav-link"
                               }
@@ -250,7 +245,7 @@ const LeaveNotify = () => {
 
                     <div
                       className={
-                        currentTab === "All"
+                        currentTab === "pending"
                           ? "tab-pane main-card p-3 mb-0 box-shadow-bottom-none active"
                           : "tab-pane main-card p-3 mb-0 box-shadow-bottom-none"
                       }
@@ -294,11 +289,14 @@ const LeaveNotify = () => {
                                       <tr key={index}>
                                         <td className="fw-bold">
                                           {/* {TooltipCustom(ele?.first_name)} */}{" "}
-                                          {ele?.user_id}
+                                          {ele?.first_name}
                                         </td>
                                         <td>{ele?.leave_code}</td>
                                         <td>
-                                          {TooltipCustom(ele?.leave_reason)}
+                                          <LengthBasedTooltip
+                                            text={ele?.leave_reason}
+                                            maxLength={20}
+                                          />
                                         </td>
                                         {/* <td>{ele?.roles[0]?.name}</td> */}
                                         <td>
@@ -332,10 +330,20 @@ const LeaveNotify = () => {
                                               borderRadius: "20px",
                                             }}
                                             onClick={() => {
-                                              handleApprove(ele?._id);
+                                              handleStatus(
+                                                ele?.user_id,
+                                                ele?._id,
+                                                "approved"
+                                              );
+                                            }}
+                                            style={{
+                                              display: "flex",
+                                              backgroundColor: " #62a6dc",
+                                              borderRadius: "20px",
+                                              fontWeight: "600",
                                             }}
                                           >
-                                            Approved
+                                            Approve
                                           </button>
                                         </td>
                                         <td>
@@ -348,10 +356,20 @@ const LeaveNotify = () => {
                                               borderRadius: "20px",
                                             }}
                                             onClick={() => {
-                                              handleReject(ele?._id);
+                                              handleStatus(
+                                                ele?.user_id,
+                                                ele?._id,
+                                                "rejected"
+                                              );
+                                            }}
+                                            style={{
+                                              display: "flex",
+                                              backgroundColor: " #62a6dc",
+                                              borderRadius: "20px",
+                                              fontWeight: "600",
                                             }}
                                           >
-                                            Rejected
+                                            Reject
                                           </button>
                                         </td>
                                       </tr>
@@ -375,7 +393,7 @@ const LeaveNotify = () => {
 
                     <div
                       className={
-                        currentTab === "Active"
+                        currentTab === "approved"
                           ? "tab-pane main-card p-3 mb-0 box-shadow-bottom-none active"
                           : "tab-pane main-card p-3 mb-0 box-shadow-bottom-none"
                       }
@@ -413,12 +431,13 @@ const LeaveNotify = () => {
                               </tr>
                             ) : (
                               <>
-                                {listingData && listingData?.length ? (
-                                  listingData?.map((ele, index) => {
+                                {filteredData && filteredData?.length ? (
+                                  filteredData?.map((ele, index) => {
                                     return (
                                       <tr key={index}>
                                         <td className="fw-bold">
-                                          {TooltipCustom(ele?.first_name)}
+                                          {/* {TooltipCustom(ele?.first_name)} */}{" "}
+                                          {ele?.first_name}
                                         </td>
                                         <td>{ele?.leave_code}</td>
                                         <td style={{ wordBreak: "break-all" }}>
@@ -482,7 +501,7 @@ const LeaveNotify = () => {
 
                     <div
                       className={
-                        currentTab === "Inactive"
+                        currentTab === "rejected"
                           ? "tab-pane main-card p-3 mb-0 box-shadow-bottom-none active"
                           : "tab-pane main-card p-3 mb-0 box-shadow-bottom-none"
                       }
@@ -520,12 +539,13 @@ const LeaveNotify = () => {
                               </tr>
                             ) : (
                               <>
-                                {listingData && listingData?.length ? (
-                                  listingData?.map((ele, index) => {
+                                {filteredData && filteredData?.length ? (
+                                  filteredData?.map((ele, index) => {
                                     return (
                                       <tr key={index}>
                                         <td className="fw-bold">
-                                          {TooltipCustom(ele?.first_name)}
+                                          {/* {TooltipCustom(ele?.first_name)} */}{" "}
+                                          {ele?.first_name}
                                         </td>
                                         <td>{ele?.leave_code}</td>
                                         <td style={{ wordBreak: "break-all" }}>

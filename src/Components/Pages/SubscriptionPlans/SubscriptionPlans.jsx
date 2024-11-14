@@ -6,12 +6,18 @@ import { useFormik } from "formik";
 import API from "../../../Api/Api";
 import { ToastContainer, toast } from "react-toastify";
 import { Tooltip } from "antd";
+import Pagination from "../../Common/Pagination";
 
 const SubscriptionPlans = () => {
   const adminObject = JSON.parse(localStorage.getItem("TajurbaAdminToken"));
   const { state } = useLocation();
   const [listingData, setListingData] = useState([]);
   const [leaveData, setLeaveData] = useState([]);
+  const [totalPagess, setTotalPage] = useState();
+  const [totalItems, setTotalItems] = useState();
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(10);
+  const [goToPage, setGoToPage] = useState(1);
   const TajurbaAdmin_priviledge_data = JSON.parse(
     localStorage.getItem("TajurbaAdmin_priviledge_data")
   );
@@ -104,10 +110,10 @@ const SubscriptionPlans = () => {
     return Math.ceil(timeDifference / (1000 * 60 * 60 * 24)) || 0;
   }
 
-  useEffect(() => {
+  const GetLeaveApplication = () => {
     try {
       API?.CommanApiCall({
-        data: {},
+        data: { page_no: currentPage, limit: itemsPerPage },
         agent: "leave_application",
         function: "get_leave_application",
       }).then((response) => {
@@ -119,12 +125,18 @@ const SubscriptionPlans = () => {
           }));
 
           setLeaveData(updatedData);
+          setTotalPage(response?.data?.data?.total_pages);
+          setTotalItems(response?.data?.data?.total_records);
         }
       });
     } catch (error) {
       console.log(error);
     }
-  }, []);
+  };
+
+  useEffect(() => {
+    GetLeaveApplication();
+  }, [currentPage, itemsPerPage]);
 
   // const handleEdit = (item) => {
   //   setEditItemId(item._id);
@@ -189,7 +201,10 @@ const SubscriptionPlans = () => {
 
           <div className="row" id="createContent">
             <form onSubmit={formik.handleSubmit}>
-              <div className="row justify-content-between main-card p-4" style={{ marginLeft: "2px" }}>
+              <div
+                className="row justify-content-between main-card p-4"
+                style={{ marginLeft: "2px" }}
+              >
                 {errorMessage ? (
                   <span className="text-danger text-end">{errorMessage}</span>
                 ) : null}
@@ -436,6 +451,16 @@ const SubscriptionPlans = () => {
               </table>
             </div>
           </div>
+          <Pagination
+            totalPagess={totalPagess}
+            setTotalPage={setTotalPage}
+            totalItems={totalItems}
+            setTotalItems={setTotalItems}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+            itemsPerPage={itemsPerPage}
+            setItemsPerPage={setItemsPerPage}
+          />
         </div>
       </div>
     </>
