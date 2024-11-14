@@ -5,9 +5,9 @@ const LoginSuccessful = () => {
    return (
       <>
          <LoginLayout>
-            <div className="login-box login-success position-relative">
+            <div className="login-box login-success position-relative" style={{backgroundColor: "#fff"}}>
                <div className="checkIcon">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="130" height="130" viewBox="0 0 148 148">
+                  {/* <svg xmlns="http://www.w3.org/2000/svg" width="130" height="130" viewBox="0 0 148 148">
                      <g id="Group_13772" data-name="Group 13772" transform="translate(-1502 -329)">
                         <circle
                            id="Ellipse_604"
@@ -47,15 +47,15 @@ const LoginSuccessful = () => {
                            stroke="#fff"
                         />
                      </g>
-                  </svg>
+                  </svg> */}
                </div>
                <div className="text-center px-4 mt-5 mb-4">
                   <h2 className="text-center fw-bold letter-spacing text-white mb-3">Login Successful</h2>
-                  <small className="text-white">
+                  {/* <small className="text-white">
                      Welcome to the Central Admin Panel! <br />
                      Congratulations on a successful login to the <br />
                      Central Admin.
-                  </small>
+                  </small> */}
                </div>
             </div>
          </LoginLayout>

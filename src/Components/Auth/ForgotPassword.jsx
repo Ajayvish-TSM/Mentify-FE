@@ -7,7 +7,6 @@ import forgotIcon from "../../assets/images/fpass.svg";
 
 const ForgotPassword = () => {
    const navigate = useNavigate();
-   //const TempEmailID = JSON.parse(localStorage.getItem("TempEmail"));
    const [EmailId, setEmailId] = useState("");
    const [formErrors, setFormErrors] = useState({});
    const [apiError, setApiError] = useState("");
@@ -60,7 +59,6 @@ const ForgotPassword = () => {
             });
          } catch (error) {
             console.log(error);
-            // alert(error?.data?.message)
          }
       }
    }, [formErrors]);

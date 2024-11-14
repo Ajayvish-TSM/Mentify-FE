@@ -77,28 +77,6 @@ const SubscriptionPlans = () => {
     console.log("Errors", errors);
     return errors;
   };
-  // const formik = useFormik({
-  //   initialValues: {
-  //     leave_code: "",
-  //     from_date: "",
-  //     to_date: "",
-  //     leave_reason: "",
-  //     status: "pending",
-  //   },
-  //   onSubmit: (values, { setSubmitting }) => {
-  //     console.log("ssssssssssssssssssssssssss");
-  //     const errors = validate(values);
-
-  //     if (Object.keys(errors).length === 0) {
-  //       console.log("hhhhhhhhhhhhhhhhh");
-  //       handleSave();
-  //     } else {
-  //       console.log("Validation errors:", errors);
-  //     }
-  //     setSubmitting(false);
-  //   },
-  //   validate,
-  // });
 
   useEffect(() => {
     try {
@@ -202,40 +180,6 @@ const SubscriptionPlans = () => {
       }
     }
   }, [formErrors]);
-
-  // const handleSave = () => {
-  //   setErrorMessage("");
-  //   setLoading(true);
-  //   try {
-  //     API?.CommanApiCall({
-  //       data: {
-  //         user_id: UserObject._id,
-  //         from_date: formik.values.from_date,
-  //         to_date: formik.values.to_date,
-  //         leave_code: formik.values.leave_code,
-  //         leave_reason: formik.values.leave_reason,
-  //         status: formik.values.status,
-  //       },
-  //       agent: "leave_application",
-  //       id: editItemId,
-  //     }).then((response) => {
-  //       console.log(response);
-  //       if (response?.data?.data?.status === 200) {
-  //         setLoading(false);
-  //         setEditItemId(null);
-  //         navigate(0);
-  //       } else if (response?.data?.data?.status === 201) {
-  //         setErrorMessage(response?.data?.data?.message);
-  //         setTimeout(() => {
-  //           setErrorMessage("");
-  //         }, 5000);
-  //       }
-  //     });
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-  // console.log("listing data", listingData);
 
   return (
     <>

@@ -1,9 +1,7 @@
 /* eslint-disable */
 import React, { useEffect, useState } from "react";
-// import AppLayout from "../../Loyout/App";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import DateAndTimeLayout from "../../Common/DateAndTimeLayout";
-import IconGallery from "../../../assets/images/IconGallery.svg";
 import { useFormik } from "formik";
 import API from "../../../Api/Api";
 import AdminRoute from "./../../../Route/RouteDetails";
@@ -82,29 +80,8 @@ const CreateNewContentCreation = () => {
 
     return errors;
   };
-  // const formik = useFormik({
-  //   initialValues: {
-  //     leave_name: "",
-  //     leave_code: "",
-  //   },
-  //   onSubmit: (values, { setSubmitting }) => {
-  //     const errors = validate(values);
 
-  //     if (Object.keys(errors).length === 0) {
-  //       // console.log("Run vaidation function no errors");
-  //       handleSave();
-  //     } else {
-  //       // console.log("Run vaidation function if errors is present ");
-
-  //       console.log("Validation errors:", errors);
-  //     }
-
-  //     setSubmitting(false);
-  //   },
-  //   validate,
-  // });
   const CreatedLeave = () => {
-    setLoadingData(true);
     try {
       API?.CommanApiCall({
         data: { page_no: currentPage, limit: itemsPerPage },
@@ -115,7 +92,6 @@ const CreateNewContentCreation = () => {
           setListingData(response.data.data.data);
           setTotalPage(response?.data?.data?.total_pages);
           setTotalItems(response?.data?.data?.total_records);
-          setLoadingData(false);
         }
       });
     } catch (error) {
@@ -124,13 +100,13 @@ const CreateNewContentCreation = () => {
   };
   useEffect(() => {
     CreatedLeave();
-  }, [currentPage, itemsPerPage]);
+  }, [currentPage, itemsPerPage, loading]);
   useEffect(() => {
     if (Object.keys(formErrors).length === 0 && isSubmit) {
       setLoading(true);
       const apiData = {
-        leave_code: formValues.leave_code,
-        leave_name: formValues.leave_name,
+        leave_code: formValues?.leave_code,
+        leave_name: formValues?.leave_name,
       };
       if (editItemId) {
         apiData["leave_id"] = editItemId;
@@ -145,11 +121,12 @@ const CreateNewContentCreation = () => {
             setLoading(false);
             message.success("Submitted Successfully");
             setEditItemId(null);
-            navigate(0);
+            setFormValues(initialValues);
           } else if (response?.data?.data?.status === 201) {
             setErrorMessage(response?.data?.data?.message);
             setLoading(false);
-
+            message.success("Error while submitting");
+            setFormValues(initialValues);
             setTimeout(() => {
               setErrorMessage("");
             }, 5000);
@@ -157,6 +134,7 @@ const CreateNewContentCreation = () => {
         });
       } catch (error) {
         console.log(error);
+        setLoading(false);
       }
     }
   }, [formErrors]);
@@ -178,16 +156,6 @@ const CreateNewContentCreation = () => {
     setFormErrors(validate(formValues));
     setIsSubmit(true);
   };
-
-  // const handleSave = (e) => {
-  //   e.preventDefault();
-  //   setFormErrors(validate(formValues));
-  //   setIsSubmit(true);
-
-  //   if (Object.keys(validate(formValues)).length === 0) {
-  //     message.success("Form submitted successfully!");
-  //   }
-  // };
 
   console.log("listing data", listingData);
 
@@ -227,17 +195,6 @@ const CreateNewContentCreation = () => {
                         <span className="mandatory-star me-1">*</span>
                         Leave Code
                       </label>
-                      {/* <input
-                          type="text"
-                          className="form-control w-80 border-radius-2"
-                          aria-label="Leave Code"
-                          name="leave_code"
-                          disabled={!CheckAccess}
-                          onChange={(e) => {
-                            formik.setFieldValue("leave_code", e.target.value);
-                          }}
-                          value={formik.values.leave_code}
-                        /> */}
                       <input
                         type="text"
                         className="form-control w-80 border-radius-2"

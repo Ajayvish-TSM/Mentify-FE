@@ -178,13 +178,14 @@ const Moderator = () => {
         }).then((response) => {
           if (response?.data?.data?.status === 200) {
             setLoading(false);
-            toast.success("Submitted Successfully");
+            message.success("Submitted Successfully");
             setFormValues(initialValues);
             // message.success("");
           } else if (response?.data?.data?.status === 201) {
             console.log("errorrr");
             SetErrorMessage(response?.data?.data?.message);
             setLoading(false);
+            message.success("Error while submitting");
             setFormValues(initialValues);
             setTimeout(() => {
               SetErrorMessage("");
@@ -193,6 +194,7 @@ const Moderator = () => {
         });
       } catch (error) {
         console.log(error);
+        setLoading(false);
       }
     }
   }, [formErrors]);

@@ -45,7 +45,7 @@ const AttendanceButton = () => {
       // console.log("Distance from office:", distance);
       setIsWithinRadius(distance <= 10);
     }
-  }, [userLocation]);
+  }, []);
   // console.log(
   //   "distandce",
   //   getDistanceFromLatLonInMeters(

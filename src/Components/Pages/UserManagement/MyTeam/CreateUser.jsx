@@ -1,6 +1,5 @@
 /* eslint-disable */
 import React, { useEffect, useRef, useState } from "react";
-// import AppLayout from "../../../Loyout/App";
 import { NavLink, useNavigate } from "react-router-dom";
 import DateAndTimeLayout from "../../../Common/DateAndTimeLayout";
 import { useDispatch, useSelector } from "react-redux";
@@ -52,8 +51,6 @@ const CreateUser = () => {
     const errors = {};
 
     const emailregex = /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/;
-    // const emailregex =
-    //   /^(?!\.)[a-zA-Z0-9._%+-]{1,10}@([a-zA-Z0-9-]{1,10}\.){1,}[a-zA-Z]{2,}$/;
     const mobileregex = /^(\+\d{1,3}[- ]?)?\d{10}$/;
     const specialCharacter = /^[A-Za-z0-9 ]+$/;
 
@@ -76,13 +73,6 @@ const CreateUser = () => {
     if (!values?.reporting_to) {
       errors.reporting_to = "Please select Reporting to";
     }
-    // else if (
-    //   values?.firstName?.length < 3 ||
-    //   values?.firstName?.length > 10
-    // ) {
-    //   errors.firstName = "Name length should be 3 to 10 characters";
-    // }
-
     if (!values?.mobile) {
       errors.mobile = "Please enter Mobile no";
     } else if (values.mobile.trim() === "") {
@@ -94,9 +84,9 @@ const CreateUser = () => {
     if (!values?.roles) {
       errors.roles = "Please select Role";
     }
-    if (!profileImg) {
-      errors.profileImg = "Profile Image is required";
-    }
+    // if (!profileImg) {
+    //   errors.profileImg = "Profile Image is required";
+    // }
 
     return errors;
   };
@@ -163,7 +153,7 @@ const CreateUser = () => {
             mobile_no: formValues?.mobile,
             email: formValues?.email,
             status: profileStatus,
-            image: profileImg,
+            // image: profileImg,
             // employee_type: formValues?.employee_type,
             reporting_to: formValues?.reporting_to,
             is_admin: 1,
@@ -177,11 +167,6 @@ const CreateUser = () => {
         }).then((response) => {
           console.log("start");
           console.log(response);
-          // toast.success("user is created");
-          // setTimeout(() => {
-          //   navigate(-1);
-          // }, 1500);
-          // setLoading(false);
           if (response?.data?.data?.status === 200) {
             console.log("2");
             toast.success(response?.data?.data?.message);
@@ -191,8 +176,6 @@ const CreateUser = () => {
             setLoading(false);
           } else if (response?.data?.data?.status === 201) {
             setLoading(false);
-            // dispatch(userdata(response?.data));
-            // dispatch(errorData(response?.data?.message));
             SetErrorMessage(response?.data?.data?.message);
 
             setTimeout(() => {
@@ -333,7 +316,7 @@ const CreateUser = () => {
                 {/* <p className="text-danger ">{errorMessage}</p> */}
                 <div className="row">
                   <div className="mb-3 col-12">
-                    <div className="col-md-4 col-sm-12 col-12 float-start">
+                    {/* <div className="col-md-4 col-sm-12 col-12 float-start">
                       <div className="col-12 float-start mt-2 mb-4">
                         <Tooltip title="Upload Profile Picture">
                           <p className="addUserPic mx-auto mt-1 mb-1">
@@ -370,7 +353,7 @@ const CreateUser = () => {
                           </p>
                         </div>
                       </div>
-                    </div>
+                    </div> */}
 
                     <div className="col-md-8 col-sm-12 col-12 float-start mb-4 border-left-grey">
                       <div className="row ps-0 ps-md-4">
@@ -497,33 +480,6 @@ const CreateUser = () => {
                                 </p>
                               </div>
                             </div>
-                            {/* <div className="col-4">
-                              <label className="form-label">
-                                Employee Type
-                              </label>
-                              <div>
-                                <select
-                                  className="form-select bg-white"
-                                  aria-label="Default select example"
-                                  name="reporting_to"
-                                  onChange={(e) => handleChange(e)}
-                                  value={formValues?.reporting_to}
-                                >
-                                  <option value="">Select</option>
-                                  {employeeType?.map((ele, index) => {
-                                    // if (ele?.is_active)
-                                    return (
-                                      <option key={index} value={ele}>
-                                        {ele}
-                                      </option>
-                                    );
-                                  })}
-                                </select>
-                                <p className="text-danger">
-                                  {formErrors?.employee_type}
-                                </p>
-                              </div>
-                            </div> */}
                           </div>
                         </div>
                       </div>

@@ -165,7 +165,7 @@ const LeaveNotify = () => {
             <div className="col-12">
               <div className="row position-relative">
                 <div>
-                  <h3 className="headText mt-2 mb-2 fw-bold">My Team</h3>
+                  <h3 className="headText mt-2 mb-2 fw-bold">Notification</h3>
                 </div>
               </div>
             </div>
@@ -256,11 +256,16 @@ const LeaveNotify = () => {
                         <table className="table mb-0 tablesWrap">
                           <thead>
                             <tr>
-                              <th style={{fontWeight: "600"}}>Name</th>
-                              <th style={{fontWeight: "600"}}>Leave Code</th>
-                              <th className="w-20" style={{fontWeight: "600"}}>Leave Reason</th>
-                              <th style={{fontWeight: "600"}}>Start Date</th>
-                              <th style={{fontWeight: "600"}}>End Date</th>
+                              <th style={{ fontWeight: "600" }}>Name</th>
+                              <th style={{ fontWeight: "600" }}>Leave Code</th>
+                              <th
+                                className="w-20"
+                                style={{ fontWeight: "600" }}
+                              >
+                                Leave Reason
+                              </th>
+                              <th style={{ fontWeight: "600" }}>Start Date</th>
+                              <th style={{ fontWeight: "600" }}>End Date</th>
 
                               <th></th>
                             </tr>
@@ -300,24 +305,22 @@ const LeaveNotify = () => {
                                         </td>
                                         {/* <td>{ele?.roles[0]?.name}</td> */}
                                         <td>
-                                          {new Date(ele?.from_date).toLocaleString(
-                                            "en-US",
-                                            {
-                                              year: "numeric",
-                                              month: "long",
-                                              day: "numeric",
-                                            }
-                                          )}
+                                          {new Date(
+                                            ele?.from_date
+                                          ).toLocaleString("en-US", {
+                                            year: "numeric",
+                                            month: "long",
+                                            day: "numeric",
+                                          })}
                                         </td>
                                         <td>
-                                          {new Date(ele?.to_date).toLocaleString(
-                                            "en-US",
-                                            {
-                                              year: "numeric",
-                                              month: "long",
-                                              day: "numeric",
-                                            }
-                                          )}
+                                          {new Date(
+                                            ele?.to_date
+                                          ).toLocaleString("en-US", {
+                                            year: "numeric",
+                                            month: "long",
+                                            day: "numeric",
+                                          })}
                                         </td>
 
                                         <td>
@@ -394,11 +397,16 @@ const LeaveNotify = () => {
                         <table className="table mb-0 tablesWrap">
                           <thead>
                             <tr>
-                              <th style={{fontWeight: "600"}}>Name</th>
-                              <th style={{fontWeight: "600"}}>Leave Code</th>
-                              <th className="w-20" style={{fontWeight: "600"}}>Leave Reason</th>
-                              <th style={{fontWeight: "600"}}>Start Date</th>
-                              <th style={{fontWeight: "600"}}>End Date</th>
+                              <th style={{ fontWeight: "600" }}>Name</th>
+                              <th style={{ fontWeight: "600" }}>Leave Code</th>
+                              <th
+                                className="w-20"
+                                style={{ fontWeight: "600" }}
+                              >
+                                Leave Reason
+                              </th>
+                              <th style={{ fontWeight: "600" }}>Start Date</th>
+                              <th style={{ fontWeight: "600" }}>End Date</th>
 
                               <th></th>
                             </tr>
@@ -434,26 +442,24 @@ const LeaveNotify = () => {
                                           {ele?.leave_reason}
                                         </td>
                                         <td>
-                                          {new Date(ele?.from_date).toLocaleString(
-                                            "en-US",
-                                            {
-                                              year: "numeric",
-                                              month: "long",
-                                              day: "numeric",
-                                            }
-                                          )}
+                                          {new Date(
+                                            ele?.from_date
+                                          ).toLocaleString("en-US", {
+                                            year: "numeric",
+                                            month: "long",
+                                            day: "numeric",
+                                          })}
                                         </td>
                                         <td>
-                                          {new Date(ele?.to_date).toLocaleString(
-                                            "en-US",
-                                            {
-                                              year: "numeric",
-                                              month: "long",
-                                              day: "numeric",
-                                            }
-                                          )}
+                                          {new Date(
+                                            ele?.to_date
+                                          ).toLocaleString("en-US", {
+                                            year: "numeric",
+                                            month: "long",
+                                            day: "numeric",
+                                          })}
                                         </td>
-                                        <td>
+                                        {/* <td>
                                           <button
                                             // to={`../${AdminRoute?.UserManagement?.MyTeam?.UserProfile}`}
                                             className="btn waves-effect waves-light text-white"
@@ -469,7 +475,7 @@ const LeaveNotify = () => {
                                           >
                                             View More
                                           </button>
-                                        </td>
+                                        </td> */}
                                       </tr>
                                     );
                                   })
@@ -502,11 +508,16 @@ const LeaveNotify = () => {
                         <table className="table mb-0 tablesWrap">
                           <thead>
                             <tr>
-                              <th style={{fontWeight: "600"}}>Name</th>
-                              <th style={{fontWeight: "600"}}>Leave Code</th>
-                              <th className="w-20" style={{fontWeight: "600"}}>Leave Reason</th>
-                              <th style={{fontWeight: "600"}}>Start Date</th>
-                              <th style={{fontWeight: "600"}}>End Date</th>
+                              <th style={{ fontWeight: "600" }}>Name</th>
+                              <th style={{ fontWeight: "600" }}>Leave Code</th>
+                              <th
+                                className="w-20"
+                                style={{ fontWeight: "600" }}
+                              >
+                                Leave Reason
+                              </th>
+                              <th style={{ fontWeight: "600" }}>Start Date</th>
+                              <th style={{ fontWeight: "600" }}>End Date</th>
 
                               <th></th>
                             </tr>
@@ -542,26 +553,24 @@ const LeaveNotify = () => {
                                           {ele?.leave_reason}
                                         </td>
                                         <td>
-                                          {new Date(ele?.from_date).toLocaleString(
-                                            "en-US",
-                                            {
-                                              year: "numeric",
-                                              month: "long",
-                                              day: "numeric",
-                                            }
-                                          )}
+                                          {new Date(
+                                            ele?.from_date
+                                          ).toLocaleString("en-US", {
+                                            year: "numeric",
+                                            month: "long",
+                                            day: "numeric",
+                                          })}
                                         </td>
                                         <td>
-                                          {new Date(ele?.to_date).toLocaleString(
-                                            "en-US",
-                                            {
-                                              year: "numeric",
-                                              month: "long",
-                                              day: "numeric",
-                                            }
-                                          )}
+                                          {new Date(
+                                            ele?.to_date
+                                          ).toLocaleString("en-US", {
+                                            year: "numeric",
+                                            month: "long",
+                                            day: "numeric",
+                                          })}
                                         </td>
-                                        <td>
+                                        {/* <td>
                                           <button
                                             // to={`../${AdminRoute?.UserManagement?.MyTeam?.UserProfile}`}
                                             className="btn waves-effect waves-light text-white"
@@ -577,7 +586,7 @@ const LeaveNotify = () => {
                                           >
                                             View More
                                           </button>
-                                        </td>
+                                        </td> */}
                                       </tr>
                                     );
                                   })
