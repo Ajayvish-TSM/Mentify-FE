@@ -261,18 +261,18 @@ const RoleDetails = () => {
 
             <div className="col-6 pe-0">
               {TajurbaAdmin_priviledge_data &&
-              TajurbaAdmin_priviledge_data.some(
-                (ele) =>
-                  ele.title === "User Management" &&
-                  ele.is_active === true &&
-                  ele?.submenu &&
-                  ele?.submenu.some(
-                    (sub) =>
-                      sub.title === "Roles" &&
-                      sub.is_active === true &&
-                      sub.is_edit === true
-                  )
-              ) ? (
+                TajurbaAdmin_priviledge_data.some(
+                  (ele) =>
+                    ele.title === "User Management" &&
+                    ele.is_active === true &&
+                    ele?.submenu &&
+                    ele?.submenu.some(
+                      (sub) =>
+                        sub.title === "Roles" &&
+                        sub.is_active === true &&
+                        sub.is_edit === true
+                    )
+                ) ? (
                 <div className="col-12 d-flex justify-content-end">
                   {!edit ? (
                     <div className="saveBtn">
@@ -284,7 +284,8 @@ const RoleDetails = () => {
                         className="btn text-white px-4 float-end"
                         style={{
                           backgroundColor: "#62a6dc",
-                          borderRadius: "20px"}}
+                          borderRadius: "20px"
+                        }}
                       >
                         <span className="">Edit</span>
                       </NavLink>
@@ -300,6 +301,10 @@ const RoleDetails = () => {
                               GetDetails();
                             }}
                             className="btn btn-reject me-3 px-4"
+                            style={{
+                              backgroundColor: "#fff",
+                              borderRadius: "20px"
+                            }}
                           >
                             <span className="">Close</span>
                           </NavLink>
@@ -308,7 +313,11 @@ const RoleDetails = () => {
                           <NavLink
                             disabled={loading}
                             onClick={(e) => handleSave(e)}
-                            className="btn bgBlack text-white border-radius-2 px-4 float-end"
+                            className="btn text-white px-4 float-end"
+                            style={{
+                              backgroundColor: "#62a6dc",
+                              borderRadius: "20px"
+                            }}
                           >
                             <span className="">
                               {loading && (
@@ -357,27 +366,6 @@ const RoleDetails = () => {
                   </div>
                 </div>
               </div>
-
-              {/* <div className="row d-flex align-items-center">
-                           <div className="col-2 pe-0">
-                              <label className="form-label float-end me-1 mb-0">Role :</label>
-                           </div>
-                           <div className="col-10 d-flex ps-0">
-                              <input
-                                 type="text"
-                                 className="form-control bg-white"
-                                 id="name"
-                                 placeholder="Enter Role"
-                                 required=""
-                                 name="role"
-                                 disabled={!edit}
-                                 value={formValues?.role}
-                                 onChange={(e) => handleChange(e)}
-                              />
-                           </div>
-                           <p className="text-danger">{formErrors?.role}</p>
-                           {errorMessageData && errorMessageData ? <p className="text-danger ">{errorMessageData}</p> : null}
-                        </div> */}
             </div>
             <div className="col-6">
               <div class="d-flex w-100">
@@ -400,243 +388,27 @@ const RoleDetails = () => {
                   </div>
                 </div>
               </div>
-
-              {/* <div className="d-flex align-items-center">
-                           <div className="pe-0">
-                              <label className="form-label me-1 mb-0">Describe :</label>
-                           </div>
-                           <div className="d-flex">
-                             
-                              <input
-                                 type="text"
-                                 className="form-control bg-white"
-                                 id="describe"
-                                 disabled={!edit}
-                                 placeholder="Enter description here"
-                                 name="describe"
-                                 value={formValues?.describe}
-                                 onChange={(e) => handleChange(e)}
-                              />
-                           </div>
-                        </div>
-                        <p className="text-danger">{formErrors?.describe}</p> */}
             </div>
             <div className="col-2">
-              <div className="d-flex align-items-center justify-content-end">
-                {/* <label className="button b2 me-2" id="button-13">
-                              <input
-                                 type="checkbox"
-                                 className="ms-3"
-                                 disabled={!edit}
-                                 checked={formValues?.status}
-                                 onChange={handleToggle}
-                              />
-                              <span className="slider round">
-                                 <div class="knobs"></div>
-                              </span>
-                              <div style={{ backgroundColor: "transparent" }} class="layer"></div>
-                           </label> */}
-                {formValues?.status ? (
-                  <svg
-                    id="Component_150_6"
-                    data-name="Component 150 – 6"
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="50"
-                    height="26"
-                    viewBox="0 0 50 26"
-                  >
-                    <rect
-                      id="Rectangle_6304"
-                      data-name="Rectangle 6304"
-                      width="50"
-                      height="26"
-                      rx="2"
-                      fill="#7cd67b"
-                    />
-                    <path
-                      id="Path_10465"
-                      data-name="Path 10465"
-                      d="M0-.487,3.675,4.1l9.084-7.077"
-                      transform="translate(30.746 12.477)"
-                      fill="none"
-                      stroke="#fff"
-                      strokeLinecap="round"
-                      strokeWidth="2.4"
-                    />
-                    <g
-                      id="Group_14953"
-                      data-name="Group 14953"
-                      transform="translate(-1522 -438)"
+              <div className="col-12 d-flex" style={{ marginTop: "10px" }}>
+                <p className="fw-bold" style={{}}>Status:</p>
+                <div className="col-4 mb-3">
+                  <div className="d-flex">
+                    <p
+                      style={{
+                        color: formValues?.status ? "green" : "grey",
+                        fontSize: "14px",
+                        marginLeft: "10px",
+                        marginTop: "-2px",
+                        fontWeight: "600",
+                      }}
                     >
-                      <rect
-                        id="Rectangle_6305"
-                        data-name="Rectangle 6305"
-                        width="18"
-                        height="18"
-                        rx="2"
-                        transform="translate(1527 442)"
-                        fill="#fff"
-                      />
-                      <g
-                        id="Group_14952"
-                        data-name="Group 14952"
-                        transform="translate(1531.918 447)"
-                      >
-                        <line
-                          id="Line_1364"
-                          data-name="Line 1364"
-                          y2="9"
-                          transform="translate(0.082)"
-                          fill="none"
-                          stroke="#e8e8e8"
-                          strokeLinecap="round"
-                          strokeWidth="1.4"
-                        />
-                        <line
-                          id="Line_1365"
-                          data-name="Line 1365"
-                          y2="9"
-                          transform="translate(4.082)"
-                          fill="none"
-                          stroke="#e8e8e8"
-                          strokeLinecap="round"
-                          strokeWidth="1.4"
-                        />
-                        <line
-                          id="Line_1366"
-                          data-name="Line 1366"
-                          y2="9"
-                          transform="translate(8.082)"
-                          fill="none"
-                          stroke="#e8e8e8"
-                          strokeLinecap="round"
-                          strokeWidth="1.4"
-                        />
-                      </g>
-                    </g>
-                  </svg>
-                ) : (
-                  <svg
-                    id="Component_150_7"
-                    data-name="Component 150 – 7"
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="50"
-                    height="26"
-                    viewBox="0 0 50 26"
-                  >
-                    <rect
-                      id="Rectangle_6304"
-                      data-name="Rectangle 6304"
-                      width="50"
-                      height="26"
-                      rx="2"
-                      fill="#e2e2e2"
-                    />
-                    <g
-                      id="Group_14953"
-                      data-name="Group 14953"
-                      transform="translate(-1500 -438)"
-                    >
-                      <rect
-                        id="Rectangle_6305"
-                        data-name="Rectangle 6305"
-                        width="18"
-                        height="18"
-                        rx="2"
-                        transform="translate(1527 442)"
-                        fill="#fff"
-                      />
-                      <g
-                        id="Group_14952"
-                        data-name="Group 14952"
-                        transform="translate(1531.918 447)"
-                      >
-                        <line
-                          id="Line_1364"
-                          data-name="Line 1364"
-                          y2="9"
-                          transform="translate(0.082)"
-                          fill="none"
-                          stroke="#e8e8e8"
-                          strokeLinecap="round"
-                          strokeWidth="1.4"
-                        />
-                        <line
-                          id="Line_1365"
-                          data-name="Line 1365"
-                          y2="9"
-                          transform="translate(4.082)"
-                          fill="none"
-                          stroke="#e8e8e8"
-                          strokeLinecap="round"
-                          strokeWidth="1.4"
-                        />
-                        <line
-                          id="Line_1366"
-                          data-name="Line 1366"
-                          y2="9"
-                          transform="translate(8.082)"
-                          fill="none"
-                          stroke="#e8e8e8"
-                          strokeLinecap="round"
-                          strokeWidth="1.4"
-                        />
-                      </g>
-                    </g>
-                    <g
-                      id="Group_14954"
-                      data-name="Group 14954"
-                      transform="translate(9.5 0.5)"
-                    >
-                      <line
-                        id="Line_1368"
-                        data-name="Line 1368"
-                        x1="8"
-                        y2="10"
-                        transform="translate(0 7.5)"
-                        fill="none"
-                        stroke="#b9b9b9"
-                        strokeLinecap="round"
-                        strokeWidth="2.4"
-                      />
-                      <line
-                        id="Line_1369"
-                        data-name="Line 1369"
-                        x2="8"
-                        y2="10"
-                        transform="translate(0 7.5)"
-                        fill="none"
-                        stroke="#b9b9b9"
-                        strokeLinecap="round"
-                        strokeWidth="2.4"
-                      />
-                    </g>
-                  </svg>
-                )}
-                <span
-                  className={
-                    formValues?.status
-                      ? "ms-2 activelabel"
-                      : "ms-1 inactivelabel"
-                  }
-                >
-                  {formValues?.status ? "Active" : "Inactive"}
-                </span>
+                      {formValues?.status ? "Active" : "Inactive"}
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
-            {/* <div className="col-2">
-                <div className="d-flex justify-content-end">
-                  <div className="button b2 me-xxl-3 me-1" id="button-13">
-                    <input type="checkbox" checked className="checkbox" />
-                    <div className="knobs">
-                      <span>|||</span>
-                    </div>
-                    <div className="layer"></div>
-                  </div>
-
-                  <p className="mt-1"> Active</p>
-                </div>
-              </div> */}
           </div>
 
           <div className="row">
@@ -723,29 +495,6 @@ const RoleDetails = () => {
                                         }
                                       />
                                     </td>
-                                    {/* <td>
-                                      <input
-                                        className="form-check-input"
-                                        type="checkbox"
-                                        value=""
-                                        checked={
-                                          menu?.title === "Dashboard"
-                                            ? true
-                                            : menu.is_add
-                                        }
-                                        disabled={!menu.is_active}
-                                        onChange={(e) =>
-                                          handleCheckboxClick(
-                                            menuIndex,
-                                            "is_add",
-                                            // e.target.checked
-                                            menu?.title === "Dashboard"
-                                              ? true
-                                              : e.target.checked
-                                          )
-                                        }
-                                      />
-                                    </td> */}
                                     <td>
                                       <input
                                         className="form-check-input"
@@ -769,29 +518,6 @@ const RoleDetails = () => {
                                         }
                                       />
                                     </td>
-                                    {/* <td>
-                                      <input
-                                        className="form-check-input"
-                                        type="checkbox"
-                                        value=""
-                                        checked={
-                                          menu?.title === "Dashboard"
-                                            ? true
-                                            : menu.is_delete
-                                        }
-                                        disabled={!menu.is_active}
-                                        onChange={(e) =>
-                                          handleCheckboxClick(
-                                            menuIndex,
-                                            "is_delete",
-                                            //  e.target.checked
-                                            menu?.title === "Dashboard"
-                                              ? true
-                                              : e.target.checked
-                                          )
-                                        }
-                                      />
-                                    </td> */}
                                   </tr>
                                   {menu?.submenu?.map(
                                     (submenu, submenuIndex) => {
@@ -842,26 +568,6 @@ const RoleDetails = () => {
                                                 }
                                               />
                                             </td>
-                                            {/* <td>
-                                              <input
-                                                className="form-check-input"
-                                                type="checkbox"
-                                                value=""
-                                                checked={submenu.is_add}
-                                                disabled={
-                                                  !menu.is_active ||
-                                                  !submenu.is_active
-                                                } // Disable if submenu or menu is not active
-                                                onChange={(e) =>
-                                                  handleCheckboxClick(
-                                                    menuIndex,
-                                                    "is_add",
-                                                    e.target.checked,
-                                                    submenuIndex
-                                                  )
-                                                }
-                                              />
-                                            </td> */}
                                             <td>
                                               <input
                                                 className="form-check-input"
@@ -882,26 +588,6 @@ const RoleDetails = () => {
                                                 }
                                               />
                                             </td>
-                                            {/* <td>
-                                              <input
-                                                className="form-check-input"
-                                                type="checkbox"
-                                                value=""
-                                                checked={submenu.is_delete}
-                                                disabled={
-                                                  !menu.is_active ||
-                                                  !submenu.is_active
-                                                } // Disable if submenu or menu is not active
-                                                onChange={(e) =>
-                                                  handleCheckboxClick(
-                                                    menuIndex,
-                                                    "is_delete",
-                                                    e.target.checked,
-                                                    submenuIndex
-                                                  )
-                                                }
-                                              />
-                                            </td> */}
                                           </tr>
                                           {submenu.submenuChild.map(
                                             (submenuChild, childIndex) => {
@@ -961,30 +647,6 @@ const RoleDetails = () => {
                                                       }
                                                     />
                                                   </td>
-                                                  {/* <td>
-                                                    <input
-                                                      className="form-check-input"
-                                                      type="checkbox"
-                                                      disabled={
-                                                        !submenu.is_active ||
-                                                        !menu.is_active ||
-                                                        !submenuChild.is_active
-                                                      } // Disable if submenuChild, submenu, or menu is not active
-                                                      value=""
-                                                      checked={
-                                                        submenuChild.is_add
-                                                      }
-                                                      onChange={(e) =>
-                                                        handleCheckboxClick(
-                                                          menuIndex,
-                                                          "is_add",
-                                                          e.target.checked,
-                                                          submenuIndex,
-                                                          childIndex
-                                                        )
-                                                      }
-                                                    />
-                                                  </td> */}
                                                   <td>
                                                     <input
                                                       className="form-check-input"
@@ -1009,30 +671,6 @@ const RoleDetails = () => {
                                                       }
                                                     />
                                                   </td>
-                                                  {/* <td>
-                                                    <input
-                                                      className="form-check-input"
-                                                      type="checkbox"
-                                                      disabled={
-                                                        !submenu.is_active ||
-                                                        !menu.is_active ||
-                                                        !submenuChild.is_active
-                                                      } // Disable if submenuChild, submenu, or menu is not active
-                                                      value=""
-                                                      checked={
-                                                        submenuChild.is_delete
-                                                      }
-                                                      onChange={(e) =>
-                                                        handleCheckboxClick(
-                                                          menuIndex,
-                                                          "is_delete",
-                                                          e.target.checked,
-                                                          submenuIndex,
-                                                          childIndex
-                                                        )
-                                                      }
-                                                    />
-                                                  </td> */}
                                                 </tr>
                                               );
                                             }

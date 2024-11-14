@@ -211,6 +211,7 @@ const SubscriptionPlans = () => {
                           name="leave_code"
                           disabled={!CheckAccess}
                           onChange={formik.handleChange}
+                          style={{cursor: "pointer"}}
                         >
                           <option selected="" value="">
                             Select
@@ -264,6 +265,7 @@ const SubscriptionPlans = () => {
                           disabled={!CheckAccess}
                           onChange={formik.handleChange}
                           value={formik.values.from_date}
+                          style={{cursor: "pointer"}}
                         />
                       </div>
 
@@ -279,6 +281,7 @@ const SubscriptionPlans = () => {
                           disabled={!CheckAccess}
                           onChange={formik.handleChange}
                           value={formik.values.to_date}
+                          style={{cursor: "pointer"}}
                         />
                       </div>
                     </div>

@@ -23,17 +23,14 @@ export default function DateAndTimeLayout() {
       setLoadingData(true);
       try {
         const response = await API?.CommanApiCall({
-          data: { /* Add any necessary data for your API call here */ },
           agent: "attendance",
           function: "get_attendance_list_id",
         });
-        console.log("listing date", response);
-  
+        // console.log("listing date", response);
         if (response?.data?.data?.status === 200) {
           const attendanceData = response.data.data.data;
           setListingData(attendanceData);
-  
-          // Calculate total hours worked
+          console.log("listing date", response);
           let totalMinutesWorked = 0;
           attendanceData.forEach((record) => {
             if (record.login_time && record.logout_time) {
@@ -43,12 +40,10 @@ export default function DateAndTimeLayout() {
             }
           });
   
-          // Convert total minutes to hours and minutes without decimals
           const hours = Math.floor(totalMinutesWorked / 60);
           const minutes = totalMinutesWorked % 60;
           setHoursWorked(`${hours}h ${minutes}m`);
   
-          // Set the last login and logout times
           const lastLoginRecord = attendanceData.find(record => record.status === "logged_in");
           const lastLogoutRecord = attendanceData.find(record => record.status === "logged_out");
           setLoginTime(lastLoginRecord?.login_time);
@@ -62,7 +57,7 @@ export default function DateAndTimeLayout() {
     };
   
     fetchAttendanceDetails();
-  }, [listingData]);
+  }, []);
   
 
   return (

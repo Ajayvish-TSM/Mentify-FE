@@ -241,6 +241,7 @@ const Moderator = () => {
                           name="leave_code"
                           disabled={!CheckAccess}
                           onChange={formik.handleChange}
+                          style={{cursor: "pointer"}}
                         >
                           <option selected="" value="">
                             Select
@@ -292,6 +293,7 @@ const Moderator = () => {
                           name="_id"
                           disabled={!CheckAccess}
                           onChange={formik.handleChange}
+                          style={{cursor: "pointer"}}
                         >
                           <option selected="" value="">
                             Select
@@ -346,6 +348,7 @@ const Moderator = () => {
                                 formik.setFieldValue("leaveType", "credit")
                               }
                               disabled={!CheckAccess}
+                              style={{cursor: "pointer"}}
                             />
                             <span className="ms-1">Credit</span>
                           </label>
@@ -359,6 +362,7 @@ const Moderator = () => {
                                 formik.setFieldValue("leaveType", "debit")
                               }
                               disabled={!CheckAccess}
+                              style={{cursor: "pointer"}}
                             />
                             <span className="ms-1">Debit</span>
                           </label>

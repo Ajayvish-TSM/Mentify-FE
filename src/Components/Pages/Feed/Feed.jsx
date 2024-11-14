@@ -236,6 +236,7 @@ const Feed = () => {
                           disabled={!CheckAccess}
                           onChange={formik.handleChange}
                           value={formik.values.holiday_date}
+                          style={{cursor: "pointer"}}
                         />
                       </div>
 
@@ -255,6 +256,7 @@ const Feed = () => {
                                 formik.setFieldValue("is_compulsory", "true")
                               }
                               disabled={!CheckAccess}
+                              style={{cursor: "pointer"}}
                             />
                             <span className="ms-1">Mandatory</span>
                           </label>
@@ -268,6 +270,7 @@ const Feed = () => {
                                 formik.setFieldValue("is_compulsory", "false")
                               }
                               disabled={!CheckAccess}
+                              style={{cursor: "pointer"}}
                             />
                             <span className="ms-1 mb-5">Optional</span>
                           </label>
