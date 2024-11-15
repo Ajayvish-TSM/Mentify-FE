@@ -316,7 +316,7 @@ const CreateUser = () => {
                 {/* <p className="text-danger ">{errorMessage}</p> */}
                 <div className="row">
                   <div className="mb-3 col-12">
-                    {/* <div className="col-md-4 col-sm-12 col-12 float-start">
+                    <div className="col-md-4 col-sm-12 col-12 float-start">
                       <div className="col-12 float-start mt-2 mb-4">
                         <Tooltip title="Upload Profile Picture">
                           <p className="addUserPic mx-auto mt-1 mb-1">
@@ -353,7 +353,7 @@ const CreateUser = () => {
                           </p>
                         </div>
                       </div>
-                    </div> */}
+                    </div>
 
                     <div className="col-md-8 col-sm-12 col-12 float-start mb-4 border-left-grey">
                       <div className="row ps-0 ps-md-4">

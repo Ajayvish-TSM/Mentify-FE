@@ -77,23 +77,11 @@ export default function DateAndTimeLayout() {
           <AttendanceButton />
           <h4 className="page-title mb-0 font-size-18 fw-normal text-end text-black">
             <span className="fw-normal d-flex align-items-center">
-              {/* Display login time if available and user is logged in */}
-              {loginTime && !logoutTime && (
-                <>
-                  <span>Login: {moment(loginTime).format("h:mm A")}</span>
-                  <span className="mx-2">|</span>
-                </>
-              )}
-
-              {/* Display both login and logout times if user has logged out */}
-              {loginTime && logoutTime && (
-                <>
-                  <span>Loggedin: {moment(loginTime).format("h:mm A")}</span>
-                  <span className="mx-2">|</span>
-                  <span>Loggedout: {moment(logoutTime).format("h:mm A")}</span>
-                  <span className="mx-2">|</span>
-                </>
-              )}
+              {/* Always display Loggedin and Loggedout times, with fallback "--:--" if data is unavailable */}
+              <span>Loggedin: {loginTime ? moment(loginTime).format("h:mm A") : "--:--"}</span>
+              <span className="mx-2">|</span>
+              <span>Loggedout: {logoutTime ? moment(logoutTime).format("h:mm A") : "--:--"}</span>
+              <span className="mx-2">|</span>
 
               {/* Display total hours worked if calculated */}
               {hoursWorked && <span>Hours Worked: {hoursWorked}</span>}
@@ -102,5 +90,6 @@ export default function DateAndTimeLayout() {
         </div>
       </div>
     </div>
+
   );
 }

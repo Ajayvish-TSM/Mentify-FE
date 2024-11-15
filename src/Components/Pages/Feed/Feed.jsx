@@ -290,6 +290,7 @@ const Feed = () => {
                         disabled={!CheckAccess}
                         onChange={(e) => handleChange(e)}
                         value={formValues?.holiday_date}
+                        style={{ cursor: "pointer" }}
                       />
                       <p className="text-danger">{formErrors?.holiday_date}</p>
                     </div>
@@ -313,6 +314,8 @@ const Feed = () => {
                               })
                             }
                             disabled={!CheckAccess}
+                            style={{ cursor: "pointer" }}
+
                           />
                           <span className="ms-1">Mandatory</span>
                         </label>
@@ -329,6 +332,8 @@ const Feed = () => {
                               })
                             }
                             disabled={!CheckAccess}
+                            style={{ cursor: "pointer" }}
+
                           />
                           <span className="ms-1 mb-5">Optional</span>
                         </label>

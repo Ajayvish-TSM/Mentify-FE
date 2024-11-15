@@ -73,7 +73,7 @@ const ForgotPassword = () => {
       <>
          <LoginLayout>
             <div className="login-box" id="login">
-               <span className="btn fw-normal btnBackArrow mb-5" onClick={() => navigate(-1)}>
+               <span className="btn fw-normal btnBackArrow mb-5" onClick={() => navigate(-1)} style={{ backgroundColor: "#ddd" }}>
                   <svg width="20" height="15" viewBox="0 0 24.343 20">
                      <path
                         id="Path_10378"
@@ -86,57 +86,66 @@ const ForgotPassword = () => {
                </span>
                <div className="text-center mb-5">
                   <img src={forgotIcon} className="mb-4" />
-                  <h2 className="text-center text-white fw-bold letter-spacing">Forgot Password</h2>
-                  <small className="text-white">
+                  <h2 className="text-center text-black fw-bold letter-spacing">Forgot Password</h2>
+                  <small className="text-black">
                      Enter the email address associated <br />
                      with your register account.
                   </small>
                </div>
 
-               <form>
-                  <div className="row">
-                     <div className="mb-3 float-start col-12">
-                        <label className="form-label fw-normal text-white">
-                           <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="23.578"
-                              height="16.564"
-                              viewBox="0 0 23.578 16.564"
-                              className="me-2"
-                           >
-                              <path
-                                 id="Path_628"
-                                 data-name="Path 628"
-                                 d="M11.777,0h9.5a2.324,2.324,0,0,1,1.32.328,2.022,2.022,0,0,1,.963,1.627c.016.237.021.475.021.712q0,5.745,0,11.491a3.138,3.138,0,0,1-.111.955,2.053,2.053,0,0,1-1.821,1.428c-.229.014-.46.022-.69.022H2.3a2.309,2.309,0,0,1-1.453-.42,2.009,2.009,0,0,1-.828-1.512c-.018-.248-.023-.5-.023-.747Q0,8.094,0,2.3A2.345,2.345,0,0,1,.278,1.074,2.023,2.023,0,0,1,1.946.023C2.168.006,2.391,0,2.613,0q4.582,0,9.164,0M2.361,1.386c.027.033.037.049.05.063l2.623,2.6L9.192,8.169c.4.394.78.8,1.193,1.182a2.059,2.059,0,0,0,2.751.052c.143-.121.272-.259.405-.391L21.114,1.5c.032-.032.058-.07.1-.116ZM21.22,15.176c-.045-.049-.074-.083-.105-.113-.337-.33-.675-.659-1.01-.991Q17.712,11.7,15.323,9.334c-.062-.062-.1-.061-.159,0-.163.167-.33.331-.5.494a9.882,9.882,0,0,1-.727.686,3.371,3.371,0,0,1-2.675.715A3.494,3.494,0,0,1,9.289,10.2c-.291-.289-.583-.577-.872-.869-.061-.062-.1-.071-.165,0-.121.133-.253.256-.381.383L2.589,14.945c-.072.071-.151.135-.226.2l.023.03ZM1.389,2.335V14.2l.042.034L7.3,8.255,1.389,2.335m20.8,11.881V2.333L16.229,8.287l5.961,5.929"
-                                 transform="translate(0 0)"
-                                 fill="#36dae9"
-                              />
-                           </svg>
-                           Email
-                        </label>
-                        <input
-                           name="EmailId"
-                           type="email"
-                           className="form-control form-control-field"
-                           placeholder="Enter register email"
-                           value={EmailId}
-                           // defaultValue={TempEmailID}
-                           onChange={(e) => handleChange(e)}
-                        />
-                        <p className="text-danger mb-0">{formErrors?.EmailId}</p>
-                     </div>
-                     <p className="text-danger mb-0">{apiError}</p>
-                  </div>
+               <div style={{ padding: "40px" }}>
+                  <form>
+                     <div className="row">
+                        <div className="mb-3 float-start col-12">
+                           <label className="form-label fw-normal text-black">
+                              <svg
+                                 xmlns="http://www.w3.org/2000/svg"
+                                 width="23.578"
+                                 height="16.564"
+                                 viewBox="0 0 23.578 16.564"
+                                 className="me-2"
+                              >
+                                 <path
+                                    id="Path_628"
+                                    data-name="Path 628"
+                                    d="M11.777,0h9.5a2.324,2.324,0,0,1,1.32.328,2.022,2.022,0,0,1,.963,1.627c.016.237.021.475.021.712q0,5.745,0,11.491a3.138,3.138,0,0,1-.111.955,2.053,2.053,0,0,1-1.821,1.428c-.229.014-.46.022-.69.022H2.3a2.309,2.309,0,0,1-1.453-.42,2.009,2.009,0,0,1-.828-1.512c-.018-.248-.023-.5-.023-.747Q0,8.094,0,2.3A2.345,2.345,0,0,1,.278,1.074,2.023,2.023,0,0,1,1.946.023C2.168.006,2.391,0,2.613,0q4.582,0,9.164,0M2.361,1.386c.027.033.037.049.05.063l2.623,2.6L9.192,8.169c.4.394.78.8,1.193,1.182a2.059,2.059,0,0,0,2.751.052c.143-.121.272-.259.405-.391L21.114,1.5c.032-.032.058-.07.1-.116ZM21.22,15.176c-.045-.049-.074-.083-.105-.113-.337-.33-.675-.659-1.01-.991Q17.712,11.7,15.323,9.334c-.062-.062-.1-.061-.159,0-.163.167-.33.331-.5.494a9.882,9.882,0,0,1-.727.686,3.371,3.371,0,0,1-2.675.715A3.494,3.494,0,0,1,9.289,10.2c-.291-.289-.583-.577-.872-.869-.061-.062-.1-.071-.165,0-.121.133-.253.256-.381.383L2.589,14.945c-.072.071-.151.135-.226.2l.023.03ZM1.389,2.335V14.2l.042.034L7.3,8.255,1.389,2.335m20.8,11.881V2.333L16.229,8.287l5.961,5.929"
+                                    transform="translate(0 0)"
+                                    fill="black"
+                                 />
+                              </svg>
 
-                  <button
-                     className="btn bgBlack text-white py-3 rounded-pill w-100 fw-bold mt-4"
-                     onClick={(e) => handleSubmitOTP(e)}
-                  >
-                     Send OTP
-                  </button>
-               </form>
-               <div className="custum-height-10"></div>
+
+                              Email
+                           </label>
+                           <input
+                              name="EmailId"
+                              type="email"
+                              className="form-control form-control-field"
+                              placeholder="Enter register email"
+                              value={EmailId}
+                              // defaultValue={TempEmailID}
+                              onChange={(e) => handleChange(e)}
+                           />
+                           <p className="text-danger mb-0">{formErrors?.EmailId}</p>
+                        </div>
+                        <p className="text-danger mb-0">{apiError}</p>
+                     </div>
+
+                     <button
+                        className="btn bgBlack text-white py-3 rounded-pill w-100 fw-bold mt-4"
+                        onClick={(e) => handleSubmitOTP(e)}
+                        style={{
+                           backgroundColor: "#62a6dc",
+                           borderRadius: "20px",
+                        }}
+                     >
+                        Send OTP
+                     </button>
+                  </form>
+                  <div className="custum-height-10"></div>
+               </div>
             </div>
+
          </LoginLayout>
       </>
    );
