@@ -5,68 +5,26 @@ import { Tooltip } from "antd";
 import { message } from "antd";
 
 const AttendanceButton = () => {
-  // const { attendanceStatus, toggleAttendance, userLocation } = useAttendance();
   const { attendanceStatus, toggleAttendance, userLocation, setUserLocation } =
     useAttendance();
-  const [isWithinRadius, setIsWithinRadius] = useState(false);
 
   const adminObject = JSON.parse(localStorage.getItem("TajurbaAdminUser"));
-  const userL = JSON.parse(localStorage.getItem("userLocation"));
 
-  // Static office coordinates for testing
-  const officeCoordinates = {
-    latitude: 18.582499725047473,
-    longitude: 73.72627792404252,
-  };
-
-  // Calculate distance between user and office
-  const getDistanceFromLatLonInMeters = (lat1, lon1, lat2, lon2) => {
-    const R = 6371000;
-    const dLat = ((lat2 - lat1) * Math.PI) / 180;
-    const dLon = ((lon2 - lon1) * Math.PI) / 180;
-    const a =
-      0.5 -
-      Math.cos(dLat) / 2 +
-      (Math.cos((lat1 * Math.PI) / 180) *
-        Math.cos((lat2 * Math.PI) / 180) *
-        (1 - Math.cos(dLon))) /
-        2;
-    return (R * 2 * Math.asin(Math.sqrt(a))) / 1000; // Distance in meters
-  };
+  // Check if the attendance status is persisted in localStorage
+  const [status, setStatus] = useState(() => {
+    const storedStatus = localStorage.getItem("attendanceStatus");
+    return storedStatus ? storedStatus : "logged_out"; // Default to "logged_out" if no value is found
+  });
 
   useEffect(() => {
-    if (userLocation?.latitude && userLocation?.longitude) {
-      const distance = getDistanceFromLatLonInMeters(
-        userLocation.latitude,
-        userLocation.longitude,
-        officeCoordinates.latitude,
-        officeCoordinates.longitude
-      );
-      // console.log("Distance from office:", distance);
-      setIsWithinRadius(distance <= 10);
-    }
-  }, []);
-  // console.log(
-  //   "distandce",
-  //   getDistanceFromLatLonInMeters(
-  //     userLocation.latitude,
-  //     userLocation.longitude,
-  //     officeCoordinates.latitude,
-  //     officeCoordinates.longitude
-  //   )
-  // );
+    // Save the attendance status to localStorage when it changes
+    localStorage.setItem("attendanceStatus", status);
+  }, [status]);
 
   const handleAttendance = async () => {
-    if (!isWithinRadius) {
-      message.error("You are not within the office radius."); // Use message.error for errors
-      return;
-    }
-
     const requestData = {
       user_id: adminObject?._id,
-      status: attendanceStatus === "logged_in" ? "logged_out" : "logged_in",
-      latitude: userLocation.latitude,
-      longitude: userLocation.longitude,
+      status: status === "logged_in" ? "logged_out" : "logged_in",
     };
 
     try {
@@ -76,27 +34,23 @@ const AttendanceButton = () => {
       });
 
       if (response?.data?.data?.status === 200) {
-        toggleAttendance(
-          attendanceStatus === "logged_in" ? "logged_out" : "logged_in"
-        );
-        message.success(response?.data?.data?.message); // Show success message
+        const newStatus = status === "logged_in" ? "logged_out" : "logged_in";
+        setStatus(newStatus); // Update the status in both state and localStorage
+        message.success(response?.data?.data?.message);
       } else {
-        message.error(response?.data?.data?.message || "Something went wrong."); // Error message
+        message.error(response?.data?.data?.message || "Something went wrong.");
       }
     } catch (error) {
       console.error("Error during API call:", error);
-      message.error("An error occurred while updating attendance."); // Show error message on catch
+      message.error("An error occurred while updating attendance.");
     }
   };
 
   return (
     <div style={{ paddingRight: "20px" }}>
-      <Tooltip
-        title={!isWithinRadius ? "You are not within the office radius." : ""}
-      >
+      <Tooltip>
         <button
           onClick={handleAttendance}
-          disabled={!isWithinRadius}
           style={{
             width: "80px",
             height: "25px",
@@ -105,11 +59,9 @@ const AttendanceButton = () => {
             border: "none",
             borderRadius: "15px",
             fontWeight: "bold",
-            cursor: !isWithinRadius ? "not-allowed" : "pointer",
-            opacity: !isWithinRadius ? 0.6 : 1,
           }}
         >
-          {attendanceStatus === "logged_in" ? "Logout" : "Login"}
+          {status === "logged_in" ? "Logout" : "Login"}
         </button>
       </Tooltip>
     </div>
