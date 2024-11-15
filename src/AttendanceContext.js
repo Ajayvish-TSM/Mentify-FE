@@ -5,16 +5,11 @@ const AttendanceContext = createContext();
 
 // Provider component
 export const AttendanceProvider = ({ children }) => {
-  const [attendanceStatus, setAttendanceStatus] = useState(() => {
-    const savedStatus = localStorage.getItem("attendanceStatus");
-    return savedStatus ? savedStatus : "logged_out";
-  });
+  const [attendanceStatus, setAttendanceStatus] = useState("logged_out");
 
-  const [userLocation, setUserLocation] = useState(() => {
-    const savedLocation = localStorage.getItem("userLocation");
-    return savedLocation
-      ? JSON.parse(savedLocation)
-      : { latitude: null, longitude: null };
+  const [userLocation, setUserLocation] = useState({
+    latitude: null,
+    longitude: null,
   });
 
   useEffect(() => {
