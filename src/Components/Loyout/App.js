@@ -610,15 +610,15 @@ const AppLayout = (props) => {
                     >
                       <NavLink to="/dashboard" className="logo logo-light">
                         <span className="log">
-                          <img
+                          {/* <img
                             src={logo}
                             style={{ width: "60px" }}
                             alt="Mentify Logo"
-                          />
+                          /> */}
                         </span>
                       </NavLink>
                     </div>
-                    <h4 className="text-white mb-0">Mentify</h4>
+                    <h4 className="text-white mb-0" style={{fontWeight: "600", marginTop: "25px"}}>Mentify</h4>
                   </div>
                 </div>
               </div>

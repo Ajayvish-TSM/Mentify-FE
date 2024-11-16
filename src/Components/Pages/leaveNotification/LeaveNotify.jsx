@@ -1,15 +1,8 @@
 /* eslint-disable */
 import React, { useEffect, useState } from "react";
-// import AppLayout from "../../../Loyout/App";
-import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import DateAndTimeLayout from "../../Common/DateAndTimeLayout";
 import API from "../../../Api/Api";
-import Pagination from "../../Common/Pagination";
-import FilterSearch from "../../Common/FilterSearch";
-import moment from "moment";
-import AdminRoute from "../../../Route/RouteDetails";
-import TooltipCustom from "../../Common/TooltipCustom";
-import AttendanceButton from "../../../AttendanceButton";
 import { Tooltip } from "antd";
 
 const LeaveNotify = () => {
@@ -26,12 +19,8 @@ const LeaveNotify = () => {
   const [listingData, setListingData] = useState([]);
 
   // For Pagination
-  const [totalPagess, setTotalPage] = useState();
-  const [totalItems, setTotalItems] = useState();
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
-  const [goToPage, setGoToPage] = useState(1);
-
   const [filterselect, setFilterSelect] = useState("all");
   const [search, setSearch] = useState("");
   function calculateLeaveDays(from_date, to_date) {
@@ -293,7 +282,6 @@ const LeaveNotify = () => {
                                     return (
                                       <tr key={index}>
                                         <td className="fw-bold">
-                                          {/* {TooltipCustom(ele?.first_name)} */}{" "}
                                           {ele?.first_name}
                                         </td>
                                         <td>{ele?.leave_code}</td>
@@ -303,7 +291,6 @@ const LeaveNotify = () => {
                                             maxLength={20}
                                           />
                                         </td>
-                                        {/* <td>{ele?.roles[0]?.name}</td> */}
                                         <td>
                                           {new Date(
                                             ele?.from_date
@@ -434,7 +421,6 @@ const LeaveNotify = () => {
                                     return (
                                       <tr key={index}>
                                         <td className="fw-bold">
-                                          {/* {TooltipCustom(ele?.first_name)} */}{" "}
                                           {ele?.first_name}
                                         </td>
                                         <td>{ele?.leave_code}</td>
@@ -545,7 +531,6 @@ const LeaveNotify = () => {
                                     return (
                                       <tr key={index}>
                                         <td className="fw-bold">
-                                          {/* {TooltipCustom(ele?.first_name)} */}{" "}
                                           {ele?.first_name}
                                         </td>
                                         <td>{ele?.leave_code}</td>

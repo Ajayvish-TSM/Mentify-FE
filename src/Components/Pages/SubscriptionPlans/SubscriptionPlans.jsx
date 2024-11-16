@@ -133,16 +133,6 @@ const SubscriptionPlans = () => {
     GetLeaveApplication();
   }, [currentPage, itemsPerPage, loading]);
 
-  // const handleEdit = (item) => {
-  //   setEditItemId(item._id);
-  //   formik.setValues({
-  //     from_date: item.from_date,
-  //     to_date: item.to_date,
-  //     leave_code: item.leave_code,
-  //     leave_reason: item.leave_reason,
-  //     status: item.status,
-  //   });
-  // };
   useEffect(() => {
     if (Object.keys(formErrors).length === 0 && isSubmit) {
       console.log("formValues", formValues);
@@ -221,6 +211,7 @@ const SubscriptionPlans = () => {
                         disabled={!CheckAccess}
                         onChange={(e) => handleChange(e)}
                         value={formValues?.leave_code}
+                        style={{cursor: "pointer"}}
                       >
                         <option selected="" value="">
                           Select
@@ -253,6 +244,7 @@ const SubscriptionPlans = () => {
                         disabled={!CheckAccess}
                         onChange={(e) => handleChange(e)}
                         value={formValues?.from_date}
+                        style={{cursor: "pointer"}}
                       />
                       <p className="text-danger">{formErrors?.from_date}</p>
                     </div>
@@ -269,6 +261,7 @@ const SubscriptionPlans = () => {
                         disabled={!CheckAccess}
                         onChange={(e) => handleChange(e)}
                         value={formValues?.to_date}
+                        style={{cursor: "pointer"}}
                       />
                       <p className="text-danger">{formErrors?.to_date}</p>
                     </div>

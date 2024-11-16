@@ -65,9 +65,9 @@ const RouteName = {
     SubscriptionPlans: "subscription-plans",
     CreateSubscriptionPlans: "subscription-plans/create-subscription-plans",
   },
-  AllTransactions: {
-    AllTransactions: "all-transactions",
-  },
+  // AllTransactions: {
+  //   AllTransactions: "all-transactions",
+  // },
 
   Events: {
     Events: "events",

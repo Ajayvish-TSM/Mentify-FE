@@ -544,7 +544,7 @@ const Dashboard = () => {
                                   </span>
                                 </p>
                                 <p style={{ color: "#A9A9A9" }}>
-                                  Type:{" "}
+                                  Role:{" "}
                                   <span style={{ color: "black", fontWeight: "normal" }}>
                                     {employee.employeeType}
                                   </span>

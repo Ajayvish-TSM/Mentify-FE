@@ -165,7 +165,7 @@ const VerifyOTP = () => {
                </span>
                <div className="px-4">
                   <div className="text-center mb-5">
-                     <svg
+                     {/* <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="49.017"
                         height="34.616"
@@ -181,9 +181,9 @@ const VerifyOTP = () => {
                            stroke="#d6732d"
                            stroke-width="0.6"
                         />
-                     </svg>
-                     <h2 className="text-center text-white fw-bold letter-spacing">Email Verification</h2>
-                     <span className="text-white">
+                     </svg> */}
+                     <h2 className="text-center text-black fw-bold letter-spacing">Email Verification</h2>
+                     <span className="text-black">
                         Enter 4 digit OTP send on
                         <br />
                         {otpinfor?.data?.email}
@@ -215,6 +215,10 @@ const VerifyOTP = () => {
                      // to="/new-password"
                      className="btn bgBlack text-white py-3 rounded-pill w-100 fw-bold mt-4"
                      onClick={(e) => handleVerifyOtp(e)}
+                     style={{
+                        backgroundColor: "#62a6dc",
+                        borderRadius: "20px",
+                     }}
                   >
                      Verify and Proceed
                   </button>
@@ -233,7 +237,7 @@ const VerifyOTP = () => {
                      </div>
                   ) : (
                      <div className="row text-center">
-                        <p className=" mt-2 text-white">
+                        <p className=" mt-2 text-black">
                            Resend OTP in <b>{counter == 60 ? `00:60` : counter >= 10 ? `00:${counter}` : `00:0${counter}`}</b> Sec
                         </p>
                      </div>

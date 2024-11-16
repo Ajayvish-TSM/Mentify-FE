@@ -1,15 +1,8 @@
 import React, { useEffect, useState } from "react";
-// import AppLayout from "../../Loyout/App";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import DateAndTimeLayout from "../../../Common/DateAndTimeLayout";
-//import IconGallery from "../../../../assets/images/IconGallery.svg";
-import { useFormik } from "formik";
 import API from "../../../../Api/Api";
-//import AdminRoute from "./../../../Route/RouteDetails";
-//import baseApi from "../../../Api/config";
 import { ToastContainer, toast } from "react-toastify";
-import FilterSearch from "../../../Common/FilterSearch";
-// import { _ } from "ajv";
 import Pagination from "../../../Common/Pagination";
 import { message } from "antd";
 
@@ -278,6 +271,7 @@ const Moderator = () => {
                         disabled={!CheckAccess}
                         onChange={(e) => handleChange(e)}
                         value={formValues?.leave_code}
+                        style={{cursor: "pointer"}}
                       >
                         <option selected="" value="">
                           Select
@@ -309,6 +303,7 @@ const Moderator = () => {
                         disabled={!CheckAccess}
                         onChange={(e) => handleChange(e)}
                         value={formValues?._id}
+                        style={{cursor: "pointer"}}
                       >
                         <option selected="" value="">
                           Select
@@ -347,6 +342,7 @@ const Moderator = () => {
                             }
                             checked={formValues.leaveType === "credit"}
                             disabled={!CheckAccess}
+                            style={{cursor: "pointer"}}
                           />
                           <span className="ms-1">Credit</span>
                         </label>
@@ -362,10 +358,8 @@ const Moderator = () => {
                               })
                             }
                             checked={formValues.leaveType === "debit"}
-                            // onChange={() =>
-                            //   formik.setFieldValue("leaveType", "debit")
-                            // }
                             disabled={!CheckAccess}
+                            style={{cursor: "pointer"}}
                           />
                           <span className="ms-1">Debit</span>
                         </label>
@@ -432,13 +426,6 @@ const Moderator = () => {
 
           <div className="row mb-2" id="">
             <div className="col-6"></div>
-            {/* <FilterSearch
-              FilterOptions={FilterOptions}
-              search={search}
-              setSearch={setSearch}
-              filterselect={filterselect}
-              setFilterSelect={setFilterSelect}
-            /> */}
           </div>
           <div
             className={
@@ -500,17 +487,6 @@ const Moderator = () => {
                                   }
                                 )}
                               </td>
-                              {/* <td>
-                                <NavLink
-                                  to={`../${AdminRoute?.ContentCreation?.Moderator?.ModeratorPending?.replace(
-                                    "/:id",
-                                    ""
-                                  )}/${ele?.courseedition_id}`}
-                                  className="btn btn-sm waves-effect waves-light btnViewOrange"
-                                >
-                                  View More
-                                </NavLink>
-                              </td> */}
                             </tr>
                           );
                         })
@@ -541,7 +517,6 @@ const Moderator = () => {
           />
         </div>
       </div>
-      {/* </AppLayout> */}
     </>
   );
 };

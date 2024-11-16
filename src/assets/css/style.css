@@ -584,13 +584,13 @@ a {
   background: transparent;
   /* box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px; */
   border-radius: 20px;
-  padding: 40px 40px;
+  /* padding: 40px 40px; */
   width: 400px;
 }
 .login-success {
-  background: #2d3450 0% 0% no-repeat padding-box !important;
-  box-shadow: 0px 0px 10px #00000029 !important;
-  border-radius: 20px !important;
+  background: #fff 0% 0% no-repeat padding-box !important;
+  /* box-shadow: 0px 0px 10px #00000029 !important; */
+  /* border-radius: 20px !important; */
 }
 .verifyotp-box {
   border: 1px solid var(--custom-color-4);
@@ -603,10 +603,10 @@ a {
   width: 50px;
   height: 50px;
   text-align: center;
-  border: 1px solid #2d3450 !important;
-  background: #2d3450 !important;
+  border: 1px solid #ddd !important;
+  background: white !important;
   border-radius: 35px !important;
-  color: #fff !important;
+  color: #000 !important;
 }
 
 .gradient-border-bottom-before {
@@ -1026,7 +1026,7 @@ a {
 .btnBackArrow:focus,
 .btnBackArrow:focus-visible,
 .btnBackArrow:active {
-  background-color: #2d3450 !important;
+  background-color: #62a6dc !important;
   border: 0;
   border-radius: 50%;
   height: 40px;
@@ -1652,8 +1652,8 @@ a {
 }
 .bgBlack,
 .bgBlack:hover {
-  background: transparent linear-gradient(180deg, #36dae9 0%, #0090ff 100%) 0%
-    0% no-repeat padding-box;
+  /* background: transparent linear-gradient(180deg, #36dae9 0%, #0090ff 100%) 0%
+    0% no-repeat padding-box; */
   /* background: #1e2838 !important; */
   border-radius: 5px;
   border-color: linear-gradient(180deg, #36dae9 0%, #0090ff 100%) 0% 0%

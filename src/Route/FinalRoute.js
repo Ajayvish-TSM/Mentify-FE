@@ -528,11 +528,11 @@ const AdminRoute = [
     // exact: true,
   },
   {
-    path: RouteName.AllTransactions.AllTransactions,
-    element: <AllTransactions />,
-    exact: true,
-    protected: true,
-    redirectPath: RouteName.Auth.Login,
+    // path: RouteName.AllTransactions.AllTransactions,
+    // element: <AllTransactions />,
+    // exact: true,
+    // protected: true,
+    // redirectPath: RouteName.Auth.Login,
     // element: (
     //   <ProtectedRoute redirectPath={`../${RouteName.Auth.Login}`}>
     //     <AllTransactions />
