@@ -7,16 +7,8 @@ export default function DateAndTimeLayout() {
   const [loginTime, setLoginTime] = useState(null);
   const [logoutTime, setLogoutTime] = useState(null);
   const [hoursWorked, setHoursWorked] = useState(null);
-  const [loadingData, setLoadingData] = useState(true); // Start loading state as true
-  const [dateTime, setDateTime] = useState(new Date());
-  const [listingData, setListingData] = useState([]); // Start with an empty array
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setDateTime(new Date());
-    }, 1000);
-    return () => clearInterval(interval);
-  }, []);
+  const [loadingData, setLoadingData] = useState(true);
+  const [listingData, setListingData] = useState([]);
 
   useEffect(() => {
     const fetchAttendanceDetails = async () => {
@@ -32,23 +24,24 @@ export default function DateAndTimeLayout() {
 
         if (response?.data?.data?.status === 200) {
           const attendanceData = response.data.data.data;
-          console.log("flsfjsdlfsdflkdsjflsdjf", response);
           setListingData(attendanceData);
 
-          if (
-            attendanceData.firstLogin?.login_time &&
-            attendanceData.lastLogout?.login_time
-          ) {
-            setLoginTime(attendanceData.firstLogin.login_time);
-            setLogoutTime(attendanceData.lastLogout.login_time);
+          // Extract and set login and logout times
+          const firstLogin = attendanceData?.firstLogin?.createdAt;
+          const lastLogout = attendanceData?.lastLogout?.createdAt;
 
-            // Calculate total hours worked
-            const loginMoment = moment(attendanceData.firstLogin.login_time);
-            const logoutMoment = moment(attendanceData.lastLogout.login_time);
+          setLoginTime(firstLogin || null);
+          setLogoutTime(lastLogout || null);
+
+          // Calculate total hours worked if both login and logout are available
+          if (firstLogin && lastLogout) {
+            const loginMoment = moment(firstLogin);
+            const logoutMoment = moment(lastLogout);
             const duration = moment.duration(logoutMoment.diff(loginMoment));
-
             const totalHours = duration.hours() + duration.minutes() / 60;
             setHoursWorked(totalHours.toFixed(2));
+          } else {
+            setHoursWorked(null);
           }
         }
       } catch (error) {
@@ -67,32 +60,18 @@ export default function DateAndTimeLayout() {
         <div className="page-title-box d-flex align-items-center justify-content-end">
           <AttendanceButton />
 
-          {/* Only display the content after the data has finished loading */}
           {!loadingData ? (
             <h4 className="page-title mb-0 font-size-18 fw-normal text-end text-black">
               <span className="fw-normal d-flex align-items-center">
-                {/* Display login time if available and user is logged in */}
-                {loginTime && !logoutTime && (
-                  <>
-                    <span>Login: {moment(loginTime).format("h:mm A")}</span>
-                    <span className="mx-2">|</span>
-                  </>
-                )}
-
-                {/* Display both login and logout times if user has logged out */}
-                {loginTime && logoutTime && (
-                  <>
-                    <span>Loggedin: {moment(loginTime).format("h:mm A")}</span>
-                    <span className="mx-2">|</span>
-                    <span>
-                      Loggedout: {moment(logoutTime).format("h:mm A")}
-                    </span>
-                    <span className="mx-2">|</span>
-                  </>
-                )}
-
-                {/* Display total hours worked if calculated */}
-                {hoursWorked && <span>Hours Worked: {hoursWorked}</span>}
+                <span>
+                  Login:{" "}
+                  {loginTime ? moment(loginTime).format("h:mm A") : "--:--"}
+                </span>
+                <span className="mx-2">|</span>
+                <span>
+                  Logout:{" "}
+                  {logoutTime ? moment(logoutTime).format("h:mm A") : "--:--"}
+                </span>
               </span>
             </h4>
           ) : (
@@ -101,6 +80,13 @@ export default function DateAndTimeLayout() {
             </h4>
           )}
         </div>
+
+        {/* Optionally display total hours worked */}
+        {/* {!loadingData && hoursWorked !== null && (
+          <div className="text-end text-black">
+            <span>Total Hours Worked: {hoursWorked} hrs</span>
+          </div>
+        )} */}
       </div>
     </div>
   );
